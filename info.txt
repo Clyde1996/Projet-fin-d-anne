@@ -1,0 +1,61 @@
+Forul, framework maison
+
+definition :  cadre de travail, ensamble de code qui permet de suivre de regles, des conventions de code, la reutilisation du code, travail en equipe 
+
+designe pattern : c'est un patro de conception qui va permettre d'organiser le code par couche 
+
+MVC,MVP, singelton, observer, factory....
+
+MVC : Model, view, controller
+MVP : model, presenter, view7
+
+1/ requete HTTP : (action de l'utilisateur)
+2/ intercepter par le controleur frontal(index.php, porte d'entree de l'application)
+3/  envoyer au controleur et a la bonne methode
+4/ le controleur a pour but de traiter le demande de l'utilisateur et de faire le lien entre la couche modele et la vue
+5/ controlleur peut demander des information a la couche modele qui lui renvoie un reponse 
+6/ controlleur va renvoyer un vue au format html a l'utilisateur
+
+requete http enveyr 
+
+temporisation de sorite : 
+
+action :  qui se trouve dans le lien c'est la public function qui renvoyer vers le ctrl
+
+temporisation de sortie a definir 
+
+arboresence : 
+- a la racien de mon projet, j'ai la porte d'entree de l'application qui est (INDEX.PHP)
+- dossier controlleur, pour tous les controlleurs 
+- dossier model, aussi appele logique meteir , pour tout ce qui a un rapport avec le donnees, ca veut dire on peut aplique le requete sql
+- dans le manager on va trouver les requete pour questione la basse de donnes 
+- tout les fichiers qui vont etre utlise partout dans l'app 
+- abstact controleur : on vas pas instanctie, il vas pas voir un ctonroleur: on peut pa faire un neu abstact controller
+elle est just pour recupere les function qui sont dans le class
+
+-  abstact controleur : on peut reutiliser les functions qui sont dedans 
+- autoloader = pour recharge un class
+
+- controllerInterface :  tout les clases qui vas impliment doit avoir un function index 
+
+- DAO : data acces objet
+- hydratation : id_nomDeLaTable recupere de donnees dans le base de donnes pour construir un objet -> atribuer les valeurs
+- namespace : c'est le maniere de organiser 
+include et require ca appele le ficher fisique 
+
+
+<?= ?> le egal c'est just pour afichage on peut mettre just un variable dedas et pas operation, et pas besoin ECHO dedans et on peut pas faire des opartion
+et le <?php ?>  oblige de faire echo dedans, et on peut faire les operation 
+
+
+dosier de synteze
+ variable est un espace de stockage : 
+ 
+ prepare et execute proteger de injection sql
+
+ dosier de santeze
+ cahier de echarges
+
+
+
+
