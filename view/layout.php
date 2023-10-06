@@ -23,7 +23,7 @@
             
                 <nav>
                     <div id="nav-left">
-                        <a href="http://localhost/klajdi_HAZIRAJ/wanderlust/">Accueil</a>
+                        <a href="http://localhost/klajdi_HAZIRAJ/wanderlust/Projet-fin-d-anne/">Accueil</a>
                         <?php
                         if(App\Session::isAdmin()){
                              ?>

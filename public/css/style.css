@@ -10,6 +10,23 @@
 
 
 /******************************************************************/
+/* Styles pour le corps accueil*/
+.accueil {
+    background: rgba(0,0,0,0.9);
+    color: #fff; /* Couleur du texte */
+    text-align: center; /* Centre le texte horizontalement */
+    padding: 50px; /* Espacement intérieur pour le contenu */
+}
+
+.accueil h1 {
+    font-size: 36px; /* Taille de la police du titre */
+    margin-bottom: 20px; /* Espacement sous le titre */
+}
+
+.accueil p {
+    font-size: 18px; /* Taille de la police du paragraphe */
+    line-height: 1.6; /* Espacement des lignes dans le paragraphe */
+}
 
 /* Styles pour le corps de la page */
 body {
@@ -20,7 +37,7 @@ body {
 
 /* Styles pour l'en-tête (header) */
 header {
-    background-color: #333;
+    background-color: #025937;
     color: #fff;
     padding: 10px 0;
 }
@@ -42,14 +59,19 @@ header {
 }
 
 /* Styles pour la section principale (main) */
+
+/* background-attachment: fixed; permet de figer l'image d'arrière-plan d'un élément par rapport à la fenêtre du navigateur, créant ainsi un effet de parallaxe où l'image reste immobile pendant que le contenu de la page défile.*/
 #forum {
     padding: 20px;
+    height: 100vh; /*ca prendre le taille de full screen*/
+    background: no-repeat center/cover url('../img/christmas1.jpg');
+    background-attachment: fixed;
 }
 
 
 /* Styles pour le pied de page (footer) */
 footer {
-    background-color: #333;
+    background-color: #034732;
     color: #fff;
     text-align: center;
     padding: 10px 0;
@@ -141,4 +163,49 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+
+
+/* Styles pour la page Liste des Catégories */
+.card {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.card h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.card a {
+    display: block;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 18px;
+    margin: 10px 0;
+    transition: color 0.3s ease-in-out;
+}
+
+.card a:hover {
+    color: #0056b3;
+}
+
+.card i {
+    font-size: 16px;
+    margin-left: 5px;
+    color: #54626F;
+}
+
+.card .fa-circle-minus {
+    color: #FF5733; /* Couleur pour l'icône de suppression */
+}
+
+.card .fa-circle-plus {
+    color: #28a745; /* Couleur pour l'icône d'ajout */
 }
