@@ -3,26 +3,36 @@
 $categories = $result["data"]["categories"];
 
 ?>
-<div class="card">
+
 <h1>Liste des Categories</h1>
+<div class="cards-category">
+
+
+<p></p>
 
 <?php
 foreach($categories as $category){
-    ?>
 
-   <a href="index.php?ctrl=forum&action=detailCategory&id=<?=$category->getId()?>"><?=$category->getNom(); ?></a> <!-- on recupere le nom depuis entities/category -->
- 
     
+    ?>
+    <div class="card-category">
 
-   <!-- Delete Categories-->
-    <a href="index.php?ctrl=forum&action=deleteCategory&id=<?=$category->getId()?>" method="post"> <!-- le form que on a cree dans le forum controller avec le function qui est lie dans le addOrUpdateComment.php  --> 
-    <i class="fa-sharp fa-solid fa-circle-minus"></i>
-    </a>
+        <a href="index.php?ctrl=forum&action=detailCategory&id=<?=$category->getId()?>"> <?=$category->getNom(); ?></a> <!-- on recupere le nom depuis entities/category -->
+    
+        <div class="card-image">
+                <img src="<?=$category->getImage()?>" alt="monImg" class="image-category">
+        </div>
+        <!-- Delete Categories-->
+            <a href="index.php?ctrl=forum&action=deleteCategory&id=<?=$category->getId()?>" method="post"> <!-- le form que on a cree dans le forum controller avec le function qui est lie dans le addOrUpdateComment.php  --> 
+                <i class="fa-sharp fa-solid fa-circle-minus"></i>
+            </a>
+        
 
-
-
+    </div>
 
     <?php
+
+   
     
     
 }
@@ -32,7 +42,7 @@ foreach($categories as $category){
 
  <!--Add Category Form category c'est le plus qui permetre de ajouter un categorie-->
 <a href="index.php?ctrl=forum&action=formCategory">
-    <i class="fa-sharp fa-solid fa-circle-plus"></i>
+    <i class="fa-sharp fa-solid fa-circle-plus fa-lg" style="color: #54626F;"></i>
 </a>
 
 </div>

@@ -8,6 +8,7 @@
 
         private $id;
         private $nom;
+        private $image;
 
 
         public function __construct($data){         
@@ -37,6 +38,19 @@
         public function setId($id)
         {
                 $this->id = $id;
+
+                return $this;
+        }
+
+        
+        public function getImage()
+        {
+                return $this->image;
+        }
+
+        public function setImage($image)
+        {
+                $this->image = $image;
 
                 return $this;
         }

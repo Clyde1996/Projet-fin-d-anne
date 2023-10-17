@@ -18,7 +18,7 @@ foreach($users as $user){
 
 
   if ($user->hasRole("ROLE_USER")) {
-    echo "Date De Inscription D'utilisateur : ".$user->getDateInscription() ." </br> User Role : ". $user->getUsername() .  "  </br>";
+    echo "<p> Date De Inscription D'utilisateur : ".$user->getDateInscription() ." </br> User Role : ". $user->getUsername() .  "  </br> </p>";
   } 
   // else{
   //   echo $user->getUsername(). " ADMIN </br>";

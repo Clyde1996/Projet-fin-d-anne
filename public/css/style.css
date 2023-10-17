@@ -1,3 +1,9 @@
+
+/***********************************************/
+/* Global*/
+/***********************************************/
+
+
 * {
     font-family: 'calibri', 'Times New Roman', Times, serif;
     padding: 0;
@@ -10,22 +16,51 @@
 
 
 /******************************************************************/
-/* Styles pour le corps accueil*/
+
+/***********************************************/
+/* Accueil*/
+/***********************************************/
+
 .accueil {
-    background: rgba(0,0,0,0.9);
+    width: 100%;
+    height: 35vh;
     color: #fff; /* Couleur du texte */
     text-align: center; /* Centre le texte horizontalement */
-    padding: 50px; /* Espacement intérieur pour le contenu */
+    /* background: no-repeat center/cover url('../img/istockphoto-891939670-2048x2048-transformed.jpeg'); */
+}
+
+.accueil-card{
+    width: 100%;
+    height: 35vh;
+    background:  rgba(0,0,0,0.7);
+    width: 100%; 
+    height: 100%;
+
+}
+
+.wanderlust{
+    width: 18%;
 }
 
 .accueil h1 {
     font-size: 36px; /* Taille de la police du titre */
-    margin-bottom: 20px; /* Espacement sous le titre */
+    margin-bottom: 30px; /* Espacement sous le titre */
 }
 
 .accueil p {
+    padding: 20px;
     font-size: 18px; /* Taille de la police du paragraphe */
     line-height: 1.6; /* Espacement des lignes dans le paragraphe */
+    will-change: transform, opacity;
+    animation-duration: 1500ms;
+}
+
+.home-video{
+    height: 160%;
+    width: 100%;
+    object-fit: cover; 
+    object-position: center center; 
+    opacity: 1;
 }
 
 /* Styles pour le corps de la page */
@@ -39,26 +74,83 @@ body {
 header {
     background-color: #025937;
     color: #fff;
-    padding: 10px 0;
+    padding: 30px 0;
 }
 
-#nav-left, #nav-right {
+/***********************************************/
+/* NavBar*/
+/***********************************************/
+
+
+
+nav {
+    background: rgba(0,0,0,0.4);
+    color: #fff; /* Couleur du texte */
     display: flex;
-    align-items: center;
-}
-
-#nav-left a, #nav-right a {
-    color: #fff;
-    text-decoration: none;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  #nav-left ul, #nav-right ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #nav-left ul li, #nav-right ul li {
+    display: inline;
     margin-right: 20px;
+  }
+  
+  #nav-left ul li a, #nav-right ul li a {
+    text-decoration: none;
+    color: #fff;
     font-weight: bold;
-}
-
-#nav-right a:hover {
+    margin: 0 20px;
+  }
+  
+  #nav-left ul li a:hover, #nav-right ul li a:hover {
     text-decoration: underline;
-}
+  }
+  
+  
+  #nav-right a{
+    margin: 0 8px;
+  }
 
-/* Styles pour la section principale (main) */
+  /* Styling pour le lien de connexion */
+  #nav-right a[href*="connexionForm"] {
+    color: #f39f18; /* Couleur orange pour le lien de connexion */
+  }
+  
+  /* Styling pour le lien de création de compte */
+  #nav-right a[href*="registerForm"] {
+    color: #1e90ff; /* Couleur bleue pour le lien de création de compte */
+  }
+  
+  /* Styling pour le lien de déconnexion */
+  #nav-right a[href*="logout"] {
+    color: #ff3333; /* Couleur rouge pour le lien de déconnexion */
+  }
+
+
+  
+  /* Styles pour les icônes FontAwesome (le cas échéant) */
+  #nav-right .fa-brands {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  
+  /* Styles pour les messages d'erreur et de succès */
+  .message {
+    padding: 10px;
+    text-align: center;
+  }
+
+/***********************************************/
+/* la section principale Main*/
+/***********************************************/
+
 
 /* background-attachment: fixed; permet de figer l'image d'arrière-plan d'un élément par rapport à la fenêtre du navigateur, créant ainsi un effet de parallaxe où l'image reste immobile pendant que le contenu de la page défile.*/
 #forum {
@@ -68,8 +160,11 @@ header {
     background-attachment: fixed;
 }
 
+/***********************************************/
+/* le pied de page Footer*/
+/***********************************************/
 
-/* Styles pour le pied de page (footer) */
+
 footer {
     background-color: #034732;
     color: #fff;
@@ -83,7 +178,14 @@ footer a {
     margin: 0 10px;
 }
 
-/* Styles pour les liens */
+footer p {
+    margin: 15px;
+}
+
+/***********************************************/
+/* les liens*/
+/***********************************************/
+
 a {
     color: #007BFF;
     text-decoration: none;
@@ -93,8 +195,10 @@ a:hover {
     text-decoration: underline;
 }
 
+/***********************************************/
+/* le formulaire de  login-register*/
+/***********************************************/
 
-/* Styles pour le formulaire de connexion login-register */
 .login-register {
     text-align: center;
     background-color: #f7f7f7;
@@ -149,7 +253,11 @@ a:hover {
     color: #ccc;
 } */
 
-/* Styles pour les boutons */
+
+/***********************************************/
+/* les boutons */
+/***********************************************/
+
 input[type="submit"] {
     background-color: #007bff;
     color: #fff;
@@ -166,10 +274,13 @@ input[type="submit"]:hover {
 }
 
 
+/***********************************************/
+/* card */
+/***********************************************/
 
-/* Styles pour la page Liste des Catégories */
+
 .card {
-    background-color: #fff;
+    background: rgba(0,0,0,0.7);
     padding: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
@@ -179,8 +290,13 @@ input[type="submit"]:hover {
 }
 
 .card h1 {
+    color: #fff;
     font-size: 24px;
     margin-bottom: 20px;
+}
+
+.card p {
+    color: #fff;
 }
 
 .card a {
@@ -208,4 +324,72 @@ input[type="submit"]:hover {
 
 .card .fa-circle-plus {
     color: #28a745; /* Couleur pour l'icône d'ajout */
+}
+
+
+/***********************************************/
+/* Profile */
+/***********************************************/
+
+.profil {
+    width: 300px; /* Largeur de la zone du profil */
+    margin: 0 auto; /* Centre la zone du profil horizontalement */
+    padding: 20px; /* Espacement intérieur pour le contenu du profil */
+    border: 5px solid #ccc; /* Bordure autour du profil */
+    background-color: #f5f5f5; /* Couleur de fond */
+}
+
+.profil h2 {
+    font-style: italic; /* Texte en italique pour le nom d'utilisateur */
+    margin-top: 0; /* Supprime la marge supérieure par défaut du titre */
+}
+
+.profil p {
+    margin: 10px 0; /* Espacement entre les paragraphes */
+    
+}
+
+.profil b {
+    font-style: italic; /* Texte en italique pour les éléments en gras */
+}
+
+
+
+
+/***********************************************/
+/* Burger Menu */
+/***********************************************/
+
+
+.cards-category{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 2;
+    font-weight: bold;
+    margin: 40px;
+    border-radius: 10px;
+    padding: 30px;
+    font-size: 1.5em;
+    color: whitesmoke;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+    backdrop-filter: blur(8px);
+}
+
+
+.card-category{
+    
+}
+.card-image{
+    width: 60%;
+    filter: drop-shadow(0 0 20px black);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.image-category{
+    width: 100%;
 }

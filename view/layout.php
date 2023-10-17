@@ -7,6 +7,8 @@
     <script src="https://cdn.tiny.cloud/1/zg3mwraazn1b2ezih16je1tc6z7gwp5yd4pod06ae5uai8pa/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="public/css/style.css">
+    <script src="public/js/script.js"></script>
+    
     <title>FORUM</title>
 </head>
 <body>
@@ -23,38 +25,44 @@
             
                 <nav>
                     <div id="nav-left">
-                        <a href="http://localhost/klajdi_HAZIRAJ/wanderlust/Projet-fin-d-anne/">Accueil</a>
+                        <ul> 
+                        <li><a href="http://localhost/klajdi_HAZIRAJ/wanderlust/Projet-fin-d-anne/">Accueil</a></li>
                         <?php
                         if(App\Session::isAdmin()){
                              ?>
-                            <a href="index.php?ctrl=home&action=users">Voir la liste des gens</a> <!---->
+                            <li><a href="index.php?ctrl=forum&action=listUsers">la liste des Users</a></li> <!---->
                           
                              <?php
                         }
                         ?>
+                        </ul>
                     </div>
+                        
                     
+
                     <div id="nav-right">
+
+                        
                     <?php
                         
                         if(App\Session::getUser()){
-                        ?>
-                            <a href="index.php">Accueil</a>
-                                <a href="index.php?ctrl=security&action=viewProfile">Profile</a>
-                                <a href="index.php?ctrl=forum&action=listCategories">Liste des Catégories</a>
-                                <a href="index.php?ctrl=security&action=logout">Déconnexion</a>
+                        ?>  
+                                <ul>
+                                    <li><a href="index.php">Accueil</a></li>
+                                    <li><a href="index.php?ctrl=security&action=viewProfile">Profile</a></li>
+                                    <li><a href="index.php?ctrl=forum&action=listCategories">Liste des Catégories</a></li>
+                                    <li><a href="index.php?ctrl=security&action=logout">Déconnexion</a></li>
+                                </ul>
                             <?php
                         }
                         else{
                             ?>
                             
-                             <a href="index.php?ctrl=security&action=connexionForm">To log in</a>
-                             <a href="index.php?ctrl=security&action=registerForm">Create New account</a>
-                             <a href="index.php?ctrl=forum&action=listArticles">la liste des articles</a>
-                             <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a>
-                             <a href="index.php?ctrl=forum&action=listUsers">la liste des Users</a>
+                                <a href="index.php?ctrl=security&action=connexionForm">To log in</a>
+                                <a href="index.php?ctrl=security&action=registerForm">Create New account</a>
+                                <a href="index.php?ctrl=forum&action=listArticles">la liste des articles</a>
+                                <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a>
 
-                            
                         <?php
                         }
                    
@@ -69,8 +77,16 @@
             </main>
         </div>
         <footer>
-            <p>&copy; 2020 - Forum CDA - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
+            <p>&copy; 2023 - Clyde's Forum  - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
             <!--<button id="ajaxbtn">Surprise en Ajax !</button> -> cliqué <span id="nbajax">0</span> fois-->
+
+            
+            <div id="section1-social-medias">
+                <a class="fa-brands fa-instagram" href="https://www.instagram.com/"></a>
+                <a class="fa-brands fa-twitter" href="https://twitter.com/"></a>
+                <a class="fa-brands fa-facebook" href="https://fr-fr.facebook.com/"></a>    
+            </div> 
+                            
         </footer>
     </div>
     <script

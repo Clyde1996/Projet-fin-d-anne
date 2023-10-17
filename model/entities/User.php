@@ -12,6 +12,7 @@
         private $username;
         private $password;
         private $dateInscription;
+        private $profile_img;
 
         public function __construct($data){         
                 $this->hydrate($data);         // ca hydrate un un objet en recuperant les donnes dans la base de donnes 
@@ -119,5 +120,17 @@
 
         // }
 
-       
+        
+
+        public function getProfile_img()
+        {
+                return $this->profile_img;
+        }
+
+        public function setProfile_img($profile_img)
+        {
+                $this->profile_img = $profile_img;
+
+                return $this;
+        }
     }
