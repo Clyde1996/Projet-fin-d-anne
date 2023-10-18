@@ -165,6 +165,7 @@ nav {
     height: 100vh; /*ca prendre le taille de full screen*/
     background: no-repeat center/cover url('../img/christmas1.jpg');
     background-attachment: fixed;
+    overflow: auto; /*une barre de défilement en cas de débordement du contenu*/
 }
 
 /***********************************************/
@@ -432,9 +433,97 @@ input[type="submit"]:hover {
 /***********************************************/
 /* Update */
 /***********************************************/
-.card-update{
-    color: whitesmoke;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), transparent);
-    
-
+.card-update {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    text-align: center;
+    transition: transform 0.2s ease; /* Animation au survol */
 }
+  
+
+
+.card-update h1 {
+font-size: 24px;
+color: #333;
+}
+
+.card-update  label {
+display: block;
+margin: 10px 0;
+}
+  
+.card-update input[type="text"] {
+width: 100%;
+padding: 10px;
+margin: 5px 0;
+border: 1px solid #ccc;
+border-radius: 5px;
+transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Animation au focus */
+}
+
+.card-update input[type="text"]:focus {
+border-color: #007BFF;
+box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Effet d'ombre au focus */
+}
+
+.card-update input[type="submit"] {
+background-color: #007BFF;
+color: #fff;
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.2s ease; /* Animation au hover */
+}
+
+.card-update input[type="submit"]:hover {
+background-color: #0056b3; /* Changement de couleur au survol */
+}
+
+
+/* Styles for the card container */
+.detailCategory-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px; /* Espacement entre les cartes */
+    justify-content: center; /* Centrez les cartes horizontalement */
+    align-items: center; /* Centrez les cartes verticalement */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+    backdrop-filter: blur(8px);
+    color: whitesmoke;
+  }
+  
+  /* Styles for each individual card */
+  .detailCategory-card {
+    width: 300px; /* Largeur fixe pour chaque carte (ajustez selon vos besoins) */
+    max-height: 400px; /* Hauteur maximale pour toutes les cartes (ajustez selon vos besoins) */
+    background:  rgba(0,0,0,0.7);
+    border: 1px solid #ddd;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: filter 0.3s ease-out;
+    transition : transform .5s ease; 
+  }
+
+  .detailCategory-card:hover{
+    transform: scale(1.10);
+    background-color: rgba(228, 221, 11, 0.2);
+  }
+  
+  .detailCategory-card p {
+    margin: 0; /* Supprimer la marge par défaut des paragraphes */
+  }
+  
+  /* Styles for the images inside the cards */
+  .detailCategory-card img {
+    max-width: 100%; /* Assurez-vous que toutes les images s'adaptent à la largeur de la carte */
+    height: auto; /* Garantit que les proportions de l'image sont respectées */
+    border-radius: 20px;
+  }
+
+  
