@@ -12,6 +12,8 @@
         private $user;
         private $creationdate;
         private $closed;
+        private $image;
+        private $pays;
 
         public function __construct($data){         
             $this->hydrate($data);         // ca hydrate un un objet en recuperant les donnes dans la base de donnes 
@@ -98,6 +100,32 @@
         public function setCreationdate($creationdate)
         {
                 $this->creationdate = $creationdate;
+
+                return $this;
+        }
+
+        
+
+        public function getImage()
+        {
+                return $this->image;
+        }
+
+        public function setImage($image)
+        {
+                $this->image = $image;
+
+                return $this;
+        }
+
+        public function getPays()
+        {
+                return $this->pays;
+        }
+
+        public function setPays($pays)
+        {
+                $this->pays = $pays;
 
                 return $this;
         }

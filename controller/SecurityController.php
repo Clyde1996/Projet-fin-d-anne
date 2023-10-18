@@ -155,11 +155,45 @@ class SecurityController extends AbstractController implements ControllerInterfa
         return [
             "view" => VIEW_DIR . "security/viewProfile.php",
             "data" => [
-                "user" => $userManager->findOneById($id),
+                "user" => $userManager->findOneById($id)
             ]
         ];
 
     }
+
+    /*Update Profile */
+    public function updateProfile($id){
+        $userManager = new UserManager();
+        $session = new Session(); 
+
+        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+       
+    
+
+        $userManager->updateProfile([
+            'username' => $username,
+            'email' => $email
+        ]);
+
+        return[
+            "view" => VIEW_DIR . "security/viewProfile.php",
+            $session->addFlash('success',"Le profil a été modifié avec succès."),
+            "data" => [
+                "user" => $userManager->findOneById($id)
+            ]
+        ];
+    }
+
+    /*Form User */
+    public function formUpdateUser(){
+
+        return[
+            "view" => VIEW_DIR . "security/updateProfile.php"
+        ];
+    }
+
     
 
 }    

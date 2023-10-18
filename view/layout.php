@@ -30,7 +30,7 @@
                         <?php
                         if(App\Session::isAdmin()){
                              ?>
-                            <li><a href="index.php?ctrl=forum&action=listUsers">la liste des Users</a></li> <!---->
+                            <li><a href="index.php?ctrl=forum&action=listUsers">Liste des Users</a></li> <!---->
                           
                              <?php
                         }

@@ -12,10 +12,5 @@
         <p>Explore the forum below and find answers to all of your questions.</p>
     </div>
 </div>
-<div id="home-login"></div>
-<p>
-    <a href="index.php?ctrl=security&action=connexionForm">Se connecter</a>
-    <span>&nbsp;-&nbsp;</span>
-    <a href="index.php?ctrl=security&action=registerForm">S'inscrire</a>
-</p>
+
 

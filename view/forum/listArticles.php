@@ -24,7 +24,7 @@ foreach($articles as $article ){
 ?>
 
 <!--Form article c'est le plus qui permetre de ajouter un categorie-->
-<a href="index.php?ctrl=forum&action=formarticle"> 
+<a href="index.php?ctrl=forum&action=formArticle"> 
     <i class="fa-sharp fa-solid fa-circle-plus"></i>
 </a>
 

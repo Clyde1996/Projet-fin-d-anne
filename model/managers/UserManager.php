@@ -16,5 +16,19 @@
         }
 
 
+        public function updateProfile($id, $username, $email){
+            $sql = "UPDATE user
+            SET username = :username, email = :email
+            WHERE id_user = :id_user  ";    
+
+            return $this->execute($sql, [
+                ':username' => $username,
+                ':email' => $email,
+                ':id_user' => $id
+            ]);
+        }
+
     }
+
+
 ?>
