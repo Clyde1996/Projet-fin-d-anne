@@ -4,7 +4,9 @@ $categories = $result["data"]["categories"];
 
 ?>
 
-<h1>Liste des Categories</h1>
+
+<h1 class="h1-card-category">Liste des Categories</h1>
+
 <div class="cards-category">
 
 
@@ -29,6 +31,7 @@ foreach($categories as $category){
                 <i class="fa-sharp fa-solid fa-circle-minus"></i>
             </a>
         
+            
 
     </div>
 

@@ -101,7 +101,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
             // on recupere l'email dans la base de donees
             $user = $userManager->findUserByEmail($email);  
             
-
+            /*a voir*/ 
             if($user){
 
                 $password = $user->getPassword();

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="public/css/style.css">
     <script src="public/js/script.js"></script>
     
-    <title>FORUM</title>
+    <title>Wanderlust</title>
 </head>
 <body>
     <header>
@@ -17,7 +17,12 @@
 
     
     <div id="wrapper"> 
-       
+
+    <a href="http://localhost/klajdi_HAZIRAJ/wanderlust/Projet-fin-d-anne/">
+        <img src="./public/img/rrr.png" alt="wanderlust" class="wanderlust-wrapper">
+    </a>
+        
+
         <div id="mainpage">
             <!-- c'est ici que les messages (erreur ou succès) s'affichent-->
             <h3 class="message" style="color: red"><?= App\Session::getFlash("error") ?></h3>
@@ -48,7 +53,7 @@
                         if(App\Session::getUser()){
                         ?>  
                                 <ul>
-                                    <li><a href="index.php">Accueil</a></li>
+                                    <!-- <li><a href="index.php">Accueil</a></li> -->
                                     <li><a href="index.php?ctrl=security&action=viewProfile">Profile</a></li>
                                     <li><a href="index.php?ctrl=forum&action=listCategories">Liste des Catégories</a></li>
                                     <li><a href="index.php?ctrl=security&action=logout">Déconnexion</a></li>

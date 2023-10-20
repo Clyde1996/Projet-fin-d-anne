@@ -8,7 +8,9 @@ $user = $result["data"]["user"];
 <div class="profil">
 
     <h2><i><?= App\Session::getUser()->getUsername()?></i></h2>
+    <div class="profile-image-container">
     <p><img src="<?= App\Session::getUser()->getImage()?>" alt="profile-image" class="profile-image"></p>
+    </div>
     <p><b><i>Email : </i></b><?= App\Session::getUser()->getEmail()?></p>
     <p><b><i>Date d'inscription : </i></b><?= App\Session::getUser()->getDateInscription()?></p>
     

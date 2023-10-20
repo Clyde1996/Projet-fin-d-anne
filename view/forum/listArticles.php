@@ -15,6 +15,7 @@ foreach($articles as $article ){
     <p>Catégorie : <?=$article->getCategory()->getNom()?></p>
     <p>Auteur : <?=$article->getUser()->getUsername()?></p>
 
+    <!--on peut supprimer les articles par id-->
     <a href="index.php?ctrl=forum&action=deletearticle&id=<?=$article->getId()?>" method="post"> <!-- le form que on a cree dans le forum controller avec le function qui est lie dans le addOrUpdateComment.php  --> 
     <i class="fa-sharp fa-solid fa-circle-minus"></i>
     </a>

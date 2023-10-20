@@ -6,9 +6,11 @@
     use App\AbstractController;
     use App\ControllerInterface;
     use Model\Managers\ArticleManager;  // c'est lie avec le article Manager dans le Model/managers
-    use Model\Managers\CommentManager;    // c'est lie avec le article Manager dans le Model/managers
-    use Model\Managers\UserManager;      // c'est lie avec le article Manager dans le Model/managers
-    use Model\Managers\CategoryManager;  // c'est lie avec le article Manager dans le Model/managers
+    use Model\Managers\CommentManager;    // c'est lie avec le article Comment dans le Model/managers
+    use Model\Managers\UserManager;      // c'est lie avec le article User dans le Model/managers
+    use Model\Managers\CategoryManager;  // c'est lie avec le article Category dans le Model/managers
+    use Model\Managers\ImagesManager; // c'est lie avec le article Images dans le Model/managers
+    use Model\Managers\FavorisManager; // c'est lie avec le article Favoris dans le Model/managers
     
     class ForumController extends AbstractController implements ControllerInterface{
 
@@ -290,6 +292,33 @@
                 "data"=>['comment'=>$commentManager->findOneById($id)], 
              
             ];
+        }
+
+
+
+        // add to favoris
+
+        public function addToFavoris($article, $user){
+            $favorisManager = new FavorisManager;
+            $articleManager = new ArticleManager();
+            $userManager = new UserManager();
+
+            // On doit s-assure que $articleId et $userId sont valides, par exemple, on verifie si l'utilisateur est connecte.
+
+            // On ajoute l'article en favoris
+            $favorisManager->insertIntoFavoris($article, $user);
+
+
+        
+
+            return[
+                "view" => VIEW_DIR."forum/listFavoris.php",
+                "data"=>[
+                    'article'=>$commentManager->findOneById($id),
+                    'userFavoris' => $userManager->findArticlesFavorisByUserId($id)
+                ], 
+            ];
+
         }
 
 
