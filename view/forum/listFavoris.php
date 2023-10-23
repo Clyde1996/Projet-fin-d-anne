@@ -1,17 +1,21 @@
+
 <?php
+$articles = $result["data"]["articles"];
+// $userFavoris = $result["data"]["userFavoris"];
 
 
-$article = $result["data"]["article"];
-$userFavoris = $result["data"]["userFavoris"];
+      
+foreach($articles as $article){
 
-
-foreach($userFavoris as $favoris){
+    if (isset($_SESSION["user"])){
     ?>
-
-    <?=$favoris->getArticle()->getTitle()?>
-
-    <?php
+        <div class="card-favoris">
+        <p ><?=$article->getTitle();?></p>
+        </div>
+<?php
+    } 
+    ?>      
+     
+<?php   
 }
-
 ?>
-

@@ -273,7 +273,7 @@
             
         }
 
-        // form add comment 
+        // form pour ajouter le comment/ add comment 
 
         public function formComment(){ // c'est la form que on a cree dans le addOrUpdateComment, et ca s'appelle formComment!
 
@@ -283,6 +283,7 @@
             ];
         }
 
+        // form pour le modifier le comment / update comment
         public function updateFormComment($id){ // c'est la form que on a cree dans le addOrUpdateComment, et ca s'appelle formComment!
             $commentManager = new CommentManager();
             // $articleManager = new ArticleManager();
@@ -298,28 +299,71 @@
 
         // add to favoris
 
-        public function addToFavoris($article, $user){
+        // public function addToFavoris($article, $user){
+        //     $favorisManager = new FavorisManager;
+        //     $articleManager = new ArticleManager();
+        //     $userManager = new UserManager();
+
+        //     // On doit s-assure que $articleId et $userId sont valides, par exemple, on verifie si l'utilisateur est connecte.
+
+        //     // On ajoute l'article en favoris
+        //     $favorisManager->add(["article_id" => $article, "user_id" => $user], $id);
+        //     return[
+        //         "view" => VIEW_DIR."forum/listFavoris.php"
+                
+        //     ];
+
+        // }
+
+        public function addToFavoris($article) {
+            
+            $article = new ArticleManager();
+            $user = new UserManager();
+            $category = new CategoryManager();
+
+
+            if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id']; // Récupérer l'ID de l'utilisateur à partir de la session
+        
+                $favorisManager = new FavorisManager();
+        
+                // Ajouter l'article en favoris
+                $favorisManager->add($article_id, $user_id);
+        
+                return [
+                    "view" => VIEW_DIR . "forum/listFavoris.php"
+                ];
+            } else {
+                // L'utilisateur n'est pas connecté, on peut gérer cette situation comme nécessaire
+                return [
+                    "error" => "L'utilisateur n'est pas connecté."
+                ];
+            }
+        }
+
+       
+
+
+        public function listFavoris($id){
+
             $favorisManager = new FavorisManager;
             $articleManager = new ArticleManager();
             $userManager = new UserManager();
-
-            // On doit s-assure que $articleId et $userId sont valides, par exemple, on verifie si l'utilisateur est connecte.
-
-            // On ajoute l'article en favoris
-            $favorisManager->insertIntoFavoris($article, $user);
+            $commentManager = new CommentManager();
 
 
-        
-
+            
             return[
                 "view" => VIEW_DIR."forum/listFavoris.php",
                 "data"=>[
-                    'article'=>$commentManager->findOneById($id),
-                    'userFavoris' => $userManager->findArticlesFavorisByUserId($id)
-                ], 
+                    'articles'=>$favorisManager->findArticlesFavorisByUserId($id)
+                ],
             ];
 
+
         }
+
+      
 
 
 

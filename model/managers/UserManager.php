@@ -28,36 +28,27 @@
             ]);
         }
 
-        // le requete pour trouve le favoris par le user id
-        public function findFavorisByUserId($id){
+        // public function findArticlesFavorisByUserId($id){
             
-            $sql = "SELECT *
-            FROM ".$this->tableName." f
-            WHERE f.user_id = :user";
+        //     $sql = "SELECT u.id_user,
+        //     f.article_id,
+        //     u.username
+        //     FROM ".$this->tableName." u 
+        //     INNER JOIN favoris f ON
+        //     u.id_user = f.user_id
+        //     WHERE f.user_id = :id";
 
-            return $this->getMultipleResults(
+        //     return $this->getMultipleResults(
             
-            DAO::select($sql,[':user' => $id]),
-            $this->className
+        //     DAO::select($sql,[':id' => $id]),
+        //     $this->className
 
-            );
-            
-        }
+        //     );
+        // }
 
-        // 
-        public function findArticlesFavorisByUserId($id){
-            
-            $sql = "SELECT *
-            FROM ".$this->tableName." f
-            WHERE f.user_id = :user";
+        
 
-            return $this->getMultipleResults(
-            
-            DAO::select($sql,[':user' => $id]),
-            $this->className
-
-            );
-        }
+         			         
 
     }
 

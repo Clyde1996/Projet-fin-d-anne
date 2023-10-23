@@ -3,10 +3,10 @@
 
     use App\Entity; // comme demande un fischier qui est pas fisique 
 
-    final class Image extends Entity{ // entity pour la hidradation 
+    final class Favoris extends Entity{ // entity pour la hidradation 
         // final class c'est la class final on peut pas faire le class qui extends article
 
-        private $id;
+
         private $article;
         private $user;
 
@@ -17,18 +17,7 @@
         }
 
 
-        public function getId()
-        {
-                return $this->id;
-        }
-
-        public function setId($id)
-        {
-                $this->id = $id;
-
-                return $this;
-        }
-
+      
         public function getArticle()
         {
                 return $this->article;

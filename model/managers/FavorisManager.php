@@ -19,7 +19,7 @@
 
         // on insert dans le table favoris le id de article et de user 
         public function insertIntoFavoris($article, $user) {
-            $sql = "INSERT INTO favoris (article_id, user_id) VALUES (:article, :user)";
+            $sql = "INSERT INTO favoris ( article_id, user_id) VALUES ( :article, :user)";
             
             $params = array(
                 ':article' => $article,
@@ -29,21 +29,26 @@
             return DAO::insert($sql, $params);
         }
         
-        // le requete pour trouve le article par le favoris id
-        public function findArticleByFavorisId($id){
-            $sql = "SELECT *
-            FROM ".$this->tableName." f
-            WHERE f.article_id = :article";
 
+
+        public function findArticlesFavorisByUserId($id){
+            
+            $sql = "SELECT *
+            FROM ".$this->tableName." f 
+            JOIN article AS a ON f.article_id = a.id_article
+            JOIN user AS u ON f.user_id = u.id_user
+            WHERE f.user_id = :id";
+    
             return $this->getMultipleResults(
             
-            DAO::select($sql,[':article' => $id]),
+            DAO::select($sql,[':id' => $id]),
             $this->className
 
             );
         }
-
-       
     
+        
+        
     }
+      
 ?>

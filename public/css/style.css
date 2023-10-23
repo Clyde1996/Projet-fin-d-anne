@@ -104,6 +104,7 @@
 .a-homme p:hover{
   background-color: rgba(228, 221, 11, 0.2);
   text-decoration: none;
+  filter: drop-shadow(0 0 20px rgb(255, 241, 51));
 }
 
 /* Styles pour le corps de la page */
@@ -118,6 +119,8 @@ header {
     background-color: #025937;
     color: #fff;
     padding: 30px 0;
+
+    //8px 0 30px 0
 }
 
 /***********************************************/
@@ -186,8 +189,11 @@ nav {
   
   /* Styles pour les messages d'erreur et de succès */
   .message {
-    padding: 10px;
+    /* padding: 10px; */
     text-align: center;
+    background: linear-gradient(90deg, rgba(0,0,0,0.8), transparent);
+    backdrop-filter: blur(8px);
+    color: whitesmoke;
   }
 
 /***********************************************/
@@ -422,6 +428,10 @@ input[type="submit"]:hover {
 /***********************************************/
 
 
+/* .card-complet-detail-category{
+  margin: 100px;
+} */
+
 .cards-category{
     display: flex;
     flex-direction: row;
@@ -430,7 +440,7 @@ input[type="submit"]:hover {
     text-align: center;
     line-height: 2;
     font-weight: bold;
-    margin: 100px;
+    margin: 0 100px;
     border-radius: 10px;
     padding: 30px;
     font-size: 1.5em;
@@ -480,9 +490,13 @@ input[type="submit"]:hover {
 }
 
 .h1-card-category{
+  padding: 20 px 0 0 0;
+  margin: 50px 100px 0 100px;
+  border-radius: 5px;
   color: white;
   text-align: center;
   background-color: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
 }
 
 /* .txt-listCategory{
@@ -626,4 +640,13 @@ background-color: #0056b3; /* Changement de couleur au survol */
     color: red; /* Couleur au survol */
   }
 
+
+  
+/***********************************************/
+/* favoris */
+/***********************************************/
+
+ .card-favoris p {
+  color: white;
+ }
   
