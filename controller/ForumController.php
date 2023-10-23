@@ -243,7 +243,7 @@
             return[
                 "view"=>VIEW_DIR."forum/detailArticle.php", // apres avoir ajouter le comment on returne dans le detailarticle
                 "data" => [
-                    "comments"=> $commentManager->findAll(["text", "ASC"]),
+                    "comments"=> $commentManager->findAll(),
                     "article"=>$articleManager->findOneById($id)
                 ]
             ];
@@ -321,19 +321,18 @@
             $articleManager = new ArticleManager();
             $userManager = new UserManager();
             $categoryManager = new CategoryManager();
-        
+            $session = new Session();
+
             // Vérifiez si un utilisateur est connecté
-            if (App\Session::getUser()->getId()) {
-                $user = App\Session::getUser()->getId(); // Récupérez l'utilisateur à partir de la session
-        
+            if ($session->getUser()->getId()) {
+                $user = $session->getUser()->getId(); // Récupérez l'utilisateur à partir de la session
+                
                 $favorisManager = new FavorisManager();
         
                 // Ajouter l'article aux favoris
-                $favorisManager->insertIntoFavoris($article->getId(), $user->getId());
+                $favorisManager->insertIntoFavoris($article, $user);
         
-                return [
-                    "view" => VIEW_DIR . "forum/listFavoris.php"
-                ];
+                $this->redirectTo("Forum", "listFavoris", $session->getUser()->getId());
             } else {
                 // L'utilisateur n'est pas connecté, gérez cette situation comme nécessaire
                 return [
@@ -351,18 +350,46 @@
             $articleManager = new ArticleManager();
             $userManager = new UserManager();
             $commentManager = new CommentManager();
+            $session = new Session();
 
 
+            if ($session->getUser()->getId()){
+                $user = $session->getUser()->getId();
+                return[
+                    "view" => VIEW_DIR."forum/listFavoris.php",
+                    "data"=>[
+                        'favoris'=>$favorisManager->findArticlesFavorisByUserId( $session->getUser()->getId())
+                    ],
+                ];
+            }
             
-            return[
-                "view" => VIEW_DIR."forum/listFavoris.php",
-                "data"=>[
-                    'articles'=>$favorisManager->findArticlesFavorisByUserId($id)
-                ],
-            ];
 
 
         }
+
+        // public function listFavoris($id){
+
+        //     $favorisManager = new FavorisManager;
+        //     $articleManager = new ArticleManager();
+        //     $userManager = new UserManager();
+        //     $commentManager = new CommentManager();
+        //     $session = new Session();
+
+
+        //     if ($session->getUser()->getId()){
+        //         $user = $session->getUser()->getId();
+        //         return[
+        //             "view" => VIEW_DIR."forum/listFavoris.php",
+        //             "data"=>[
+        //                 'users'=>$userManager->findArticlesFavorisByUserId
+        //             ],
+        //         ];
+        //     }
+            
+
+
+        // }
+
 
       
 

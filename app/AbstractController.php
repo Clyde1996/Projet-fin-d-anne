@@ -19,10 +19,9 @@
                 // Construire l'URL en ajoutant les parties spécifiées ($ctrl, $action et $id) dans l'ordre.
                 // Les parties sont séparées par des "/". Par exemple : "/nomDuControleur/action/identifiant.html".
 
-                $url = $ctrl ? "/".$ctrl : "";
-                $url.= $action ? "/".$action : "";
-                $url.= $id ? "/".$id : "";
-                $url.= ".html";
+                $url = $ctrl ? "?ctrl=".$ctrl : "";
+                $url.= $action ? "&action=".$action : "";
+                $url.= $id ? "&id=".$id : "";
             }
             // Si le contrôleur est "home", alors l'URL sera simplement "/".
             else $url = "/";

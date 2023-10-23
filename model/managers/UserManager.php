@@ -46,6 +46,27 @@
         //     );
         // }
 
+
+        public function findArticlesFavorisByUserId($id){
+            $sql = "SELECT 
+            u.id_user,
+            f.article_id,
+            u.username,
+            a.title
+            FROM user u
+            INNER JOIN favoris f ON u.id_user = f.user_id
+            INNER JOIN article a ON a.id_article = f.article_id
+            WHERE f.user_id = :id";
+
+            return $this->getMultipleResults(
+                        
+            DAO::select($sql,[':id' => $id]),
+            $this->className
+
+            );
+        }
+
+
         
 
          			         

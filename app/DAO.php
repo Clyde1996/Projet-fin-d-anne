@@ -37,10 +37,10 @@
             );
         }
 
-        public static function insert($sql){
+        public static function insert($sql, $params = null){
             try{
                 $stmt = self::$bdd->prepare($sql);
-                $stmt->execute();
+                $stmt->execute($params);
                 //on renvoie l'id de l'enregistrement qui vient d'être ajouté en base, 
                 //pour s'en servir aussitôt dans le controleur
                 return self::$bdd->lastInsertId();

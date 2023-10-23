@@ -1,21 +1,30 @@
 
+
+<h1>Hey</h1>
 <?php
-$articles = $result["data"]["articles"];
+
+
+
+$favoris = $result["data"]["favoris"];
 // $userFavoris = $result["data"]["userFavoris"];
 
+if(App\Session::getUser()){
 
-      
-foreach($articles as $article){
 
-    if (isset($_SESSION["user"])){
-    ?>
-        <div class="card-favoris">
-        <p ><?=$article->getTitle();?></p>
+    foreach($favoris as $favori){
+        ?>
+        <div class="card">
+        <p ><?=$favori->getArticle()->getId();?></p>
         </div>
-<?php
-    } 
-    ?>      
-     
-<?php   
+        <?php
+    }
+          
+}else{
+    echo "Vous n'avez pas de favoris";
 }
+
+    
+    
+
+
 ?>

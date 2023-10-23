@@ -15,7 +15,7 @@ foreach($comments as $comment){
 
     
     <p> <?=$comment->getText();?> </p>
-    
+    <p> <?=$comment->getCreationdate();?> </p>
 
     <!-- le form delete article -->
 

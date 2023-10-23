@@ -33,7 +33,7 @@ $user = $result["data"]["user"];
  <p> <i class="fa-sharp fa-solid fa-gear" style="color: #417ce1;"></i> Update Profile</p> 
 </a>
 
-<a href="index.php?ctrl=forum&action=listFavoris">
+<a href="index.php?ctrl=forum&action=listFavoris&id=<?=App\Session::getUser()->getId()?>">
     <p><i class="fa-solid fa-bookmark" style="color: #6593e2;"></i> Mes Favoris</p>
 </a>
 
