@@ -16,12 +16,14 @@ $articles = $result["data"]["articles"];
     foreach($articles as $article){
         ?>
         <div class="detailCategory-card">
+            <a href="index.php?ctrl=forum&action=detailArticle&id=<?=$article->getId()?>">
             <div class="txt-detailCategory-card">
             <p><?=$article->getTitle()?></p>
             <p><?=$article->getCreationdate()?></p>
             </div>
             <img src="<?=$article->getImage()?>" alt="cover-img">
-            
+            </a>
+
             <a href="index.php?ctrl=forum&action=addToFavoris&id=<?=$article->getId()?>">
             <i class="fa-solid fa-heart fa-xl heart-icon" style="color: #9cabc4;" onmouseover="this.style.color='red'" onmouseout="this.style.color='#1f514b'"></i>
             </a>

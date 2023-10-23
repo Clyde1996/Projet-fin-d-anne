@@ -33,6 +33,7 @@
                         <ul> 
                         <li><a href="http://localhost/klajdi_HAZIRAJ/wanderlust/Projet-fin-d-anne/">Accueil</a></li>
                         <?php
+                        // Vérifiez si un utilisateur est Admin
                         if(App\Session::isAdmin()){
                              ?>
                             <li><a href="index.php?ctrl=forum&action=listUsers">Liste des Users</a></li> <!---->
@@ -49,7 +50,7 @@
 
                         
                     <?php
-                        
+                        // Vérifiez si un utilisateur est connecté
                         if(App\Session::getUser()){
                         ?>  
                                 <ul>
@@ -60,6 +61,7 @@
                                 </ul>
                             <?php
                         }
+                        //  si  l'utilisateur est pas connecté
                         else{
                             ?>
                             

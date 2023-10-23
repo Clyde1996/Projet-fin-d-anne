@@ -1,10 +1,12 @@
-<h1>Detail article</h1>
+
 <?php
 
 $article = $result["data"]["article"];
 $comments = $result["data"]["comments"];
 ?>
 
+
+<div class="card">
 <h1> <?=$article->getTitle();?> </h1>  <!--Title De article-->
 
 <?php
@@ -13,6 +15,7 @@ foreach($comments as $comment){
 
     
     <p> <?=$comment->getText();?> </p>
+    
 
     <!-- le form delete article -->
 
@@ -46,5 +49,10 @@ id=< ?=$article->getId()?> Ce paramètre nommé "id" a une valeur dynamique qui 
     
 </a>
 
+<a href="?ctrl=forum&action=formComment&id=<?= $article->getId() ?>">Ajouter un commentaire</a>
+<form method="post" action="?ctrl=forum&action=addComment&id=<?= $article->getId() ?>">
+    <textarea name="text" placeholder="Votre commentaire"></textarea>
+    <input type="submit" value="Publier">
+</form>
 
-
+</div>

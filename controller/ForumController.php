@@ -57,6 +57,7 @@
             // Demander l'accès à la couche modèle
             $articleManager = new ArticleManager();
             $commentManager = new CommentManager();
+            
 
             return [
                 "view" => VIEW_DIR."forum/detailarticle.php",
@@ -277,6 +278,7 @@
 
         public function formComment(){ // c'est la form que on a cree dans le addOrUpdateComment, et ca s'appelle formComment!
 
+            
             return[
                 "view" => VIEW_DIR."forum/addcomment.php",
              
@@ -316,25 +318,24 @@
         // }
 
         public function addToFavoris($article) {
-            
-            $article = new ArticleManager();
-            $user = new UserManager();
-            $category = new CategoryManager();
-
-
-            if (isset($_SESSION['user_id'])) {
-                $user_id = $_SESSION['user_id']; // Récupérer l'ID de l'utilisateur à partir de la session
+            $articleManager = new ArticleManager();
+            $userManager = new UserManager();
+            $categoryManager = new CategoryManager();
+        
+            // Vérifiez si un utilisateur est connecté
+            if (App\Session::getUser()->getId()) {
+                $user = App\Session::getUser()->getId(); // Récupérez l'utilisateur à partir de la session
         
                 $favorisManager = new FavorisManager();
         
-                // Ajouter l'article en favoris
-                $favorisManager->add($article_id, $user_id);
+                // Ajouter l'article aux favoris
+                $favorisManager->insertIntoFavoris($article->getId(), $user->getId());
         
                 return [
                     "view" => VIEW_DIR . "forum/listFavoris.php"
                 ];
             } else {
-                // L'utilisateur n'est pas connecté, on peut gérer cette situation comme nécessaire
+                // L'utilisateur n'est pas connecté, gérez cette situation comme nécessaire
                 return [
                     "error" => "L'utilisateur n'est pas connecté."
                 ];
