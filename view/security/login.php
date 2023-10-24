@@ -28,7 +28,7 @@
             
         </form>
         <div class="register-login-link">
-                <p>Don't have an account? <a href="index.php?ctrl=security&action=registerForm">Sign up</a></p>
+                <p>Don't have an account? <a href="index.php?ctrl=security&action=registerForm"> Sign up</a></p>
 
         </div>
     </div>

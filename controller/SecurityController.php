@@ -86,47 +86,43 @@ class SecurityController extends AbstractController implements ControllerInterfa
     }
 
     public function login(){
-        
         if($_POST["submit"]){
-
-            $userManager = new UserManager(); // on se connecte dans la base de donees
-
+            $userManager = new UserManager(); // on se connecte dans la base de données
             $session = new Session(); // cette variable est pour afficher des messages
-
+    
             // On filtre les entrées 
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_VALIDATE_EMAIL);
             $pass1 = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             
-            // on recupere l'email dans la base de donees
+            // on récupère l'email dans la base de données
             $user = $userManager->findUserByEmail($email);  
             
-            /*a voir*/ 
             if($user){
-
                 $password = $user->getPassword();
-                $checkPassword = password_verify($pass1, $password); // on verifie le $pass1 que on a ecrit dans le formulaire correspond à celui de la BDD
-
+                $checkPassword = password_verify($pass1, $password); // on vérifie que le $pass1 que vous avez écrit dans le formulaire correspond à celui de la BDD
+    
                 if($checkPassword){
                     $session->setUser($user); 
-
-                    return[
-                        "view" => VIEW_DIR . "home.php", //
-                        $session->addFlash('success', "Connecté !") // Notification de connexion
+                    $session->addFlash('success', "Connecté !"); // Notification de connexion
+    
+                    return [
+                        "view" => VIEW_DIR . "home.php",
                     ];
-                }      
-            
+                } else {
+                    $session->addFlash('error', "Mot de passe incorrect"); // Notification de mot de passe incorrect
+                }
             } else {
-                return [
-                    "view" => VIEW_DIR."security/login.php",    // Rester sur le formulaire de connexion
-                    $session->addFlash('error', "Utilisateur inconnu ou mot de passe incorrect") // Notification de refus
-                    ];
-            } 
-            
+                $session->addFlash('error', "Utilisateur inconnu"); // Notification d'utilisateur inconnu
+            }
+    
+            return [
+                "view" => VIEW_DIR . "security/login.php",
+            ];
         }
-
+    
         return [
-            "view" => VIEW_DIR."security/login.php" 
+            "view" => VIEW_DIR . "security/login.php",
         ];
     }
 

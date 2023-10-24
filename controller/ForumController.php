@@ -369,7 +369,7 @@
 
         // public function listFavoris($id){
 
-        //     $favorisManager = new FavorisManager;
+        //     $favorisManager = new FavorisManager();
         //     $articleManager = new ArticleManager();
         //     $userManager = new UserManager();
         //     $commentManager = new CommentManager();
@@ -394,7 +394,18 @@
       
 
 
+            public function findImagesByArticleId($id){
 
+                $images = new ImagesManager();
+                $article = new ArticleManager();
+
+                return [
+                    "view" => VIEW_DIR."forum/detailarticle.php",
+                    "data" => [
+                        "images"=>$images->findImagesByArticleId($id) 
+                    ]
+                ];
+            }
 
 
      

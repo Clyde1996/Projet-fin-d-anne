@@ -16,6 +16,26 @@
         }
 
 
+
+        public function findImagesByArticleId($id){
+            $sql = "SELECT * FROM" . $this->table . "i INNER JOIN article a  
+            WHERE a.id_article = :id; ";
+            
+            return $this->getMultipleResults(
+            
+                DAO::select($sql,[':images' => $id]),
+                $this->className
+    
+            );
+        }
+
+       
+
+        
+         
+
+     
+
     
     }
 ?>

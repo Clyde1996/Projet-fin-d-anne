@@ -13,7 +13,13 @@
     box-sizing: border-box;
 }
 
-
+:root {
+  --baseColor: #396b69;
+  --secondColor : #71A7A6;
+  --thirdColor: #BD8B6F;
+  --fourthColor : #7D7069;
+  --lastColor : #FC9156;
+}
 
 /******************************************************************/
 
@@ -23,15 +29,15 @@
 
 .accueil {
     width: 100%;
-    height: 35vh;
-    color: #fff; /* Couleur du texte */
+    height: 50vh;
+   color: #fff; /* Couleur du texte */
     text-align: center; /* Centre le texte horizontalement */
     /* background: no-repeat center/cover url('../img/istockphoto-891939670-2048x2048-transformed.jpeg'); */
 }
 
 .accueil-card{
     width: 100%;
-    height: 35vh;
+    /* height: 35vh; */
     background: linear-gradient(135deg, rgba(20, 14, 14, 0.8), transparent);
     backdrop-filter: blur(8px);
     width: 100%; 
@@ -96,6 +102,7 @@
 }
 
 .a-homme p{
+  margin-top: 10px;
   background:  rgba(20, 14, 14, 0.7);
   backdrop-filter: blur(8px);
   border-radius: 10px;
@@ -104,7 +111,7 @@
 .a-homme p:hover{
   background-color: rgba(228, 221, 11, 0.2);
   text-decoration: none;
-  filter: drop-shadow(0 0 20px rgb(255, 241, 51));
+  filter: drop-shadow(0 0 20px rgb(113, 167, 166));
 }
 
 /* Styles pour le corps de la page */
@@ -116,7 +123,7 @@ body {
 
 /* Styles pour l'en-tête (header) */
 header {
-    background-color: #025937;
+    background-color: var(--baseColor);
     color: #fff;
     padding: 30px 0;
 
@@ -130,7 +137,7 @@ header {
 
 
 nav {
-    background: rgba(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.4);
     color: #fff; /* Couleur du texte */
     display: flex;
     justify-content: space-between;
@@ -165,7 +172,7 @@ nav {
   }
 
   /* Styling pour le lien de connexion */
-  #nav-right a[href*="connexionForm"] {
+  #nav-right a[href*="loginForm"] {
     color: #f39f18; /* Couleur orange pour le lien de connexion */
   }
   
@@ -205,7 +212,7 @@ nav {
 #forum {
     padding: 20px;
     height: 100vh; /*ca prendre le taille de full screen*/
-    background: no-repeat center/cover url('../img/christmas1.jpg');
+    background: no-repeat center/cover url('../img/flower1jpg.jpg');
     background-attachment: fixed;
     overflow: auto; /*une barre de défilement en cas de débordement du contenu*/
 }
@@ -216,7 +223,7 @@ nav {
 
 
 footer {
-    background-color: #034732;
+    background-color: #396B69;
     color: #fff;
     text-align: center;
     padding: 10px 0;
@@ -251,12 +258,16 @@ a:hover {
 
 .login-register {
     text-align: center;
-    background-color: #f7f7f7;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), transparent);
+    backdrop-filter: blur(8px);
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow:
+    inset 0 0 1em var(--secondColor),
+    0 0 2em var(--thirdColor);
     max-width: 300px;
     margin: 0 auto;
     padding: 20px;
+    border: 3px solid black;
 }
 
 .login-register h1 {
@@ -275,11 +286,20 @@ a:hover {
 }
 
 .input-box input {
+    /* width: 100%;
+    
+    margin-top: 4px; */
+    /* border: 1px solid #ccc;
+    border-radius: 4px; */
+    border: 2px none  none none;
     width: 100%;
+    height: 40px;
+    margin: 1rem 0;
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), transparent);
+    /* border-style: outset; */
+    font-weight: bold;
     padding: 8px;
-    margin-top: 4px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
 }
 
 .register-login-link {
@@ -290,6 +310,12 @@ a:hover {
     text-decoration: none;
     color: #007bff;
     font-weight: bold;
+    padding-left: 5px;
+}
+
+.register-login-link p{
+  display: block;
+  font-weight: bold;
 }
 
 /* Styles pour les icônes
@@ -480,13 +506,13 @@ input[type="submit"]:hover {
     padding: 20px;
     transition: filter 0.3s ease-out;
     transition : transform .5s ease; 
-    background-color: rgba(228, 221, 11, 0.4);
+    background-color: rgba(113, 167, 166, 0.4);
 }
 
 .image-category:hover{
     filter: grayscale(0);
     transform: scale(1.10);
-    filter: drop-shadow(0 0 20px rgb(255, 241, 51));
+    filter: drop-shadow(0 0 20px rgb(113, 167, 166));
 }
 
 .h1-card-category{
@@ -593,19 +619,21 @@ background-color: #0056b3; /* Changement de couleur au survol */
 
   .detailCategory-card:hover{
     transform: scale(1.12);
-    background-color: rgba(228, 221, 11, 0.3);
-    filter: drop-shadow(0 0 20px rgb(255, 241, 5));
+    background-color: rgba(189, 139, 111, 0.5);
+    filter: drop-shadow(0 0 20px rgb(252, 145, 86));
     
   }
   
   .detailCategory-card:hover .txt-detailCategory-card {
     background:  rgba(0,0,0,0.7);
     border-radius: 10px;
-    backdrop-filter: blur(8px);
+    /* backdrop-filter: blur(3px); */
   }
 
   .detailCategory-card p {
     margin: 0; /* Supprimer la marge par défaut des paragraphes */
+    color: white;
+    
   }
 
   .h1-detailCategory{
@@ -650,3 +678,43 @@ background-color: #0056b3; /* Changement de couleur au survol */
   color: white;
  }
   
+
+
+ /***********************************************/
+/* input data  */
+/***********************************************/
+
+/* Style de base pour le formulaire */
+.input-data {
+  background: #f2f2f2;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-data textarea {
+  width: 400px; /* Largeur fixe de 300 pixels */
+  height: 50px; /* Hauteur fixe de 150 pixels */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+ 
+}
+
+/* Style pour le bouton de soumission */
+.input-data input[type="submit"] {
+  background: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* Style pour le bouton de soumission au survol */
+.input-data input[type="submit"]:hover {
+  background: #45a049;
+}

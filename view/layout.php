@@ -65,16 +65,22 @@
                         else{
                             ?>
                             
-                                <a href="index.php?ctrl=security&action=connexionForm">To log in</a>
+                                <a href="index.php?ctrl=security&action=loginForm">To log in</a>
                                 <a href="index.php?ctrl=security&action=registerForm">Create New account</a>
                                 <a href="index.php?ctrl=forum&action=listArticles">la liste des articles</a>
-                                <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a>
+                                <!-- <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a> -->
 
                         <?php
                         }
                    
                         
                     ?>
+                    </div>
+
+                    <div>
+                        <ul>
+
+                        </ul>
                     </div>
                 </nav>
     </header>
