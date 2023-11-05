@@ -5,12 +5,12 @@
     use App\Session;
     use App\AbstractController;
     use App\ControllerInterface;
-    use Model\Managers\ArticleManager;  // c'est lie avec le article Manager dans le Model/managers
-    use Model\Managers\CommentManager;    // c'est lie avec le article Comment dans le Model/managers
-    use Model\Managers\UserManager;      // c'est lie avec le article User dans le Model/managers
-    use Model\Managers\CategoryManager;  // c'est lie avec le article Category dans le Model/managers
-    use Model\Managers\ImagesManager; // c'est lie avec le article Images dans le Model/managers
-    use Model\Managers\FavorisManager; // c'est lie avec le article Favoris dans le Model/managers
+    use Model\Managers\ArticleManager;  // c'est lie avec le Article Manager dans le Model/managers
+    use Model\Managers\CommentManager;    // c'est lie avec le  Comment dans le Model/managers
+    use Model\Managers\UserManager;      // c'est lie avec le  User dans le Model/managers
+    use Model\Managers\CategoryManager;  // c'est lie avec le Category dans le Model/managers
+    use Model\Managers\ImagesManager; // c'est lie avec le  Images dans le Model/managers
+    use Model\Managers\FavorisManager; // c'est lie avec le  Favoris dans le Model/managers
     
     class ForumController extends AbstractController implements ControllerInterface{
 
@@ -57,13 +57,17 @@
             // Demander l'accès à la couche modèle
             $articleManager = new ArticleManager();
             $commentManager = new CommentManager();
+            $images = new ImagesManager();
+            $user = new UserManager();
             
 
             return [
                 "view" => VIEW_DIR."forum/detailarticle.php",
                 "data" => [
                     "article"=>$articleManager->findOneById($id),
-                    "comments" =>$commentManager->findCommentsByarticleId($id)
+                    "comments" =>$commentManager->findCommentsByarticleId($id),
+                    "images"=>$images->findImagesByArticleId($id),
+                    "user"=>$user->findOneById($id)
                     
                 ]
             ];
@@ -87,7 +91,7 @@
             date_default_timezone_set('Europe/Paris');
             $creationdate = date('Y-m-d H:i:s');
 
-            $articleManager->add(['title'=> $title, 'creationdate'=> $creationdate]);
+            $articleManager->add(['title'=> $title]);
             return[
                 "view"=>VIEW_DIR."forum/listarticles.php",
                 $session->addFlash('succes', 'Ajouté avec succès'),
@@ -138,7 +142,7 @@
                 "data" => [
                     "categories" => $categoryManager->findAll()
                 ]
-                ];
+            ];
         }
 
         public function detailCategory($id){   // le fonction fait le lien avec le view qui s'appelle detailCategory
@@ -182,6 +186,7 @@
                 ]
                
             ];
+            exit();
         }
 
         public function deleteCategory($id){
@@ -198,6 +203,7 @@
                 ]
             ];
 
+            exit(); // pour arreter l'execution du script 
         }
 
         public function updateCategory($id){
@@ -233,20 +239,27 @@
         public function addComment($id){   // c'est le lien addComment que on a ajouter dans le listArticles 
             $commentManager = new CommentManager();
             $articleManager = new ArticleManager();
-
-            $text = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_FULL_SPECIAL_CHARS); // flite qui protege contre les failles xss
+            $userManager = new UserManager();
             
-            date_default_timezone_set('Europe/Paris');
+            
+            date_default_timezone_set('Europe/Paris'); 
             $creationDate = date('Y-m-d H:i:s');
+            
+            if ($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+                if(isset($_POST['text'])){
+                    $text = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_FULL_SPECIAL_CHARS); // flite qui protege contre les failles xss
+                    $commentManager->add(['text'=> $text]);
 
-            $commentManager->add(['text'=> $text, 'creationDate'=> $creationDate]);
-            return[
-                "view"=>VIEW_DIR."forum/detailArticle.php", // apres avoir ajouter le comment on returne dans le detailarticle
-                "data" => [
-                    "comments"=> $commentManager->findAll(),
-                    "article"=>$articleManager->findOneById($id)
-                ]
-            ];
+                    return[
+                        "view"=>VIEW_DIR."forum/detailArticle.php", // apres avoir ajouter le comment on returne dans le detailarticle
+                        "data" => [
+                            "comments"=> $commentManager->findAll(),
+                            "article"=>$articleManager->findOneById($id)
+                        ]
+                    ];
+                }
+            } 
+            
         }
 
 
@@ -270,8 +283,8 @@
             $commentManager->edit(['text' => $text], $id); // on edit le texte par $id
             
 
-            header("Location: index.php?ctrl=forum&action=listArticles"); // redirige vers un fois on fais la page on peut le rederiger
-            
+            // header("Location: index.php?ctrl=forum&action=listArticles"); // redirige vers un fois on fais la page on peut le rederiger
+            exit();
         }
 
         // form pour ajouter le comment/ add comment 
@@ -299,23 +312,7 @@
 
 
 
-        // add to favoris
-
-        // public function addToFavoris($article, $user){
-        //     $favorisManager = new FavorisManager;
-        //     $articleManager = new ArticleManager();
-        //     $userManager = new UserManager();
-
-        //     // On doit s-assure que $articleId et $userId sont valides, par exemple, on verifie si l'utilisateur est connecte.
-
-        //     // On ajoute l'article en favoris
-        //     $favorisManager->add(["article_id" => $article, "user_id" => $user], $id);
-        //     return[
-        //         "view" => VIEW_DIR."forum/listFavoris.php"
-                
-        //     ];
-
-        // }
+        
 
         public function addToFavoris($article) {
             $articleManager = new ArticleManager();
@@ -367,48 +364,7 @@
 
         }
 
-        // public function listFavoris($id){
-
-        //     $favorisManager = new FavorisManager();
-        //     $articleManager = new ArticleManager();
-        //     $userManager = new UserManager();
-        //     $commentManager = new CommentManager();
-        //     $session = new Session();
-
-
-        //     if ($session->getUser()->getId()){
-        //         $user = $session->getUser()->getId();
-        //         return[
-        //             "view" => VIEW_DIR."forum/listFavoris.php",
-        //             "data"=>[
-        //                 'users'=>$userManager->findArticlesFavorisByUserId
-        //             ],
-        //         ];
-        //     }
-            
-
-
-        // }
-
-
-      
-
-
-            public function findImagesByArticleId($id){
-
-                $images = new ImagesManager();
-                $article = new ArticleManager();
-
-                return [
-                    "view" => VIEW_DIR."forum/detailarticle.php",
-                    "data" => [
-                        "images"=>$images->findImagesByArticleId($id) 
-                    ]
-                ];
-            }
-
-
-     
+        
 
         
 

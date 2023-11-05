@@ -8,16 +8,27 @@
     use Model\Managers\UserManager;
     use Model\Managers\ArticleManager;
     use Model\Managers\CommentManager;
+    use Model\Managers\CategoryManager;  // c'est lie avec le Category dans le Model/managers
+    use Model\Managers\ImagesManager; // c'est lie avec le  Images dans le Model/managers
+    use Model\Managers\FavorisManager; // c'est lie avec le  Favoris dans le Model/managers
+    
     
     class HomeController extends AbstractController implements ControllerInterface{
 
         public function index(){
+
+            $categoryManager = new CategoryManager();
+
+            return [
+                "view" => VIEW_DIR."home.php",
+                "data" => [
+                    
+                    "categories" => $categoryManager->findAll(["nom", "ASC"])
             
+                ]
+            ];
            
-                return [
-                    "view" => VIEW_DIR."home.php"
-                ];
-            }
+        }
             
         
    
@@ -47,4 +58,20 @@
             $nb++;
             include(VIEW_DIR."ajax.php");
         }*/
+
+        
+
+        // public function homeCategories(){
+
+
+        //     $categoryManager = new CategoryManager();
+
+        //     $categoriesOrdered = $categoryManager->findAll(["nom", "ASC"]);
+        //     return [
+        //         "view" => VIEW_DIR."home.php",
+        //         "data" => [
+        //             "categories" => $categoriesOrdered
+        //         ]
+        //     ];
+        // }
     }

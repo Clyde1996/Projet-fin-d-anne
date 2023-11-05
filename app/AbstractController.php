@@ -11,7 +11,7 @@
         
 
         // Cette fonction nous redirige vers une autre page. 
-        public function redirectTo($ctrl = null, $action = null, $id = null){
+        public function redirectTo($ctrl = null, $action = null, $id = null, $token = null){
 
              // Vérifier si le contrôleur est différent de "home".
             if($ctrl != "home"){
@@ -22,6 +22,7 @@
                 $url = $ctrl ? "?ctrl=".$ctrl : "";
                 $url.= $action ? "&action=".$action : "";
                 $url.= $id ? "&id=".$id : "";
+                $url.= $token ? "&token=".$token : "";
             }
             // Si le contrôleur est "home", alors l'URL sera simplement "/".
             else $url = "/";

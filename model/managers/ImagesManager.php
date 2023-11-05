@@ -18,16 +18,30 @@
 
 
         public function findImagesByArticleId($id){
-            $sql = "SELECT * FROM" . $this->table . "i INNER JOIN article a  
+            $sql = "SELECT * FROM " . $this->tableName . " i INNER JOIN article a ON a.id_article = i.article_id 
             WHERE a.id_article = :id; ";
             
             return $this->getMultipleResults(
             
-                DAO::select($sql,[':images' => $id]),
+                DAO::select($sql,[':id' => $id]),
                 $this->className
     
             );
         }
+
+        // public function findarticlesByCategoryId($id){
+        //     $sql = "SELECT *
+        //     FROM ".$this->tableName." t
+        //     WHERE t.category_id = :category";
+
+        //     return $this->getMultipleResults(
+            
+        //     DAO::select($sql,[':category' => $id]),
+        //     $this->className
+
+        //     );
+        // }
+
 
        
 

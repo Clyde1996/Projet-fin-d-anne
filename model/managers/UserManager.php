@@ -16,36 +16,19 @@
         }
 
 
-        public function updateProfile($id, $username, $email){
-            $sql = "UPDATE user
-            SET username = :username, email = :email
-            WHERE id_user = :id_user  ";    
+        // public function updateProfile($id, $username, $email){
+        //     $sql = "UPDATE user
+        //     SET username = :username, email = :email
+        //     WHERE id_user = :id_user  ";    
 
-            return $this->execute($sql, [
-                ':username' => $username,
-                ':email' => $email,
-                ':id_user' => $id
-            ]);
-        }
-
-        // public function findArticlesFavorisByUserId($id){
-            
-        //     $sql = "SELECT u.id_user,
-        //     f.article_id,
-        //     u.username
-        //     FROM ".$this->tableName." u 
-        //     INNER JOIN favoris f ON
-        //     u.id_user = f.user_id
-        //     WHERE f.user_id = :id";
-
-        //     return $this->getMultipleResults(
-            
-        //     DAO::select($sql,[':id' => $id]),
-        //     $this->className
-
-        //     );
+        //     return $this->execute($sql, [
+        //         ':username' => $username,
+        //         ':email' => $email,
+        //         ':id_user' => $id
+        //     ]);
         // }
 
+      
 
         public function findArticlesFavorisByUserId($id){
             $sql = "SELECT 
@@ -66,9 +49,28 @@
             );
         }
 
+        public function resetPassword($id) {
+            $sql = "UPDATE " . $this->tableName . " SET password = :password WHERE email = :email"; // Ajout d'un point-virgule ici
+        
+            $params = [
+                ':password' => $password,
+                ':email' => $email
+            ];
+        
+            return DAO::insert($sql, $params);
+        }
+
 
         
-
+        public function updateProfileImage($image, $id){
+ 
+            $sql = "UPDATE ".$this->tableName." SET
+                    image = :image
+                    WHERE id_".$this->tableName." = :id
+                    ";
+ 
+            return DAO::update($sql, [':image' => $image, ':id' => $id]);
+        }
          			         
 
     }

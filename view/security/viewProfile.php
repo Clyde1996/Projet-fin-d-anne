@@ -9,12 +9,23 @@ $user = $result["data"]["user"];
 
     <h2><i><?= App\Session::getUser()->getUsername()?></i></h2>
     <div class="profile-image-container">
-    <p><img src="<?= App\Session::getUser()->getImage()?>" alt="profile-image" class="profile-image"></p>
+        
+        <?php if(App\Session::getUser()){ ?>
+
+            <p><img src="./public/img/<?= App\Session::getUser()->getImage()?>" alt="profile-image" class="profile-image"></p>
+
+            
+        <?php }else{?>
+
+            <p><img src="./public/img/rrr.png" alt="profile-image" class="profile-image"></p>
+
+        <?php } ?>
+            
     </div>
     <p><b><i>Email : </i></b><?= App\Session::getUser()->getEmail()?></p>
     <p><b><i>Date d'inscription : </i></b><?= App\Session::getUser()->getDateInscription()?></p>
     
-
+   
     <?php
     if (App\Session::getUser()->hasRole("ROLE_USER")) {
     ?>
@@ -28,6 +39,7 @@ $user = $result["data"]["user"];
 
     ?>
 
+
     <!--Le form qui permettre de uptade le username-->
 <a href="index.php?ctrl=security&action=formUpdateUser"> 
  <p> <i class="fa-sharp fa-solid fa-gear" style="color: #417ce1;"></i> Update Profile</p> 
@@ -38,4 +50,11 @@ $user = $result["data"]["user"];
 </a>
 
 
+<form action="index.php?ctrl=security&action=updateProfileImage&id=<?=App\Session::getUser()->getId()?>" method="post" enctype="multipart/form-data">
+                        <label>Change Profile Image: </label><br/>
+                        <input type="file" id="avatar" name="photo">
+                        <input id="submit" type="submit" name="submit" value="Confirm">
+</form>
+
 </div>
+

@@ -9,13 +9,16 @@
     <link rel="stylesheet" href="public/css/style.css">
     <script src="public/js/script.js"></script>
     
+    
     <title>Wanderlust</title>
+    <link rel="Wanderlust Icon" type="png" href="https://th.bing.com/th/id/R.8d55d8d44b60598434ce9b311147529d?rik=48O6mEeBmklxHw&riu=http%3a%2f%2fvaulten.com%2fimg%2funlimited-possiblities.png&ehk=duWFm7WJBG36sTZyv229%2bhie7qi900YfkdLVakI%2bfqA%3d&risl=&pid=ImgRaw&r=0">
+
+    
 </head>
 <body>
     <header>
     
 
-    
     <div id="wrapper"> 
 
     <a href="http://localhost/klajdi_HAZIRAJ/wanderlust/Projet-fin-d-anne/">
@@ -65,9 +68,9 @@
                         else{
                             ?>
                             
-                                <a href="index.php?ctrl=security&action=loginForm">To log in</a>
-                                <a href="index.php?ctrl=security&action=registerForm">Create New account</a>
-                                <a href="index.php?ctrl=forum&action=listArticles">la liste des articles</a>
+                                <a href="index.php?ctrl=security&action=loginForm">Connexion</a>
+                                <a href="index.php?ctrl=security&action=registerForm">Inscription</a>
+                                <a href="index.php?ctrl=forum&action=listArticles">List des Articles</a>
                                 <!-- <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a> -->
 
                         <?php
@@ -85,12 +88,15 @@
                 </nav>
     </header>
             
+            
             <main id="forum">
+
                 <?= $page ?> <!--Le contenu de pages listCategories/ list Articles/ listUsers etc-->
             </main>
         </div>
         <footer>
             <p>&copy; 2023 - Clyde's Forum  - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
+            <p><a href="index.php?ctrl=security&action=cgv">CGV</a></p>
             <!--<button id="ajaxbtn">Surprise en Ajax !</button> -> cliqué <span id="nbajax">0</span> fois-->
 
             

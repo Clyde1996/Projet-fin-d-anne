@@ -56,8 +56,10 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
 
                 
-
-                if(($pass1 == $pass2) and strlen($pass1) >= 8){  // on confirme que le $pass1 = $pass2, et le mot de passe ($pass1)  est egal ou superier a 8 caracteres
+                $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*.-]).{8,}$/";
+                /* Je vérifie que le mot de passe est identique au second, qu'il contient au moins une Majuscule, minuscule, un chiffre, 
+                un caractère spécial et qu'il est minimum 8 caractères (Regex) */
+                if(($pass1 == $pass2 && preg_match($password_regex, $pass1))){  // on confirme que le $pass1 = $pass2, et le mot de passe ($pass1)  est egal ou superier a 8 caracteres
                     
 
 
@@ -71,7 +73,12 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
                     return [
                         "view" => VIEW_DIR."security/login.php",        // Rediriger vers le formulaire d'inscription 
-                        $session->addFlash('success', "Ajouté avec succès") // Afficher un message d'erreu
+                        $session->addFlash('success', "Added successfully") // Afficher un message d'erreu
+                    ];
+                }else {
+                    return [
+                        header("Location: index.php?ctrl=security&action=registerForm"),
+                        Session::addFlash('error', "The password need a minimum of one uppercase, lowercase, digit, special character and a length of 8 characters")
                     ];
                 }   
                 
@@ -136,7 +143,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
             return [
                 "view" => VIEW_DIR."security/login.php",    // Renvoie vers le formulaire de connexion
-                $session->addFlash('success', "Déconnecté avec succès") // Notification 
+                $session->addFlash('success', "Logged out successfully") // Notification 
             ];
 
         }
@@ -190,7 +197,117 @@ class SecurityController extends AbstractController implements ControllerInterfa
         ];
     }
 
-    
+    public function resetPasswordForm() {
+        return [
+            "view" => VIEW_DIR . "security/resetPassword.php",
+        ];
+    }
 
+    public function resetPassword() {
+        if ($_POST["submit"]) {
+            $userManager = new UserManager(); // ou tout autre moyen d'accéder à la gestion des utilisateurs
+            $session = new Session();
+    
+            // Récupérez l'adresse e-mail soumise dans le formulaire
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
+            // Recherchez l'utilisateur avec l'e-mail fourni
+            $user = $userManager->findUserByEmail($email);
+    
+            if ($user) {
+
+                // Générez un jeton de réinitialisation de mot de passe
+                // $resetToken = bin2hex(random_bytes(32)); // Générez un jeton aléatoire (on peut utiliser une autre méthode de génération)
+                // $user->setResetToken($resetToken);
+                // $user->setResetTokenExpiration(time() + 3600); // Expiration du jeton en 1 heure (on ajuste selon nos besoins)
+    
+                // // Sauvegardez le jeton et l'heure d'expiration dans la base de données (utilisez votre méthode de mise à jour)
+                // $userManager->updateResetToken($user);
+    
+                // Envoyez un e-mail à l'utilisateur avec un lien contenant le jeton
+                $resetLink ="http://localhost/klajdi_HAZIRAJ/wanderlust/Projet-fin-d-anne/index.php?ctrl=security&token=";
+    
+                // Envoi de l'e-mail
+                $to = $user->getEmail(); // Adresse e-mail de l'utilisateur
+                $subject = "Réinitialisation de mot de passe"; // Sujet de l'e-mail
+                $message = "Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe : $resetLink"; // Message de l'e-mail
+    
+                $headers = "From: clyderadioo@gmail.com\r\n"; // Adresse e-mail de l'expéditeur
+    
+                if (mail($to, $subject, $message, $headers)) {
+                    // L'e-mail a été envoyé avec succès
+                    $session->addFlash('success', "Un e-mail a été envoyé avec le lien pour réinitialiser votre mot de passe.");
+                } else {
+                    // Une erreur s'est produite lors de l'envoi de l'e-mail
+                    $session->addFlash('error', "Erreur lors de l'envoi de l'e-mail. Veuillez réessayer ultérieurement.");
+                }
+            } else {
+                // L'adresse e-mail n'est pas associée à un utilisateur, affichez un message d'erreur
+                $session->addFlash('error', "Aucun utilisateur n'a été trouvé avec cette adresse e-mail.");
+            }
+        }
+    
+        return [
+            "view" => VIEW_DIR . "security/resetPassword.php",
+        ];
+    }
+    
+    public function cgv(){                     
+
+        return [                                                                
+            "view" => VIEW_DIR."security/cgv.php",                           
+        ];
+    }
+
+    public function updateProfileImage($id) {
+        $userManager = new UserManager();
+        $session = new Session();
+       
+        if (isset($_FILES['photo'])) {
+           
+         
+
+            $tmpName = $_FILES['photo']['tmp_name'];
+            $name = $_FILES['photo']['name'];
+            $size = $_FILES['photo']['size'];
+            $error = $_FILES['photo']['error'];
+   
+            $tabExtension = explode('.', $name);
+            $extension = strtolower(end($tabExtension));
+   
+            $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+            $maxSize = 7000000; // 7 Mo
+   
+            if ($size <= $maxSize) {
+                if (in_array($extension, $extensions) && $error == 0) {
+                    $uniqueName = uniqid('', true);
+                    $file = $uniqueName . "." . $extension;
+   
+                    move_uploaded_file($tmpName, './public/img/' . $file);
+   
+                    $photo = $file;
+   
+                    // Mettez à jour l'image dans la base de données
+                    $userManager->updateProfileImage($photo, $id);
+                } else {
+                    Session::addFlash("error", "Une erreur est survenue lors du téléchargement de l'image <br> Veuillez réessayer");
+                    $this->redirectTo("photo", "remoteAddPhoto");
+                }
+            } else {
+                Session::addFlash("error", "La taille de l'image est trop grande.");
+                $this->redirectTo("photo", "remoteAddPhoto");
+            }
+        }
+   
+        return [
+            "view" => VIEW_DIR . "security/viewProfile.php",
+
+            "data" => [
+                "user" => $userManager->findOneById($id),
+            ],
+           
+        ];
+        exit();
+    }
 }    
 ?>

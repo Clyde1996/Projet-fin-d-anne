@@ -54,3 +54,66 @@
 
 // // si on clique sur la flèche du "scroll to top" => on scroll en haut
 // // document.querySelector(".top").addEventListener("click", scrollToTop);
+
+
+// public/js/script.js
+// function togglePassword() {
+//     var pass1 = document.getElementById('pass1');
+//     var showPassword = document.getElementById('showPassword');
+
+//     if (showPassword.checked) {
+//         pass1.type = 'text';
+//     } else {
+//         pass1.type = 'password';
+//     }
+// }
+
+// // Ajoutez un gestionnaire d'événement pour la case à cocher
+// var showPasswordCheckbox = document.getElementById('showPassword');
+// showPasswordCheckbox.addEventListener('change', togglePassword);
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Sélectionnez toutes les images dans la classe "image-container"
+    const images = document.querySelectorAll(".image-container img");
+    
+    // Sélectionnez les flèches précédente et suivante
+    const prevArrow = document.querySelector(".prev-arrow");
+    const nextArrow = document.querySelector(".next-arrow");
+    
+    // Initialisez l'index de l'image actuellement affichée
+    let currentImageIndex = 0;
+  
+    // Fonction pour afficher une image en fonction de l'index
+    function showImage(index) {
+      images.forEach((image, i) => {
+        if (i === index) {
+          image.style.display = "block";
+        } else {
+          image.style.display = "none";
+        }
+      });
+      currentImageIndex = index;
+    }
+    
+    // Fonction pour afficher l'image précédente
+    function previousImage() {
+      const newIndex = (currentImageIndex - 1 + images.length) % images.length;
+      showImage(newIndex);
+    }
+    
+    // Fonction pour afficher l'image suivante
+    function nextImage() {
+      const newIndex = (currentImageIndex + 1) % images.length;
+      showImage(newIndex);
+    }
+    
+    // Affichez l'image actuelle au chargement de la page
+    showImage(currentImageIndex);
+    
+    // Ajoutez des écouteurs d'événements aux flèches pour la navigation
+    prevArrow.addEventListener("click", previousImage);
+    nextArrow.addEventListener("click", nextImage);
+  });
+
+

@@ -14,6 +14,7 @@
         private $closed;
         private $image;
         private $pays;
+        private $content;
 
         public function __construct($data){         
             $this->hydrate($data);         // ca hydrate un un objet en recuperant les donnes dans la base de donnes 
@@ -126,6 +127,20 @@
         public function setPays($pays)
         {
                 $this->pays = $pays;
+
+                return $this;
+        }
+
+        
+
+        public function getContent()
+        {
+                return $this->content;
+        }
+
+        public function setContent($content)
+        {
+                $this->content = $content;
 
                 return $this;
         }

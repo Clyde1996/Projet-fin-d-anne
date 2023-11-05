@@ -9,6 +9,7 @@
         private $id;
         private $nom;
         private $image;
+        private $logo;
 
 
         public function __construct($data){         
@@ -51,6 +52,19 @@
         public function setImage($image)
         {
                 $this->image = $image;
+
+                return $this;
+        }
+
+        
+        public function getLogo()
+        {
+                return $this->logo;
+        }
+
+        public function setLogo($logo)
+        {
+                $this->logo = $logo;
 
                 return $this;
         }
