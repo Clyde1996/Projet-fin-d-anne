@@ -24,10 +24,12 @@ $user = $result["data"]["user"];
     
 
     <div class="image-container">
+
         <!-- On select les images -->
         <?php foreach($images as $image): ?>
                 <img src="<?=$image->getURL();?>" alt="Image">
         <?php endforeach; ?> <!--On arrete le execution-->
+        
         <!-- Flèche gauche -->
         <div class="prev-arrow"> 
             <i class="fa-solid fa-arrow-left"  style="color: #ffffff;"></i>
@@ -39,17 +41,17 @@ $user = $result["data"]["user"];
         
 
     </div>
-    
+     <!-- Contenu Article -->
     <div class="detailArticle-contenu">
         <h2 class="h2-detail-article-contenu">Contenu :</h2>
         <p class="detail-article-p"><?=$article->getContent();?></p>
     </div>
+
     <!-- Vérifiez que $comments n'est pas null-->
     <?php if ($comments !== null){?>  
          
         <?php foreach($comments as $comment){ ?>
             
-
             <div class="detailArticle-contenu">
             
                 <p><?=$comment->getUser()->getUsername()?></p>
@@ -73,18 +75,11 @@ $user = $result["data"]["user"];
                         <a href="index.php?ctrl=forum&action=updateFormComment&id=<?=$comment->getId()?>" class="modifier-detail-article">
                         <i class="fas fa-edit" style="color: #ffffff;"></i>
                         </a> 
-                    <?php } ?>
+            <?php   } ?>
                 </div>
             </div>
-            
-            
-
-            
-
-            
-        <?php } ?>
-
-   <?php }else{
+<?php   }                              
+    }else{
         echo "<p>Aucun commentaire disponible.<p>";
    }?>
 

@@ -71,7 +71,27 @@
  
             return DAO::update($sql, [':image' => $image, ':id' => $id]);
         }
-         			         
+         	
+
+        public function banUser($id) {
+            $sql = "UPDATE ".$this->tableName." SET
+            isBan = 1
+            WHERE id_".$this->tableName." = :id
+            ";
+          
+            return DAO::update($sql, [':id' => $id]);
+        }
+        
+        public function unbanUser($id) {
+            $sql = "UPDATE ".$this->tableName." SET
+            isBan = 0
+            WHERE id_".$this->tableName." = :id
+            ";
+          
+            return DAO::update($sql, [':id' => $id]);
+        }
+
+        // public function findUserByEmail()
 
     }
 

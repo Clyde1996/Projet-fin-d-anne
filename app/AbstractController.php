@@ -14,7 +14,7 @@
         public function redirectTo($ctrl = null, $action = null, $id = null, $token = null){
 
              // Vérifier si le contrôleur est différent de "home".
-            if($ctrl != "home"){
+            if($ctrl != "test"){
 
                 // Construire l'URL en ajoutant les parties spécifiées ($ctrl, $action et $id) dans l'ordre.
                 // Les parties sont séparées par des "/". Par exemple : "/nomDuControleur/action/identifiant.html".
@@ -22,7 +22,7 @@
                 $url = $ctrl ? "?ctrl=".$ctrl : "";
                 $url.= $action ? "&action=".$action : "";
                 $url.= $id ? "&id=".$id : "";
-                $url.= $token ? "&token=".$token : "";
+                // $url.= $token ? "&token=".$token : "";
             }
             // Si le contrôleur est "home", alors l'URL sera simplement "/".
             else $url = "/";

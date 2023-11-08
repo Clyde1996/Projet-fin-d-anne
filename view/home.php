@@ -1,19 +1,21 @@
 <?php 
 
 $categories = $result["data"]["categories"];
+$articles = $result["data"]["articles"];
 
 ?>
 
     
-<div class="home-categories">
+<div class="home-categories-cards">
     <?php foreach($categories as $category){?>
+        <div class="home-categories-card">
 
-
+            <a href="index.php?ctrl=forum&action=detailCategory&id=<?=$category->getId()?>"> 
+                <p><?=$category->getNom();?></p>  
+            </a> <!-- on recupere le nom depuis entities/category -->
         
-
-        <p><?=$category->getNom();?></p>
-
-
+        </div>
+        
     <?php } ?>
  
 </div>
@@ -32,10 +34,29 @@ $categories = $result["data"]["categories"];
 </section>
 
 <section id="accueil-body">
-    <div>
+    
+    <h2> Les Derniers Articles </h2>
+
+    <p class="accueil-body-p">
+        Bienvenue sur Wanderlust, votre portail dédié à l'aventure et à l'exploration du monde ! Nous sommes ravis de vous présenter nos articles les plus récents, conçus pour inspirer et informer les voyageurs intrépides comme vous. Plongez dans les histoires fascinantes, les conseils de voyage pratiques et les récits authentiques qui vous transporteront vers des destinations exotiques et des expériences inoubliables.
+
+        Nos contributeurs passionnés parcourent les coins les plus reculés de la planète, dénichent les trésors cachés, et partagent leurs découvertes avec vous. Que vous soyez un voyageur chevronné à la recherche de nouvelles aventures ou un novice en quête d'inspiration pour votre prochain périple, nos articles sont conçus pour répondre à toutes vos attentes.
+
+        Découvrez nos derniers articles pour en apprendre davantage sur les destinations à la mode, les pratiques de voyage responsables, les astuces pour économiser en voyage, et bien plus encore. De plus, n'hésitez pas à partager vos propres expériences et conseils dans notre communauté Wanderlust. Nous croyons que le partage est essentiel pour créer une communauté de voyageurs passionnés.
+
+    </p>
+
+    <div class="detailArticle-accueil-cards">
         <!-- Contenu de la section -->
+
+        <?php foreach($articles as $article){ ?>
+            <div class="detailArticle-accueil">
+                <p><?=$article->getTitle()?></p>
+                <p><?=$article->getCreationdate()?></p>
+                
+                <img src="<?=$article->getImage()?>" alt="cover-img">
+            </div>
+       <?php } ?>
     </div>
-    <h2>
-        Les Derniers Articles
-    </h2>
+    
 </section>

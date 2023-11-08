@@ -1,6 +1,7 @@
 <?php
 
 $articles = $result["data"]['articles'];
+$category = $result["data"]['category'];
     
 ?>
 <div class="card">

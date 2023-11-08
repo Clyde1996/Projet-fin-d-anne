@@ -13,6 +13,7 @@
         private $password;
         private $dateInscription;
         private $image;
+        private $isBan;
 
         public function __construct($data){         
                 $this->hydrate($data);         // ca hydrate un un objet en recuperant les donnes dans la base de donnes 
@@ -133,4 +134,25 @@
 
                 return $this;
         }
+
+        public function getIsBan()
+        {
+                return $this->isBan;
+        }
+
+        public function setIsBan($is_ban)
+        {
+                $this->isBan = $is_ban;
+                return $this;
+           
+        }
+
+       
+      
+
+
+
+
+
+
     }

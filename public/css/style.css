@@ -35,13 +35,13 @@
   padding: 20px;
   width: 100%;
   height: 50vh;
-  /* color: #fff; Couleur du texte */
   text-align: center; /* Centre le texte horizontalement */
-  /* background: no-repeat center/cover url('../img/istockphoto-891939670-2048x2048-transformed.jpeg'); */
   display: flex; /* Utiliser l'affichage flexible */
   align-items: center; /* Centrer verticalement */
   justify-content: center; /* Centrer horizontalement */
   flex-direction: column;
+  min-height: 50vh; /* Hauteur minimale */
+  max-height: 100vh; /* Hauteur maximale */
 }
 
 .accueil-card{
@@ -52,7 +52,6 @@
   width: 100%; 
   height: 100%;
   border-radius: 10px;
-
 }
 
 .wanderlust{
@@ -65,6 +64,7 @@
 #accueil h1 {
   font-size: 36px; /* Taille de la police du titre */
   margin-bottom: 30px; /* Espacement sous le titre */
+  /* z-index: 1; */
 }
 
 #accueil p {
@@ -75,7 +75,7 @@
   animation-duration: 1500ms;
 }
 
-.home-categories{
+.home-categories-cards{
   display: flex;
   flex-direction: row;
   flex: 1; /* Cela permettra à la section de s'étendre pour remplir l'espace disponible */
@@ -83,15 +83,39 @@
   justify-content: space-around;
 }
 
-.home-categories p {
-  padding: 30px;
+.home-categories-card {
+  width: 300px; /* Largeur fixe pour chaque carte (ajustez selon vos besoins) */
+  max-height: 400px; /* Hauteur maximale pour toutes les cartes (ajustez selon vos besoins) */
+  background:  rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  border: 2px dotted #ddd;
+  padding: 15px;
+  margin: 17px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: filter 0.3s ease-out;
+  transition : transform .5s ease; 
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
   color: white;
-  font-size: 3vh;
-  background:  rgba(20, 14, 14, 0.5);
-  border: 2px solid black;
-  border-radius: 10px; /* Réduisez la valeur du border-radius ici */
-  margin: 20px;
+}
 
+
+
+.home-categories-card:hover{
+  transform: scale(1.12);
+  background-color: rgba(44, 35, 29, 0.8);
+  /* filter: drop-shadow(0 0 20px rgb(116, 105, 99)); */
+}
+
+.home-categories-card p {
+  font-size: 2.3vh;
+  color: white;
+  
+}
+
+.home-categories-card a:hover{
+  text-decoration-color: white;
 }
 
 .accueil-video{
@@ -99,9 +123,10 @@
   width: 100%;
   object-fit: cover; 
   object-position: center center; 
-  opacity: 1;
+  opacity: 1; /*le transparence de l'objet*/
   border-radius: 10px;
   /* margin: 10px; */
+  
 }
 
 .a-accueil{
@@ -120,7 +145,7 @@
 }
 
 .a-accueil p:hover{
-  background-color: rgba(228, 221, 11, 0.2);
+  background-color: rgba(228, 221, 11, 0.3);
   text-decoration: none;
   -webkit-filter:  drop-shadow(0 0 20px rgb(113, 167, 166));
   -o-filter:  drop-shadow(0 0 20px rgb(113, 167, 166));
@@ -132,14 +157,82 @@
 
 #accueil-body {
   text-align: center;
-  padding-top: 250²px;
+  padding: 350px 0 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* height: auto; */
 }
 
-#accueil-body h2 {
-  margin-top: 20px;
+#accueil-body h2{
+  color: white;
+  background:  rgba(0,0,0,0.7);
+  padding: 20px;
+  border-radius: 8px;
+  border: white 2px dotted;
+  margin: 80px;
+}
+
+.accueil-body-p{
+  color: white;
+  background:  rgba(0,0,0,0.7);
+  padding: 20px;
+  border-radius: 8px;
+  border: white 2px dotted;
+}
+
+/* detail article accueil*/
+
+.detailArticle-accueil-cards{
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  border-radius: 5px;
+}
+
+.detailArticle-accueil {
+  width: 300px; /* Largeur fixe pour chaque carte (ajustez selon vos besoins) */
+  max-height: 400px; /* Hauteur maximale pour toutes les cartes (ajustez selon vos besoins) */
+  background:  rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  border: 2px dotted #ddd;
+  padding: 15px;
+  margin: 17px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: filter 0.3s ease-out;
+  transition : transform .5s ease; 
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.detailArticle-accueil:hover{
+  transform: scale(1.12);
+  background-color: rgba(189, 139, 111, 0.5);
+  filter: drop-shadow(0 0 20px rgb(230, 215, 206));
+  
+}
+
+.detailArticle-accueil:hover .txt-detailCategory-card {
+  background:  rgba(0,0,0,0.7);
+  border-radius: 10px;
+  /* backdrop-filter: blur(3px); */
+}
+
+.detailArticle-accueil p {
+  margin: 0; /* Supprimer la marge par défaut des paragraphes */
+  color: white;
+  
+}
+
+.detailArticle-accueil img {
+  max-width: 100%; /* Assurez-vous que toutes les images s'adaptent à la largeur de la carte */
+  height: auto; /* Garantit que les proportions de l'image sont respectées */
+  border-radius: 20px;
+  height: auto; 
+  max-height: 180px;
+  min-height: 175px;
+  margin: 5px 0;
 }
 
 /***********************************************/
@@ -337,7 +430,7 @@ a:hover {
   max-width: 380px;
   margin: auto;
   padding: 35px;
-  border: 4px solid black;
+  border: 3px solid black;
 }
 
 .login-register h1 {
@@ -554,7 +647,7 @@ input[type="submit"]:hover {
   background: linear-gradient(905deg, rgba(125, 112, 105, 0.7), transparent);
   backdrop-filter: blur(8px);
   flex-wrap: wrap;
-  gap: 40px
+  gap: 40px;
   
 }
 
@@ -712,7 +805,7 @@ input[type="submit"]:hover {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
   backdrop-filter: blur(8px);
   color: whitesmoke;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 10px;
   }
   
 /* Styles for each individual card */
@@ -801,7 +894,7 @@ color: white;
 
 /* Style de base pour le formulaire */
 .input-data {
-  background: #f2f2f2;
+  background: #3c2d2d;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -880,7 +973,11 @@ color: white;
 }
 
 
-/*Detail article contenu*/
+
+
+/***********************************************/
+/* Detail article contenu */
+/***********************************************/
 
 .detailArticle-contenu{
   padding: 8px 0;
@@ -918,4 +1015,135 @@ color: white;
 
 .h2-detail-article-contenu{
   color: white;
+}
+
+
+
+/***********************************************/
+/* addOrUpdateArticle */
+/***********************************************/
+
+.addOrUpdateArticle {
+  width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.addOrUpdateArticle form {
+  display: flex;
+  flex-direction: column;
+}
+
+.addOrUpdateArticle label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.addOrUpdateArticle input[type="text"],
+.addOrUpdateArticle input[type="file"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.addOrUpdateArticle button {
+  background-color: #0074d9;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.addOrUpdateArticle button:hover {
+  background-color: #0056b3;
+}
+
+.addOrUpdateArticle textarea {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  resize: vertical; /* Permet à l'utilisateur de redimensionner la zone de texte verticalement */
+}
+
+
+/***********************************************/
+/* listUsers */
+/***********************************************/
+
+
+.cards-list-users{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px; /* Espacement entre les cartes */
+  justify-content: center; /* Centrez les cartes horizontalement */
+  align-items: center; /* Centrez les cartes verticalement */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+  backdrop-filter: blur(8px);
+  color: whitesmoke;
+  border-radius: 0 10px;
+}
+
+.card-list-users{
+  width: 300px; /* Largeur fixe pour chaque carte (ajustez selon vos besoins) */
+  max-height: 400px; /* Hauteur maximale pour toutes les cartes (ajustez selon vos besoins) */
+  background:  rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  border: 2px dotted #ddd;
+  padding: 15px;
+  margin: 15px auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: filter 0.3s ease-out;
+  transition : transform .5s ease; 
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.card-list-users img{
+  max-width: 120px; /* Assurez-vous que toutes les images s'adaptent à la largeur de la carte */
+  max-width: 130px;
+  /* height: auto; Garantit que les proportions de l'image sont respectées */
+  border-radius: 50%;
+  max-height: 130px;
+  min-height: 120px;
+  margin: 15px auto;
+}
+
+.ban-button{
+  background: #FF3103;
+  color: #fff;
+  border: 2px solid black;
+  border-radius: 3px;
+  padding: 10px;
+  cursor: pointer;
+  margin: 20px;
+  width: 80px;
+}
+
+.ban-button:hover{
+  background-color: #d62803 ;
+  
+}
+
+.unban-button{
+  background: #2A914D;
+  color: #fff;
+  border: 2px solid black;
+  border-radius: 3px;
+  padding: 10px;
+  cursor: pointer;
+  margin: 20px;
+  width: 80px;
+}
+
+.unban-button:hover{
+  background-color: #21733C;
 }

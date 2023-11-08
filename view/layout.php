@@ -58,7 +58,7 @@
                         ?>  
                                 <ul>
                                     <!-- <li><a href="index.php">Accueil</a></li> -->
-                                    <li><a href="index.php?ctrl=security&action=viewProfile">Profile</a></li>
+                                    <li><a href="index.php?ctrl=security&action=viewProfile">Profil</a></li>
                                     <li><a href="index.php?ctrl=forum&action=listCategories">Liste des Catégories</a></li>
                                     <li><a href="index.php?ctrl=security&action=logout">Déconnexion</a></li>
                                 </ul>

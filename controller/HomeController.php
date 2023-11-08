@@ -18,15 +18,17 @@
         public function index(){
 
             $categoryManager = new CategoryManager();
+            $articleManager = new ArticleManager();
 
             return [
                 "view" => VIEW_DIR."home.php",
                 "data" => [
                     
-                    "categories" => $categoryManager->findAll(["nom", "ASC"])
-            
+                    "categories" => $categoryManager->findAll(["nom", "ASC"]),
+                    "articles" => $articleManager ->findAll(["creationdate", "DESC"])
                 ]
             ];
+
            
         }
             

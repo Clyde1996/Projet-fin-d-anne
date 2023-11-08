@@ -18,21 +18,29 @@ $articles = $result["data"]["articles"];
     <div class="detailCategory-cards">
         
     <?php
+    //pour chaque articles as article
     foreach($articles as $article){
         ?>
         <div class="detailCategory-card">
             <a href="index.php?ctrl=forum&action=detailArticle&id=<?=$article->getId()?>"> <!--Redirection vers un autre page-->
-            <div class="txt-detailCategory-card">
-            <p><?=$article->getTitle()?></p>
-            <p><?=$article->getCreationdate()?></p>
-            </div>
-            <img src="<?=$article->getImage()?>" alt="cover-img">
+                <div class="txt-detailCategory-card">
+                <p><?=$article->getTitle()?></p>
+                <p><?=$article->getCreationdate()?></p>
+                </div>
+                <img src="<?=$article->getImage()?>" alt="cover-img">
             </a>
 
+            <?php if(App\Session::getUser()){ ?>
+        
+                <a href="index.php?ctrl=forum&action=addToFavoris&id=<?=$article->getId()?>">
+                    <i class="fa-solid fa-heart fa-xl heart-icon" style="color: #9cabc4;" onmouseover="this.style.color='red'" onmouseout="this.style.color='#1f514b'"></i>
+                </a>
+    
+            <?php } else{
+                echo  "<a href='index.php?ctrl=security&action=loginForm'>". "Ajouter au favoris" ."</a>";
+            } ?>
             
-            <a href="index.php?ctrl=forum&action=addToFavoris&id=<?=$article->getId()?>">
-            <i class="fa-solid fa-heart fa-xl heart-icon" style="color: #9cabc4;" onmouseover="this.style.color='red'" onmouseout="this.style.color='#1f514b'"></i>
-            </a>
+            
         </div>
 
 
@@ -44,9 +52,22 @@ $articles = $result["data"]["articles"];
 <!-- </div> -->
 
 
+<?php if(App\Session::getUser()){ ?>
 
-<!--Add Article Form  ca permetre de ajouter un article-->
-<a href="index.php?ctrl=forum&action=formArticle" class="add-category">
-        <!-- <i class="fa-sharp fa-solid fa-circle-plus fa-lg"  style="color: #54626F;"></i> -->
-        <h2>Ajouter Un Article</h2>
-</a>
+        <!--Le form pour ajouter un Article-->
+        <a href="index.php?ctrl=forum&action=formArticle&id=<?= $category->getId() ?>" class="add-category">
+            <!-- <i class="fa-sharp fa-solid fa-circle-plus fa-lg"  style="color: #54626F;"></i> -->
+            <h2>Ajouter Un Article</h2>
+        </a>
+
+<?php } else{ ?>
+
+        <!--Si le utilisateur est pas connecter on redirige ver le connexion-->
+            <a href="index.php?ctrl=security&action=loginForm" class="add-category">
+
+                <h2>Ajouter Un Article</h2>
+            </a>
+
+    <?php } ?>
+
+

@@ -4,26 +4,60 @@ $users = $result["data"]["users"];
 
 ?>
 
-<div class="card">
-<h1>Liste de Users</h1>
+<div class="cards-list-users">
 
-<?php
+  <h1>Liste de Users</h1>
 
-foreach($users as $user){
-    ?>
-  
-  
-   
+
+
+
   <?php
 
+    foreach($users as $user){
+    ?>
+      
+      <?php if ($user->hasRole("ROLE_USER")) { ?>
 
-  if ($user->hasRole("ROLE_USER")) {
-    echo "<p> Date De Inscription D'utilisateur : ".$user->getDateInscription() ." </br> User  : ". $user->getUsername() .  "  </br> </p>";
-  } 
-  // else{
-  //   echo $user->getUsername(). " ADMIN </br>";
-  // }
-} 
+        <?php $userImage = $user->getImage(); ?>
 
-?>
+        
+        <div class="card-list-users">
+
+          <p><?=$user->getId()?></p>
+
+          <?php if(empty($userImage)){ ?>
+            <img src="./public/img/profile.png" class="list-users-img">
+          <?php }else{ ?>
+            <img src="<?= $userImage ?>"  class="list-users-img"
+         <?php } ?>
+
+          >
+          <p> Date De Inscription D'utilisateur : <br><?= $user->getDateInscription()?></br> </p> 
+          <p> <?= $user->getUsername()?> </p>
+  <?php
+          if($user->getIsBan() == 0 ){
+  ?>
+            <a href="index.php?ctrl=security&action=banOrUnban&id=<?= $user->getId() ?>">
+              <button class="ban-button">bannir</button>
+            </a>
+
+  <?php
+          }else{
+  ?>
+            <a href="index.php?ctrl=security&action=banOrUnban&id=<?= $user->getId() ?>">
+              <button class="unban-button">unban</button>
+            </a>
+  <?php
+          }
+  ?> 
+
+        </div>
+      
+        <?php
+      }
+
+    } 
+  ?>
+ 
+
 </div>

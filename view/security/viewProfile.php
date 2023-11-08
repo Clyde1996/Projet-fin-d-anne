@@ -9,17 +9,15 @@ $user = $result["data"]["user"];
 
     <h2><i><?= App\Session::getUser()->getUsername()?></i></h2>
     <div class="profile-image-container">
-        
-        <?php if(App\Session::getUser()){ ?>
 
-            <p><img src="./public/img/<?= App\Session::getUser()->getImage()?>" alt="profile-image" class="profile-image"></p>
+        <?php $userImage = App\Session::getUser()->getImage(); ?>
 
-            
-        <?php }else{?>
-
-            <p><img src="./public/img/rrr.png" alt="profile-image" class="profile-image"></p>
-
+        <?php if(empty($userImage)) { ?>
+            <img src="./public/img/149071.png"  class="profile-image">
+        <?php } else { ?>
+            <img src="./public/img/<?= $userImage ?>" class="profile-image">
         <?php } ?>
+
             
     </div>
     <p><b><i>Email : </i></b><?= App\Session::getUser()->getEmail()?></p>
@@ -51,9 +49,9 @@ $user = $result["data"]["user"];
 
 
 <form action="index.php?ctrl=security&action=updateProfileImage&id=<?=App\Session::getUser()->getId()?>" method="post" enctype="multipart/form-data">
-                        <label>Change Profile Image: </label><br/>
-                        <input type="file" id="avatar" name="photo">
-                        <input id="submit" type="submit" name="submit" value="Confirm">
+    <label>Change Profile Image: </label><br/>
+    <input type="file" id="avatar" name="photo">
+    <input id="submit" type="submit" name="submit" value="Confirm">
 </form>
 
 </div>

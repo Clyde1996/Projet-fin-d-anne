@@ -30,11 +30,12 @@
 
 
         /*List articles*/ 
-        public function listArticles(){
+        public function listArticles($id){
 
             // Demander l'accès à la couche modèle
             // Créer une nouvelle instance de articleManager 
             $articleManager = new ArticleManager();
+            $categoryManager = new CategoryManager();
 
             
             // Renvoyer un tableau avec deux éléments
@@ -43,7 +44,8 @@
             return [
                 "view" => VIEW_DIR."forum/listarticles.php", 
                 "data" => [                               
-                    "articles" => $articleManager->findAll()
+                    "articles" => $articleManager->findAll(),
+                    "category" => $categoryManager->findOneByID($id)
                 ]
                 
                 ];
@@ -74,32 +76,42 @@
 
         }
 
-        public function formArticle(){
 
-            return[
+        public function formArticle($id){
+
+            $categoryManager = new CategoryManager();
+
+            return [
                 "view" => VIEW_DIR."forum/addOrUpdateArticle.php",
-             
-            ];
-        }
-
-        public function addArticle(){
-            $articleManager = new ArticleManager();
-            $session = new Session();
-
-            $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS); // flite qui protege contre les failles xss
-
-            date_default_timezone_set('Europe/Paris');
-            $creationdate = date('Y-m-d H:i:s');
-
-            $articleManager->add(['title'=> $title]);
-            return[
-                "view"=>VIEW_DIR."forum/listarticles.php",
-                $session->addFlash('succes', 'Ajouté avec succès'),
                 "data" => [
-                    "articles"=> $articleManager->findAll(["title", "ASC"])
+                    "category" => $categoryManager->findOneById($id)
                 ]
             ];
+
         }
+
+
+
+        public function addArticle($categoryId) {
+            $articleManager = new ArticleManager();
+            
+        
+            
+            $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            
+            $userId = Session::getUser()->getId();
+            // var_dump($title, $content, $categoryId, $userId);die;
+
+        
+         
+            $articleId = $articleManager->add(['title' => $title, 'content'=> $content  , 'category_id' => $categoryId, 'user_id' => $userId]);
+            
+            $this->redirectTo("Forum", "detailArticle", $articleId);
+        }
+
+   
+
 
         public function deleteArticle($id){
             $articleManager = new ArticleManager();
@@ -237,10 +249,11 @@
         // add comment
 
         public function addComment($id){   // c'est le lien addComment que on a ajouter dans le listArticles 
+            
             $commentManager = new CommentManager();
             $articleManager = new ArticleManager();
             $userManager = new UserManager();
-            
+            $session = new Session();
             
             date_default_timezone_set('Europe/Paris'); 
             $creationDate = date('Y-m-d H:i:s');
@@ -258,6 +271,8 @@
                         ]
                     ];
                 }
+
+                $this->redirectTo("Forum", "detailArticle", $session->getArticle()->getId());
             } 
             
         }
@@ -355,7 +370,8 @@
                 return[
                     "view" => VIEW_DIR."forum/listFavoris.php",
                     "data"=>[
-                        'favoris'=>$favorisManager->findArticlesFavorisByUserId( $session->getUser()->getId())
+                        'favoris'=>$favorisManager->findArticlesFavorisByUserId( $session->getUser()->getId()),
+                        'article'=>$articleManager->findOneByID($id)
                     ],
                 ];
             }

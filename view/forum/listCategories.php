@@ -35,7 +35,7 @@ foreach($categories as $category){
                 ?>
             <!-- Delete Categories-->
             <a href="index.php?ctrl=forum&action=deleteCategory&id=<?=$category->getId()?>" method="post"> <!-- le form que on a cree dans le forum controller avec le function qui est lie dans le addOrUpdateComment.php  --> 
-                <i class="fa-sharp fa-solid fa-circle-minus"></i>
+                <p><i class="fa-sharp fa-solid fa-circle-minus"></i> Supprimer</p>
             </a>
             
                 <?php
