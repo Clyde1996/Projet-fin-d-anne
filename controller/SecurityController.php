@@ -217,25 +217,57 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
     }
 
-    /*Update Profile */
+
+   
+
+    // Update Profile
     public function updateProfile(){
         $userManager = new UserManager();
         $session = new Session(); 
     
         $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $newPassword = filter_input(INPUT_POST, 'newPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $confirmPassword = filter_input(INPUT_POST, 'confirmPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
         $userId = Session::getUser()->getId();
     
-        $userManager->updateProfile($username, $email, $userId);
+        // Valider le mot de passe avec une expression régulière
+        $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*.-]).{8,}$/";
     
-        return [
-            "view" => VIEW_DIR . "security/viewProfile.php",
-            $session->addFlash('success', "Le profil a été modifié avec succès."),
-            "data" => [
-                "user" => $userManager->findOneById($userId)
-            ]
-        ];
+        // On vérifie si un nouveau mot de passe est fourni
+        if (!empty($newPassword)) {
+            // Valider le mot de passe avec une expression régulière
+            if (!preg_match($password_regex, $newPassword)) {
+                $session->addFlash('error', "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
+                $this->redirectTo('security','formUpdateUser');
+            }
+    
+            // On vérifie si le champ de confirmation du mot de passe correspond au nouveau mot de passe
+            if ($newPassword !== $confirmPassword) {
+                $session->addFlash('error', "Les mots de passe ne correspondent pas.");
+                $this->redirectTo('security','formUpdateUser');
+            }
+    
+            // Hasher le nouveau mot de passe
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    
+            // Mettre à jour le profil avec le nouveau mot de passe hashé
+            $userManager->updateProfile($username, $email, $hashedPassword, $userId);
+        } elseif (!empty($confirmPassword)) {
+            // Si le champ de confirmation du mot de passe est fourni sans nouveau mot de passe
+            $session->addFlash('error', "Veuillez fournir un nouveau mot de passe pour le changer.");
+            $this->redirectTo('security','formUpdateUser');
+        } else {
+            // Si aucun nouveau mot de passe n'est fourni, mettre à jour le profil sans changer le mot de passe existant
+            $userManager->updateProfileWithoutPassword($username, $email, $userId);
+        }
+    
+        // Ajouter le message de succès
+        $session->addFlash('success', "Le profil a été modifié avec succès.");
+    
+        // Rediriger vers la page de mise à jour du profil avec le message de succès
+        $this->redirectTo('security','formUpdateUser');
     }
 
     /*Form User */

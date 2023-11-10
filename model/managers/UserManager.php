@@ -16,13 +16,18 @@
         }
 
 
-        public function updateProfile($username, $email, $id){
+        public function updateProfile($username, $email, $password, $id){
             $sql = "UPDATE ".$this->tableName." SET
-            username = :username, email = :email
+            username = :username, email = :email, password = :password
                 WHERE id_".$this->tableName." = :id
             ";   
 
-            return DAO::update($sql, [':username' => $username, ':email' => $email ,':id' => $id]);
+            return DAO::update($sql, [':username' => $username, ':email' => $email, ':password'=> $password, ':id' => $id]);
+        }
+
+        public function updateProfileWithoutPassword($username, $email, $userId) {
+            $sql = "UPDATE ".$this->tableName." SET username = :username, email = :email WHERE id_".$this->tableName." = :id";
+            DAO::update($sql, [':username' => $username, ':email' => $email, ':id' => $userId]);
         }
 
        
