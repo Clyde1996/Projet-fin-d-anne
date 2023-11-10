@@ -10,9 +10,11 @@ use Model\Managers\PostManager;    // c'est lie avec le Article Manager dans le 
 use Model\Managers\UserManager;      // c'est lie avec le Article Manager dans le Model/managers
 use Model\Managers\CategoryManager;  // c'est lie avec le Article Manager dans le Model/managers
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailerMaster\src\Exception;
+use PHPMailer\PHPMailerMaster\src\PHPMailer;
+use PHPMailer\PHPMailerMaster\src\SMTP; 
+
+// use PHPMailer\PHPMailer\SMTP;
 
 class SecurityController extends AbstractController implements ControllerInterface{
 
@@ -20,7 +22,43 @@ class SecurityController extends AbstractController implements ControllerInterfa
       header ("Location: index.php?ctrl=security&action=login");
     }
 
+    public function sendEmail(){
+        if (isset($_POST["send"])) {
+            $mail = new PHPMailer(true);
+        
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'clyderadioo@gmail.com'; //gmail address
+            $mail->Password = 'ybqgcwbmhkfhijcl'; // gmail password
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port = 465;
+        
+            
+            $mail->setFrom('clyderadioo@gmail.com');    
+        
+            $mail->addAddress($_POST["email"]);
+        
+            $mail->isHTML(true);
+        
+            $mail->Subject = $_POST["subject"];
+            $mail->Body = $_POST["message"];
+        
+            if ($mail->send()) {
+                echo "
+                <script>
+                alert('Send Successfully');
+                document.location.href = 'index.php'; // Corrected the typo here
+                </script>";
+            } else {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+        }
+    }
     
+    
+
+    /*Register Form*/
 
     public function registerForm(){
         return [
@@ -137,11 +175,6 @@ class SecurityController extends AbstractController implements ControllerInterfa
             } else {
                 $session->addFlash('error', "Utilisateur inconnu"); // Notification d'utilisateur inconnu
             }
-
-            
-
-            
-            
     
             return [
                 "view" => VIEW_DIR . "security/login.php",
@@ -185,26 +218,22 @@ class SecurityController extends AbstractController implements ControllerInterfa
     }
 
     /*Update Profile */
-    public function updateProfile($id){
+    public function updateProfile(){
         $userManager = new UserManager();
         $session = new Session(); 
-
+    
         $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-       
     
-
-        $userManager->updateProfile([
-            'username' => $username,
-            'email' => $email
-        ]);
-
-        return[
+        $userId = Session::getUser()->getId();
+    
+        $userManager->updateProfile($username, $email, $userId);
+    
+        return [
             "view" => VIEW_DIR . "security/viewProfile.php",
-            $session->addFlash('success',"Le profil a été modifié avec succès."),
+            $session->addFlash('success', "Le profil a été modifié avec succès."),
             "data" => [
-                "user" => $userManager->findOneById($id)
+                "user" => $userManager->findOneById($userId)
             ]
         ];
     }
@@ -389,5 +418,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
     //         echo 'Erreur lors de l\'envoi de l\'e-mail : ' . $mail->ErrorInfo;
     //     }
     // }
+
+
 }    
 ?>

@@ -61,6 +61,7 @@
             $commentManager = new CommentManager();
             $images = new ImagesManager();
             $user = new UserManager();
+            $session = new Session();
             
 
             return [
@@ -94,19 +95,52 @@
 
         public function addArticle($categoryId) {
             $articleManager = new ArticleManager();
-            
+            $userManager = new UserManager();
         
-            
             $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            
-            $userId = Session::getUser()->getId();
-            // var_dump($title, $content, $categoryId, $userId);die;
-
         
-         
-            $articleId = $articleManager->add(['title' => $title, 'content'=> $content  , 'category_id' => $categoryId, 'user_id' => $userId]);
-            
+            // Vérifie si un fichier a été téléchargé
+            if (isset($_FILES['coverImage'])) {
+                $tmpName = $_FILES['coverImage']['tmp_name'];
+                $name = $_FILES['coverImage']['name'];
+                $size = $_FILES['coverImage']['size'];
+                $error = $_FILES['coverImage']['error'];
+        
+                $tabExtension = explode('.', $name);
+                $extension = strtolower(end($tabExtension));
+        
+                $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+                $maxSize = 7000000; // 7 Mo
+        
+                if ($size <= $maxSize) {
+                    if (in_array($extension, $extensions) && $error == 0) {
+                        $uniqueName = uniqid('', true);
+                        $file = $uniqueName . "." . $extension;
+        
+                        move_uploaded_file($tmpName, './public/img/' . $file);
+        
+                        $coverImage = $file;
+                    } else {
+                        Session::addFlash("error", "Une erreur est survenue lors du téléchargement de l'image <br> Veuillez réessayer");
+                        $this->redirectTo("Forum", "detailArticle", $articleId);
+                    }
+                } else {
+                    Session::addFlash("error", "La taille de l'image est trop grande.");
+                    $this->redirectTo("Forum", "detailArticle", $articleId);
+                }
+            }
+        
+            $userId = Session::getUser()->getId();
+        
+            $articleId = $articleManager->add([
+                'title' => $title,
+                'content' => $content,
+                'category_id' => $categoryId,
+                'image' => $coverImage ?? null, // Utilise l'image téléchargée, s'il y en a une
+                'user_id' => $userId
+            ]);
+        
             $this->redirectTo("Forum", "detailArticle", $articleId);
         }
 
@@ -292,16 +326,19 @@
 
         public function updateComment($id){
             $commentManager = new CommentManager();
+            $session = new Session();
+        
             $text = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_SPECIAL_CHARS);
-
-
-            $commentManager->edit(['text' => $text], $id); // on edit le texte par $id
-            
-
-            // header("Location: index.php?ctrl=forum&action=listArticles"); // redirige vers un fois on fais la page on peut le rederiger
+        
+            $commentManager->edit(['text' => $text], $id);
+        
+            // Utilise directement l'ID de l'article depuis la session
+            $articleId = $session->getArticleId();
+        
+            // Redirige vers la page de détail de l'article
+            $this->redirectTo("Forum", "detailArticle", $articleId);
             exit();
         }
-
         // form pour ajouter le comment/ add comment 
 
         public function formComment(){ // c'est la form que on a cree dans le addOrUpdateComment, et ca s'appelle formComment!
@@ -343,6 +380,29 @@
         
                 // Ajouter l'article aux favoris
                 $favorisManager->insertIntoFavoris($article, $user);
+        
+                $this->redirectTo("Forum", "listFavoris", $session->getUser()->getId());
+            } else {
+                // L'utilisateur n'est pas connecté, gérez cette situation comme nécessaire
+                return [
+                    "error" => "L'utilisateur n'est pas connecté."
+                ];
+            }
+        }
+
+        public function deleteFromFavoris($article){
+            $articleManager = new ArticleManager();
+            $userManager = new UserManager();
+            $categoryManager = new CategoryManager();
+            $session = new Session();
+
+            if ($session->getUser()->getId()) {
+                $user = $session->getUser()->getId(); // Récupérez l'utilisateur à partir de la session
+                
+                $favorisManager = new FavorisManager();
+        
+                // Ajouter l'article aux favoris
+                $favorisManager->deleteFavoris($article, $user);
         
                 $this->redirectTo("Forum", "listFavoris", $session->getUser()->getId());
             } else {

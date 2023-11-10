@@ -13,6 +13,7 @@ $user = $result["data"]["user"];
 
 <div class="card">
 
+     <!-- Contenu de detail article-->
     <div class="detailArticle-contenu">
     <!--Title De article-->
     <h1> <?=$article->getTitle();?> </h1>  
@@ -22,7 +23,7 @@ $user = $result["data"]["user"];
     
     </div>
     
-
+    <!--Les images et les fleches qui permettre de change les images-->
     <div class="image-container">
 
         <!-- On select les images -->
@@ -41,6 +42,7 @@ $user = $result["data"]["user"];
         
 
     </div>
+    
      <!-- Contenu Article -->
     <div class="detailArticle-contenu">
         <h2 class="h2-detail-article-contenu">Contenu :</h2>

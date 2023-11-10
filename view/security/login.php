@@ -25,6 +25,18 @@
                 <p><a href="index.php?ctrl=security&action=resetPassword">Mot de passe oublié ?</a></p>
 
         </div>
+
     </div>
+
+        
+    <form action="index.php?ctrl=security&action=sendEmail" method="POST">
+
+        Email : <input type="email" name="email" value=""><br>
+        Subject : <input type="text" name="subject" value=""><br>
+        Message : <input type="text" name="message" value=""><br>
+        <button type="submit" name="send">Send</button>
+    </form>
+        
+
 </section>
 

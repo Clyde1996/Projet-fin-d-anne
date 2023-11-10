@@ -21,6 +21,9 @@
                     ?>
                     
                     <div class="detailCategory-card">
+                    <a href="index.php?ctrl=forum&action=deleteFromFavoris&id=<?=$favori->getArticle()->getId()?>">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </a>
                     <a href="index.php?ctrl=forum&action=detailArticle&id=<?=$favori->getArticle()->getId()?>">
                         <p ><?=$favori->getArticle()->getTitle();?></p>
                         <p ><?=$favori->getArticle()->getCreationdate();?></p>

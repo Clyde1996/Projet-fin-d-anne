@@ -16,18 +16,16 @@
         }
 
 
-        // public function updateProfile($id, $username, $email){
-        //     $sql = "UPDATE user
-        //     SET username = :username, email = :email
-        //     WHERE id_user = :id_user  ";    
+        public function updateProfile($username, $email, $id){
+            $sql = "UPDATE ".$this->tableName." SET
+            username = :username, email = :email
+                WHERE id_".$this->tableName." = :id
+            ";   
 
-        //     return $this->execute($sql, [
-        //         ':username' => $username,
-        //         ':email' => $email,
-        //         ':id_user' => $id
-        //     ]);
-        // }
+            return DAO::update($sql, [':username' => $username, ':email' => $email ,':id' => $id]);
+        }
 
+       
       
 
         public function findArticlesFavorisByUserId($id){
@@ -91,7 +89,20 @@
             return DAO::update($sql, [':id' => $id]);
         }
 
-        // public function findUserByEmail()
+        // public function findUserByEmail($email){
+        //     $sql = "SELECT * FROM " . $this->tableName . " WHERE email = :email";
+
+        //     return $this->getOneOrNullResult(
+                        
+        //         DAO::select($sql,[':email' => $email]),
+        //         $this->className
+    
+        //     );
+
+
+        // }
+
+        
 
     }
 

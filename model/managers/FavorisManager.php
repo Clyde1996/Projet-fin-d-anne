@@ -29,6 +29,21 @@
             return DAO::insert($sql, $params);
         }
         
+        public function deleteFavoris($article, $user) {
+            $sql = "DELETE
+            FROM
+                favoris
+            WHERE
+                user_id = :user
+                AND article_id = :article";
+            
+            $params = array(
+                ':article' => $article,
+                ':user' => $user
+            );
+        
+            return DAO::insert($sql, $params);
+        }
 
 
         // public function findArticlesFavorisByUserId($id){

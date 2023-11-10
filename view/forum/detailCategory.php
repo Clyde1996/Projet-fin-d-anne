@@ -30,6 +30,8 @@ $articles = $result["data"]["articles"];
                 <img src="<?=$article->getImage()?>" alt="cover-img">
             </a>
 
+            
+
             <?php if(App\Session::getUser()){ ?>
         
                 <a href="index.php?ctrl=forum&action=addToFavoris&id=<?=$article->getId()?>">
