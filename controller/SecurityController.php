@@ -190,8 +190,8 @@ class SecurityController extends AbstractController implements ControllerInterfa
     public function logout() {
         $session = new Session();
         
-        if ($session->getUser() //|| $session->isAdmin()
-        ) {
+        if ($session->getUser()) //|| $session->isAdmin()
+        {
             unset($_SESSION['user']); // Détruit la session
 
             return [
@@ -206,7 +206,16 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
 
     public function viewProfile($id){
+
         $userManager = new UserManager();
+        $session = new Session();
+
+        // si le user est pas connecte rediriger vers le connexion
+        if (!$session->getUser()) {
+            // Rediriger vers la page de connexion
+            header("Location: index.php?ctrl=security&action=loginForm");
+            exit(); // Assurez-vous de quitter le script après la redirection
+        }
 
         return [
             "view" => VIEW_DIR . "security/viewProfile.php",
@@ -336,10 +345,10 @@ class SecurityController extends AbstractController implements ControllerInterfa
     //     ];
     // }
     
-    public function cgv(){                     
+    public function cgu(){                     
 
         return [                                                                
-            "view" => VIEW_DIR."security/cgv.php",                           
+            "view" => VIEW_DIR."security/cgu.php",                           
         ];
     }
 

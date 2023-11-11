@@ -30,7 +30,12 @@
             <!-- c'est ici que les messages (erreur ou succès) s'affichent-->
             <h3 class="message" style="color: red"><?= App\Session::getFlash("error") ?></h3>
             <h3 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h3>
-            
+
+            <div id="burger-menu" onclick="toggleNav()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
                 <nav>
                     <div id="nav-left">
                         <ul> 
@@ -96,7 +101,7 @@
         </div>
         <footer>
             <p>&copy; 2023 - Clyde's Forum  - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
-            <p><a href="index.php?ctrl=security&action=cgv">CGV</a></p>
+            <p><a href="index.php?ctrl=security&action=cgu">CGU</a></p>
             <!--<button id="ajaxbtn">Surprise en Ajax !</button> -> cliqué <span id="nbajax">0</span> fois-->
 
             

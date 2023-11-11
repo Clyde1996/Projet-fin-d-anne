@@ -117,3 +117,19 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
 
+//----------------------------------------------------------------------
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var burgerMenu = document.getElementById('burger-menu');
+        var nav = document.getElementById('nav'); // Assurez-vous que 'nav' est l'ID de votre menu de navigation
+
+        burgerMenu.addEventListener('click', function () {
+            if (nav.style.display === 'block') {
+                nav.style.display = 'none';
+            } else {
+                nav.style.display = 'block';
+            }
+        });
+    });
+</script>

@@ -1147,3 +1147,47 @@ color: white;
 .unban-button:hover{
   background-color: #21733C;
 }
+
+
+/***********************************************/
+/*  */
+/***********************************************/
+
+/* Responsiveeeeeee */
+
+/***********************************************/
+/*  */
+/***********************************************/
+#burger-menu {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.bar {
+  width: 30px;
+  height: 3px;
+  background-color: #fff;
+  margin: 6px 0;
+}
+
+#nav {
+  display: none;
+}
+
+#nav.active {
+  display: block; /* ou flex, ou ce que vous utilisez actuellement */
+  /* Ajoutez d'autres styles nécessaires pour afficher votre menu */
+}
+
+ 
+@media only screen and (max-width: 768px){
+  body {
+    font-size: 10px;
+  }
+
+  #burger-menu {
+    display: flex;
+}
+}

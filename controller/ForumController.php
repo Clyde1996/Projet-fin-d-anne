@@ -63,6 +63,7 @@
             $user = new UserManager();
             $session = new Session();
             
+            
 
             return [
                 "view" => VIEW_DIR."forum/detailarticle.php",
@@ -149,7 +150,7 @@
 
         public function deleteArticle($id){
             $articleManager = new ArticleManager();
-            $session = new Session();    //pour ajouter une notification
+            $session = new Session();    //on demarre la session
 
             
 
@@ -291,23 +292,40 @@
             
             date_default_timezone_set('Europe/Paris'); 
             $creationDate = date('Y-m-d H:i:s');
-            
-            if ($_SERVER['REQUEST_METHOD'] === 'POST'){ 
-                if(isset($_POST['text'])){
-                    $text = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_FULL_SPECIAL_CHARS); // flite qui protege contre les failles xss
-                    $commentManager->add(['text'=> $text]);
 
-                    return[
-                        "view"=>VIEW_DIR."forum/detailArticle.php", // apres avoir ajouter le comment on returne dans le detailarticle
-                        "data" => [
-                            "comments"=> $commentManager->findAll(),
-                            "article"=>$articleManager->findOneById($id)
-                        ]
+
+
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $user = $session->getUser();
+                
+                // Vérifier si l'utilisateur est connecté
+                if ($user) {
+                    // Récupérer l'id de l'article
+                    $articleId = $id;
+                    
+                    // Récupérer l'id de l'utilisateur en session
+                    $userId = $user->getId();
+                    
+                    // Récupérer le texte du commentaire
+                    $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    
+                    // Ajouter le commentaire
+                    $commentManager->add([
+                        'text' => $comment,
+                        'article_id' => $articleId,
+                        'user_id' => $userId
+                    ]);
+        
+                    // Rediriger vers la page de détail de l'article après avoir ajouté le commentaire
+                    $this->redirectTo("Forum", "detailArticle", $articleId);
+                } else {
+                    // L'utilisateur n'est pas connecté, gérez cette situation comme nécessaire
+                    return [
+                        "error" => "L'utilisateur n'est pas connecté."
                     ];
                 }
-
-                $this->redirectTo("Forum", "detailArticle", $session->getArticle()->getId());
-            } 
+            }
             
         }
 
@@ -316,14 +334,23 @@
         public function deleteComment($id){
             $commentManager = new CommentManager();
             $articleManager = new ArticleManager();
+            $session = new Session();
+
+            // on recupere l'id de article
+            $articleId = $commentManager->findOneById($id)->getArticle()->getId();
+
+            
 
             $commentManager->delete($id);
 
+
+            // Rediriger vers la page de détail de l'article après la suppression
+            $this->redirectTo("Forum", "detailArticle", $articleId);
+            exit();
           
         }
 
         // Fonction pour editer un article
-
         public function updateComment($id){
             $commentManager = new CommentManager();
             $session = new Session();

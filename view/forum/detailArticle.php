@@ -42,7 +42,7 @@ $user = $result["data"]["user"];
         
 
     </div>
-    
+
      <!-- Contenu Article -->
     <div class="detailArticle-contenu">
         <h2 class="h2-detail-article-contenu">Contenu :</h2>
@@ -66,7 +66,8 @@ $user = $result["data"]["user"];
 
                 <!-- Si le user est connecter -->
                 <div class="icones-detail-article">
-                    <?php if(App\Session::getUser()){ ?>
+                    <!-- si le user && le id de user en session strictement egale a id de user dans le comment on affiche les formes delete/update -->
+                    <?php if(App\Session::getUser() && App\Session::getUser()->getId() === $comment->getUser()->getId()){ ?>
                         <!-- le form delete article -->
                         <a href="index.php?ctrl=forum&action=deleteComment&id=<?=$comment->getId()?>" class="delete-detail-article">
                         <i class="fa-sharp fa-solid fa-circle-minus"></i>
@@ -94,7 +95,7 @@ $user = $result["data"]["user"];
         <div class="input-data">
             <a href="?ctrl=forum&action=formComment&id=<?= $article->getId() ?>">Ajouter un commentaire</a>
             <form method="post" action="?ctrl=forum&action=addComment&id=<?= $article->getId() ?>">
-                <textarea name="text" placeholder="Votre commentaire"></textarea>
+                <textarea name="comment" placeholder="Votre commentaire"></textarea>
                 <input type="submit" value="Publier">
             </form>
         </div>

@@ -51,10 +51,12 @@ $articles = $result["data"]["articles"];
 
         <?php foreach($articles as $article){ ?>
             <div class="detailArticle-accueil">
-                <p><?=$article->getTitle()?></p>
-                <p><?=$article->getCreationdate()?></p>
-                
-                <img src="<?=$article->getImage()?>" alt="cover-img">
+                <a href="index.php?ctrl=forum&action=detailArticle&id=<?=$article->getId()?>">
+                    <p><?=$article->getTitle()?></p>
+                    <p><?=$article->getCreationdate()?></p>
+                    
+                    <img src="<?=$article->getImage()?>" alt="cover-img">
+                </a>    
             </div>
        <?php } ?>
     </div>
