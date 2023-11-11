@@ -31,11 +31,11 @@
             <h3 class="message" style="color: red"><?= App\Session::getFlash("error") ?></h3>
             <h3 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h3>
 
-            <div id="burger-menu" onclick="toggleNav()">
+            <!-- <div id="burger-menu" onclick="toggleNav()">
                 <div class="bar"></div>
                 <div class="bar"></div>
                 <div class="bar"></div>
-            </div>
+            </div> -->
                 <nav>
                     <div id="nav-left">
                         <ul> 

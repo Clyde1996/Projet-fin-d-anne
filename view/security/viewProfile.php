@@ -38,21 +38,26 @@ $user = $result["data"]["user"];
     ?>
 
 
-    <!--Le form qui permettre de uptade le username-->
+    <!--Le form qui permettre de uptade le username, email et password-->
 <a href="index.php?ctrl=security&action=formUpdateUser"> 
  <p> <i class="fa-sharp fa-solid fa-gear" style="color: #417ce1;"></i> Update Profile</p> 
 </a>
 
+<!--list de favoris-->
 <a href="index.php?ctrl=forum&action=listFavoris&id=<?=App\Session::getUser()->getId()?>">
     <p><i class="fa-solid fa-bookmark" style="color: #6593e2;"></i> Mes Favoris</p>
 </a>
 
-
+<!--Changer le image de profile-->
 <form action="index.php?ctrl=security&action=updateProfileImage&id=<?=App\Session::getUser()->getId()?>" method="post" enctype="multipart/form-data">
     <label>Change Profile Image: </label><br/>
     <input type="file" id="avatar" name="photo">
     <input id="submit" type="submit" name="submit" value="Confirm">
 </form>
 
+<a href="index.php?ctrl=security&action=deleteAccount&id=<?=App\Session::getUser()->getId()?>">
+    <p>Delete Your Account</p>
+
+</a>
 </div>
 

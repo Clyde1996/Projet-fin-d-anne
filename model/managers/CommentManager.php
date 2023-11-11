@@ -28,6 +28,13 @@
             );
         }
 
+        public function deleteCommentsByUserId($id){
+            $sql = "DELETE FROM " . $this->tableName . " WHERE user_id = :id";
+            $params = array(':id' => $id);
+        
+            return DAO::delete($sql, $params); 
+        }
+
       
 
     }

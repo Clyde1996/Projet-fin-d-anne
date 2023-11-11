@@ -94,19 +94,12 @@
             return DAO::update($sql, [':id' => $id]);
         }
 
-        // public function findUserByEmail($email){
-        //     $sql = "SELECT * FROM " . $this->tableName . " WHERE email = :email";
-
-        //     return $this->getOneOrNullResult(
-                        
-        //         DAO::select($sql,[':email' => $email]),
-        //         $this->className
-    
-        //     );
-
-
-        // }
-
+        public function deleteAccount($id) {
+            $sql = "DELETE FROM " . $this->tableName . " WHERE id_user = :id";
+            $params = array(':id' => $id);
+        
+            return DAO::delete($sql, $params); // Utilisez DAO::delete pour les opérations de suppression
+        }
         
 
     }

@@ -9,7 +9,7 @@ use Model\Managers\ArticleManager;  // c'est lie avec le Article Manager dans le
 use Model\Managers\PostManager;    // c'est lie avec le Article Manager dans le Model/managers
 use Model\Managers\UserManager;      // c'est lie avec le Article Manager dans le Model/managers
 use Model\Managers\CategoryManager;  // c'est lie avec le Article Manager dans le Model/managers
-
+use Model\Managers\CommentManager;
 use PHPMailer\PHPMailerMaster\src\Exception;
 use PHPMailer\PHPMailerMaster\src\PHPMailer;
 use PHPMailer\PHPMailerMaster\src\SMTP; 
@@ -67,68 +67,66 @@ class SecurityController extends AbstractController implements ControllerInterfa
     }
 
     public function register(){
-        
-
-        // si on clicl sur le submit dans le register php dans le formulaire ca va etre aplique le code 
-        if($_POST["submit"]){
-
-            $userManager = new UserManager(); 
-
-            $session = new Session();
-
-            // on filtre le formulaire dans le register.php contre les failles xss
+        $userManager = new UserManager(); 
+        $session = new Session();
+    
+        // Vérifier si le formulaire a été soumis
+        if(isset($_POST["submit"])){
+    
+            // Filtrer les données du formulaire
             $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
-            $email = filter_input(INPUT_POST, "email",  FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
+            $email = filter_input(INPUT_POST, "email",  FILTER_SANITIZE_EMAIL);
             $pass1 = filter_input(INPUT_POST, "pass1", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $pass2 = filter_input(INPUT_POST, "pass2", FILTER_SANITIZE_FULL_SPECIAL_CHARS); // le confirmation de password
-        
-            $usernameExist = $userManager->findUserByUsername($username);
-            $emailExist = $userManager->findUserByEmail($email);
-
+            $pass2 = filter_input(INPUT_POST, "pass2", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
+            // Vérifier si les champs requis sont renseignés
             if($username && $email && $pass1 && $pass2){
-                if($usernameExist){ // si le username exist ca redrigie ver le forumalire de inscription et ca afiiche le message d'erreur
-                    return [
-                        "view" => VIEW_DIR."security/register.php",       // Rediriger vers le formulaire d'inscription 
-                        $session->addFlash('error',"This username alredy exist") // Afficher un message d'erreur 
-                    ];
-                } elseif($emailExist){ // si le email exist ca redrigie ver le forumalire de inscription et ca afiiche le message d'erreur
-                    return [
-                        "view" => VIEW_DIR."security/register.php",       // Rediriger vers le formulaire d'inscription 
-                        $session->addFlash('error',"This email alredy exist") // Afficher un message d'erreur 
-                    ];
+    
+                // Vérifier si le nom d'utilisateur existe déjà
+                $usernameExist = $userManager->findUserByUsername($username);
+                if($usernameExist){
+                    $session->addFlash('error', "This username already exists");
+                    return ["view" => VIEW_DIR."security/register.php"];
                 }
-
-
-                
+    
+                // Vérifier si l'adresse e-mail existe déjà
+                $emailExist = $userManager->findUserByEmail($email);
+                if($emailExist){
+                    $session->addFlash('error', "This email already exists");
+                    return ["view" => VIEW_DIR."security/register.php"];
+                }
+    
+                // Vérifier si les mots de passe correspondent et respectent les critères
                 $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*.-]).{8,}$/";
-                /* Je vérifie que le mot de passe est identique au second, qu'il contient au moins une Majuscule, minuscule, un chiffre, 
-                un caractère spécial et qu'il est minimum 8 caractères (Regex) */
-                if(($pass1 == $pass2 && preg_match($password_regex, $pass1))){  // on confirme que le $pass1 = $pass2, et le mot de passe ($pass1)  est egal ou superier a 8 caracteres
-                    
-
-
-                    //on selection le tableau user dans la base de donees que on puis ajouter un nuveau user 
+                if($pass1 == $pass2 && preg_match($password_regex, $pass1)){
+                    // Hasher le mot de passe
+                    $hashedPassword = password_hash($pass1, PASSWORD_DEFAULT);
+    
+                    // Ajouter l'utilisateur à la base de données
                     $userManager->add([
                         'email' => $email,
                         'username' => $username,
-                        'role' => json_encode(["ROLE_USER"]) , // par defaut ca s'ajouter un user apres on peut changer dans la base de donnes si on veut mettre admin
-                        'password' => password_hash($pass1, PASSWORD_DEFAULT), // on hash le mot de passe avec son valeur = $pass1  et son filtre = PASSWORD_DEFAULT
-                        
+                        'role' => json_encode(["ROLE_USER"]),
+                        'password' => $hashedPassword,
                     ]);
-
-                    return [
-                        "view" => VIEW_DIR."security/login.php",        // Rediriger vers le formulaire d'inscription 
-                        $session->addFlash('success', "Added successfully") // Afficher un message d'erreu
-                    ];
-                }else {
-                    return [
-                        header("Location: index.php?ctrl=security&action=registerForm"),
-                        Session::addFlash('error', "The password need a minimum of one uppercase, lowercase, digit, special character and a length of 8 characters")
-                    ];
-                }   
-                
+    
+                    $session->addFlash('success', "Registered successfully");
+                    return ["view" => VIEW_DIR."security/login.php"];
+                } else {
+                    $session->addFlash('error', "The password needs at least one uppercase, lowercase, digit, special character, and a length of 8 characters");
+                    return ["view" => VIEW_DIR."security/register.php"];
+                }
+            } else {
+                // Un des champs de mot de passe est vide
+                $session->addFlash('error', "Veuillez entrer les deux mots de passe");
+                return ["view" => VIEW_DIR."security/register.php"];
             }
-        };
+        }
+    
+        // Retourner la vue par défaut s'il y a des erreurs ou si le formulaire n'a pas été soumis
+        return ["view" => VIEW_DIR."security/register.php"];
+        
+        exit;
     }
 
     public function loginForm(){
@@ -429,37 +427,32 @@ class SecurityController extends AbstractController implements ControllerInterfa
     }
     
 
-    // public function sendEmail() {
-    //     // Créez une nouvelle instance de PHPMailer
-    //     $mail = new PHPMailer();
+    // on supprimer l'account de user et tout ses commentaires et les articles
+    public function deleteAccount($id){
+        $userManager = new UserManager();
+        $commentManager = new CommentManager();
+        $articleManager = new ArticleManager();
+        $session = new Session();
 
-    //     // Paramètres du serveur SMTP
-    //     $mail->isSMTP();
-    //     $mail->Host = 'smtp.gmail.com'; // Remplacez par le serveur SMTP de votre fournisseur de messagerie
-    //     $mail->SMTPAuth = true;
-    //     $mail->Username = 'clyderadioo@gmail.com'; // Remplacez par votre adresse e-mail
-    //     $mail->Password = 'ybqgcwbmhkfhijcl'; // Remplacez par votre mot de passe
-    //     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Utilisez SSL ou TLS selon votre fournisseur
-    //     $mail->Port = 587; // Port SMTP (consultez les paramètres de votre fournisseur)
+    
+        $session = new Session();
 
-    //     // Destinataire et expéditeur
-    //     $mail->setFrom('votre_email@example.com', 'Votre Nom');
-    //     $mail->addAddress('destinataire@example.com', 'Nom du Destinataire');
+        if ($session->getUser()) {
 
-    //     // Contenu de l'e-mail
-    //     $mail->isHTML(true);
-    //     $mail->Subject = 'Sujet de l\'e-mail';
-    //     $mail->Body = 'Contenu de l\'e-mail au format HTML';
-    //     $mail->AltBody = 'Contenu de l\'e-mail en texte brut (pour les clients qui ne prennent pas en charge HTML)';
+            $userManager->deleteAccount($id);
+            $commentManager->deleteCommentsByUserId($id);
+            $articleManager->deleteArticlesByUserId($id);
 
-    //     // Envoyer l'e-mail
-    //     if ($mail->send()) {
-    //         echo 'E-mail envoyé avec succès.';
-    //     } else {
-    //         echo 'Erreur lors de l\'envoi de l\'e-mail : ' . $mail->ErrorInfo;
-    //     }
-    // }
+            // le message de suppresion
+    
 
+            // Rediriger vers la page de connexion
+            header("Location: index.php?ctrl=security&action=loginForm");
+            exit(); // Assurez-vous de quitter le script après la redirection
+        }
+
+        
+    }
 
 }    
 ?>
