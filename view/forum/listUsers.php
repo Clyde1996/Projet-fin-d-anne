@@ -28,10 +28,10 @@ $users = $result["data"]["users"];
           <?php if(empty($userImage)){ ?>
             <img src="./public/img/profile.png" class="list-users-img">
           <?php }else{ ?>
-            <img src="<?= $userImage ?>"  class="list-users-img"
+            <img src="<?= $userImage ?>"  class="list-users-img">
          <?php } ?>
 
-          >
+          
           <p> Date De Inscription D'utilisateur : <br><?= $user->getDateInscription()?></br> </p> 
           <p> <?= $user->getUsername()?> </p>
   <?php

@@ -50,7 +50,7 @@ $user = $result["data"]["user"];
 
 <!--Changer le image de profile-->
 <form action="index.php?ctrl=security&action=updateProfileImage&id=<?=App\Session::getUser()->getId()?>" method="post" enctype="multipart/form-data">
-    <label>Change Profile Image: </label><br/>
+    <label> <strong> Change Profile Image: </strong> </label><br/>
     <input type="file" id="avatar" name="photo">
     <input id="submit" type="submit" name="submit" value="Confirm">
 </form>

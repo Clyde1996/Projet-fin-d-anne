@@ -434,8 +434,6 @@ class SecurityController extends AbstractController implements ControllerInterfa
         $articleManager = new ArticleManager();
         $session = new Session();
 
-    
-        $session = new Session();
 
         if ($session->getUser()) {
 
@@ -443,14 +441,18 @@ class SecurityController extends AbstractController implements ControllerInterfa
             $commentManager->deleteCommentsByUserId($id);
             $articleManager->deleteArticlesByUserId($id);
 
-            // le message de suppresion
-    
+
+            // on detruit le session avant la rideriction 
+            session_destroy();
 
             // Rediriger vers la page de connexion
             header("Location: index.php?ctrl=security&action=loginForm");
             exit(); // Assurez-vous de quitter le script après la redirection
+
+           
         }
 
+        
         
     }
 
