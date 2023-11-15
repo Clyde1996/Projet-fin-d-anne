@@ -235,6 +235,137 @@
   margin: 5px 0;
 }
 
+/***********Add Commentaire*************/
+
+.input-data {
+  margin-top: 20px;
+}
+
+.input-data a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f2f2f2;
+  color: #333;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.input-data a:hover {
+  background-color: #e6e6e6;
+}
+
+.input-data form {
+  margin-top: 10px;
+}
+
+.input-data textarea {
+  width: 85%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input-data input[type="submit"] {
+  /* display: block; */
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #2185c5;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input-data input[type="submit"]:hover {
+  background-color: #3498db;
+}
+
+
+/******Add article ********/
+
+.addArticle-card {
+  max-width: 400px;
+  margin: 50px auto;
+  
+  box-shadow: inset 0 0 2000px rgba(0, 0, 0, 0.9);
+  /* box-shadow: outset 0 0 10px rgba(250, 249, 249, 0.8); */
+  border: 1px white solid;
+    /* filter: blur(10px); */
+  padding: 20px;
+  border-radius: 8px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+.addArticle-card h1{
+  text-align: center;
+  margin: 10px;
+  color: white;
+}
+
+.addArticle-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.addArticle-card label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: white;
+}
+
+.addArticle-card input,
+textarea,
+select {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+}
+
+.addArticle-card input:hover,
+textarea:hover, select:hover
+ {
+  border-color: #3498db;
+}
+
+.addArticle-card textarea{
+  resize: none;
+}
+
+
+.addArticle-card select {
+  cursor: pointer;
+}
+
+.addArticle-card input[type="submit"] {
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
+}
+
+.addArticle-card input[type="submit"]:hover {
+  background-color: #2185c5;
+}
+
+.addArticle-card-checkbox {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-bottom: 15px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.addArticle-card-checkbox:hover{
+  border-color: #3498db;
+}
+
+..addArticle-card-checkbox label{
+  padding: 5px;
+}
+
 /***********************************************/
 /* wrappe */
 /***********************************************/
@@ -366,7 +497,8 @@ nav {
   /* padding: 20px; */
   height: 100vh; /*ca prendre le taille de full screen*/
   /* background: no-repeat center/cover url('../img/flower1jpg.jpg'); */
-  background: no-repeat center/cover linear-gradient(#396b69, #BD8B6F, #71A7A6, #7D7069);
+  /* background: no-repeat center/cover linear-gradient(#396b69, #BD8B6F, #71A7A6, #7D7069); */
+  background: no-repeat center/cover url("../img/endless-constellation (1).svg");
   background-attachment: fixed;
   overflow: auto; /*une barre de défilement en cas de débordement du contenu*/
 }
@@ -412,7 +544,8 @@ a:hover {
 
 #login-register{
   /* background: no-repeat center/cover url('../img/pexels-photo-13119493.jpeg'); */
-  background: linear-gradient(#396b69, #599594, #396b69);
+  /* background: linear-gradient(#396b69, #599594, #396b69);   */
+  background: no-repeat center/cover url("../img/flat-mountains.svg");
   width: 100%;
   height: 100vh;
   border: 5px linear-gradient(#396b69, #BD8B6F, #71A7A6, #7D7069);
@@ -802,8 +935,10 @@ input[type="submit"]:hover {
   gap: 40px; /* Espacement entre les cartes */
   justify-content: center; /* Centrez les cartes horizontalement */
   align-items: center; /* Centrez les cartes verticalement */
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
-  backdrop-filter: blur(8px);
+  background: no-repeat center/cover linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+  background-attachment: fixed;
+  /* background-size: 100vw 100vh; */
+  backdrop-filter: blur(6px);
   color: whitesmoke;
   border-radius: 0 10px;
   }
@@ -888,44 +1023,6 @@ color: white;
 
 
 
-/***********************************************/
-/* input data  */
-/***********************************************/
-
-/* Style de base pour le formulaire */
-.input-data {
-  background: #3c2d2d;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.input-data textarea {
-  width: 400px; /* Largeur fixe de 300 pixels */
-  height: 50px; /* Hauteur fixe de 150 pixels */
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: none;
- 
-}
-
-/* Style pour le bouton de soumission */
-.input-data input[type="submit"] {
-  background: #4CAF50;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-/* Style pour le bouton de soumission au survol */
-.input-data input[type="submit"]:hover {
-  background: #45a049;
-}
 
 
 
@@ -1017,6 +1114,22 @@ color: white;
   color: white;
 }
 
+.pictos{
+  background: rgba(255, 255, 255, 0.3);
+  padding: 8px 0;
+  border-radius: 5px;
+  margin: 42px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: space-around;
+}
+
+.pictos img{
+  width: 50px;
+  align-items: center;
+}
 
 
 /***********************************************/
@@ -1146,6 +1259,115 @@ color: white;
 
 .unban-button:hover{
   background-color: #21733C;
+}
+
+/***********************************************/
+/* Contact Us */
+/***********************************************/
+
+#contactUs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+.form-contactUs {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  width: 350px;
+  background: linear-gradient(5deg, rgba(255, 255, 255, 0.68), transparent);
+  backdrop-filter: blur(8px);
+  align-items: center;
+  text-align: center;
+}
+
+.form-contactUs h1{
+  /* padding: 20px 0 0 0; */
+  margin: 0 0 20px 0;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+}
+
+.input-data-contactUs {
+  margin-bottom: 20px;
+}
+
+.form-contactUs label {
+  display: block;
+  margin: 10px 0;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  color: white;
+  border-radius: 5px;
+  padding: 4px;
+}
+
+.form-contactUs input[type="email"],
+.form-contactUs input[type="text"],
+.form-contactUs textarea {
+  width: 100%;
+  padding: 10px; /* Augmentation de la marge intérieure */
+  margin-bottom: 15px; /* Augmentation de la marge inférieure */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  transition: border-color 0.3s ease;
+}
+
+.form-contactUs input[type="email"]:hover,
+.form-contactUs input[type="text"]:hover,
+.form-contactUs textarea:hover {
+  border-color: #3498db;
+}
+
+
+
+.form-contactUs textarea {
+  height: 150px;
+  resize: none;
+  background-color: #f8f8f8; /* Couleur de fond */
+  border: 1px solid #ddd; /* Bordure grise */
+  border-radius: 8px; /* Coins arrondis */
+  padding: 10px; /* Espace intérieur */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  font-family: 'Arial', sans-serif; /* Police du texte */
+  transition: border-color 0.3s ease; /* Transition pour un effet visuel */
+}
+
+.form-contactUs textarea:hover {
+  border-color: #3498db; /* Changement de couleur de la bordure au survol */
+}
+
+.underline {
+  height: 2px;
+  background-color: #71A7A6;
+}
+
+.form-contactUs button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+
+
+.form-contactUs button:hover {
+  background-color: #2980b9;
 }
 
 

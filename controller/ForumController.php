@@ -11,6 +11,8 @@
     use Model\Managers\CategoryManager;  // c'est lie avec le Category dans le Model/managers
     use Model\Managers\ImagesManager; // c'est lie avec le  Images dans le Model/managers
     use Model\Managers\FavorisManager; // c'est lie avec le  Favoris dans le Model/managers
+    use Model\Managers\TypeManager;
+    use Model\Managers\CollectionManager;
     
     class ForumController extends AbstractController implements ControllerInterface{
 
@@ -48,7 +50,7 @@
                     "category" => $categoryManager->findOneByID($id)
                 ]
                 
-                ];
+            ];
 
         }
 
@@ -59,6 +61,7 @@
             // Demander l'accès à la couche modèle
             $articleManager = new ArticleManager();
             $commentManager = new CommentManager();
+            $typeManager = new TypeManager();
             $images = new ImagesManager();
             $user = new UserManager();
             $session = new Session();
@@ -71,7 +74,8 @@
                     "article"=>$articleManager->findOneById($id),
                     "comments" =>$commentManager->findCommentsByarticleId($id),
                     "images"=>$images->findImagesByArticleId($id),
-                    "user"=>$user->findOneById($id)
+                    "user"=>$user->findOneById($id),
+                    "types" => $typeManager->findTypesByArticleId($id)
                     
                 ]
             ];
@@ -82,11 +86,14 @@
         public function formArticle($id){
 
             $categoryManager = new CategoryManager();
+            $typeManager = new TypeManager();
+            $collectionManager = new CollectionManager();
 
             return [
                 "view" => VIEW_DIR."forum/addOrUpdateArticle.php",
                 "data" => [
-                    "category" => $categoryManager->findOneById($id)
+                    "category" => $categoryManager->findOneById($id),
+                    "types" => $typeManager->findAll()
                 ]
             ];
 
@@ -95,11 +102,22 @@
 
 
         public function addArticle($categoryId) {
+
             $articleManager = new ArticleManager();
             $userManager = new UserManager();
+            $typeManager = new TypeManager();
+            $collectionManager = new CollectionManager();
+            $imagesManager = new ImagesManager();
+
         
             $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            // $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            // Récupérez l'ID du type sélectionné
+            // $selectedTypeId = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_NUMBER_INT);
+            $selectedTypeIds = filter_input(INPUT_POST, 'types', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY);
+
         
             // Vérifie si un fichier a été téléchargé
             if (isset($_FILES['coverImage'])) {
@@ -131,6 +149,8 @@
                     $this->redirectTo("Forum", "detailArticle", $articleId);
                 }
             }
+
+            
         
             $userId = Session::getUser()->getId();
         
@@ -141,7 +161,67 @@
                 'image' => $coverImage ?? null, // Utilise l'image téléchargée, s'il y en a une
                 'user_id' => $userId
             ]);
-        
+
+
+
+            if (isset($_FILES['images'])) {
+                $imageFiles = $_FILES['images'];
+            
+                // Parcourir chaque fichier d'image
+                for ($i = 0; $i < count($imageFiles['name']); $i++) {
+                    $tmpName = $imageFiles['tmp_name'][$i];
+                    $name = $imageFiles['name'][$i];
+                    $size = $imageFiles['size'][$i];
+                    $error = $imageFiles['error'][$i];
+            
+                    $tabExtension = explode('.', $name);
+                    $extension = strtolower(end($tabExtension));
+            
+                    $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+                    $maxSize = 7000000; // 7 Mo
+            
+                    if ($size <= $maxSize) {
+                        if (in_array($extension, $extensions) && $error == 0) {
+                            $uniqueName = uniqid('', true);
+                            $file = $uniqueName . "." . $extension;
+            
+                            move_uploaded_file($tmpName, './public/img/' . $file);
+            
+                            // Ajouter l'image à la base de données
+                            $imageData = [
+                                'article_id' => $articleId,
+                                'url' => $file
+                            ];
+                            $imageId = $imagesManager->add($imageData);
+            
+                            // Vous pouvez faire d'autres opérations avec l'image si nécessaire.
+            
+                        } else {
+                            Session::addFlash("error", "Une erreur est survenue lors du téléchargement de l'image <br> Veuillez réessayer");
+                            $this->redirectTo("Forum", "detailArticle", $articleId);
+                        }
+                    } else {
+                        Session::addFlash("error", "La taille de l'image est trop grande.");
+                        $this->redirectTo("Forum", "detailArticle", $articleId);
+                    }
+                }
+            }
+
+
+            // Ajoutez l'id du type et l'ID de l'article à la table "collection"
+            // $collectionManager->add([
+            //     'article_id' => $articleId,
+            //     'type_id' => $selectedTypeId
+            // ]);
+            
+            foreach ($selectedTypeIds as $selectedTypeId) {
+                $collectionManager->add([
+                    'article_id' => $articleId,
+                    'type_id' => $selectedTypeId
+                ]);
+            }
+           
+            
             $this->redirectTo("Forum", "detailArticle", $articleId);
         }
 
@@ -276,7 +356,16 @@
         
 
         
+        // form pour ajouter le comment/ add comment 
 
+        public function formComment(){ // c'est la form que on a cree dans le addOrUpdateComment, et ca s'appelle formComment!
+
+            
+            return[
+                "view" => VIEW_DIR."forum/addcomment.php",
+             
+            ];
+        }
         
 
    
@@ -350,6 +439,20 @@
           
         }
 
+        
+        // form pour le modifier le comment / update comment
+        public function updateFormComment($id){ // c'est la form que on a cree dans le addOrUpdateComment, et ca s'appelle formComment!
+            $commentManager = new CommentManager();
+            // $articleManager = new ArticleManager();
+
+            return[
+                "view" => VIEW_DIR."forum/updateComment.php",
+                "data"=>['comment'=>$commentManager->findOneById($id)], 
+             
+            ];
+        }
+
+
         // Fonction pour editer un article
         public function updateComment($id){
             $commentManager = new CommentManager();
@@ -366,28 +469,7 @@
             $this->redirectTo("Forum", "detailArticle", $articleId);
             exit();
         }
-        // form pour ajouter le comment/ add comment 
 
-        public function formComment(){ // c'est la form que on a cree dans le addOrUpdateComment, et ca s'appelle formComment!
-
-            
-            return[
-                "view" => VIEW_DIR."forum/addcomment.php",
-             
-            ];
-        }
-
-        // form pour le modifier le comment / update comment
-        public function updateFormComment($id){ // c'est la form que on a cree dans le addOrUpdateComment, et ca s'appelle formComment!
-            $commentManager = new CommentManager();
-            // $articleManager = new ArticleManager();
-
-            return[
-                "view" => VIEW_DIR."forum/updateComment.php",
-                "data"=>['comment'=>$commentManager->findOneById($id)], 
-             
-            ];
-        }
 
 
 
@@ -467,7 +549,59 @@
 
         }
 
+        public function listTypes(){
+            $typeManager = new TypeManager();
         
+            return [
+                "view" => VIEW_DIR."forum/listTypes.php",
+                "data" => [
+                    'types' => $typeManager->findAllTypes()
+                ]
+            ];
+        }
+
+        public function detailType($id){   // les articles par type 
+            
+            $typeManager = new TypeManager();
+            $articleManager = new ArticleManager();
+            $userManager = new UserManager();
+
+            // $id = (filter_var($id, FILTER_VALIDATE_INT));  // Cette ligne de code vérifie si la variable $id est un entier valide en PHP. Si c'est le cas, la variable $id conserve sa valeur en tant qu'entier. Sinon, si $id n'est pas un entier valide, la variable $id est définie à false
+
+            return [
+                "view" => VIEW_DIR."forum/detailType.php",
+                "data" => [
+                    "articles" => $articleManager->findAritlceByTypesId($id),
+                    "type" => $typeManager->findOneById($id)
+                    
+                ]
+            ];
+        }
+        
+
+       
+
+        // public function articleByTypeID($id){
+        //     $articleManager = new ArticleManager();
+        //     $typeManager = new TypeManager();
+
+        //     $articleByTopicId = $articleManager->findAritlceByTypesId($id);
+
+        //     echo 
+
+            
+
+        //     return{
+        //         "view" VIEW_DIR."forum/articlesByTypeId.php",
+        //         "data" => [
+        //             'articleByTopicId'=>  $articleByTopicId
+        //         ];
+        //     }
+
+        // }
+
+        
+       
 
         
 

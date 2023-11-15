@@ -19,9 +19,10 @@
                 <label for="pass2">Confirm Your Password</label>
                 <input type="password" name="pass2" id="pass2" placeholder="confirm password"></br>
             </div>
-            <!-- <div class="form-group">
-                <input type="checkbox" onclick="togglePassword()"> Show Password
-            </div> -->
+            <div>
+                <label for="accept-terms">En cochant cette case, vous acceptez nos conditions générales d'utilisation</label>
+                <input type="checkbox" name="accept-terms" id="accept-terms" required>
+            </div>
             <input type="submit" name="submit" value="Sign up"></br>
         </form>
 

@@ -76,6 +76,7 @@
                                 <a href="index.php?ctrl=security&action=loginForm">Connexion</a>
                                 <a href="index.php?ctrl=security&action=registerForm">Inscription</a>
                                 <a href="index.php?ctrl=forum&action=listArticles">List des Articles</a>
+                                <a href="index.php?ctrl=forum&action=listTypes">List Types</a>
                                 <!-- <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a> -->
 
                         <?php
@@ -102,6 +103,7 @@
         <footer>
             <p>&copy; 2023 - Clyde's Forum  - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
             <p><a href="index.php?ctrl=security&action=cgu">CGU</a></p>
+            <p><a href="index.php?ctrl=security&action=contactUs">Contact US</a></p>
             <!--<button id="ajaxbtn">Surprise en Ajax !</button> -> cliqué <span id="nbajax">0</span> fois-->
 
             

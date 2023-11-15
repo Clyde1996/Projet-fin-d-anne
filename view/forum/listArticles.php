@@ -5,7 +5,13 @@ $category = $result["data"]['category'];
     
 ?>
 <div class="card">
-<h1>Liste des articles</h1>
+
+<div class="h1-detailCategory">
+    <h1>Liste des articles</h1>
+    <a href="index.php?ctrl=forum&action=listCategories" class="a-accueil">
+        <i class="fa-solid fa-backward" style="color: #ffffff;"></i>
+    </a>
+</div>
 
 <?php
 foreach($articles as $article ){

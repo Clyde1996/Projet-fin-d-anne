@@ -59,6 +59,15 @@ $articles = $result["data"]["articles"];
                 </a>    
             </div>
        <?php } ?>
+
+       <!-- Flèche gauche -->
+       <div class="home-prev-arrow"> 
+            <i class="fa-solid fa-arrow-left"  style="color: #ffffff;"></i>
+        </div> 
+        <!-- Flèche droite -->
+        <div class="home-next-arrow"> 
+            <i class="fa-solid fa-arrow-right" style="color: #ffffff;"></i>
+        </div> 
     </div>
     
 </section>

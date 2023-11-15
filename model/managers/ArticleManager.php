@@ -35,7 +35,21 @@
         
             return DAO::delete($sql, $params); 
         }
-
         
+
+        public function findAritlceByTypesId($id){
+            $sql = "SELECT *
+                    FROM article a 
+                    INNER JOIN collection c ON a.id_article = c.article_id
+                    INNER JOIN type t ON c.type_id = t.id_type
+                    WHERE t.id_type = :id";
+            
+            return $this->getMultipleResults(
+                DAO::select($sql, [':id' => $id]),
+                $this->className
+            );
+        }
+    
+
     }
 ?>

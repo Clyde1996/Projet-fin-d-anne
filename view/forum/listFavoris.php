@@ -22,7 +22,7 @@
                     
                     <div class="detailCategory-card">
                     <a href="index.php?ctrl=forum&action=deleteFromFavoris&id=<?=$favori->getArticle()->getId()?>">
-                        <i class="fa-regular fa-bookmark"></i>
+                        <i class="fa-regular fa-bookmark" style="color: #9cabc4;" onmouseover="this.style.color='red'" onmouseout="this.style.color='#1f514b'"></i>
                     </a>
                     <a href="index.php?ctrl=forum&action=detailArticle&id=<?=$favori->getArticle()->getId()?>">
                         <p ><?=$favori->getArticle()->getTitle();?></p>

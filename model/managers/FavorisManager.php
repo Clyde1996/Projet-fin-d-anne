@@ -45,36 +45,21 @@
             return DAO::insert($sql, $params);
         }
 
+        public function deleteFavorisByUserId($user){
+            $sql = "DELETE * 
+            From
+                favoris
+            WHERE 
+            user_id = :user";
 
-        // public function findArticlesFavorisByUserId($id){
-            
-        //     $sql = "SELECT *
-        //     FROM ".$this->tableName." f 
-        //     JOIN article AS a ON f.article_id = a.id_article
-        //     JOIN user AS u ON f.user_id = u.id_user
-        //     WHERE f.user_id = :id";
-    
-        //     return $this->getMultipleResults(
-            
-        //     DAO::select($sql,[':id' => $id]),
-        //     $this->className
+            $params = array(
+                ':article' => $article,
+                ':user' => $user
+            );
 
-        //     );
-        // }
-
-        // public function findArticlesFavorisByUserId($id) {
-        //     $sql = "SELECT *
-        //             FROM " . $this->tableName . " AS f
-        //             JOIN article AS a ON f.article_id = a.id_article
-        //             JOIN user AS u ON f.user_id = u.id_user
-        //             WHERE f.user_id = :id";
-        
-        //     $params = [':id' => $id];
-        //     $results = DAO::select($sql, $params);
-        
-        //     return $this->getMultipleResults($results, $this->className);
-        // }
-    
+            return DAO::insert($sql, $params);
+        }
+     
         
         public function findArticlesFavorisByUserId($id){
             $sql = "SELECT 

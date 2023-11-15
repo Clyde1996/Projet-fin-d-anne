@@ -10,6 +10,10 @@ use Model\Managers\PostManager;    // c'est lie avec le Article Manager dans le 
 use Model\Managers\UserManager;      // c'est lie avec le Article Manager dans le Model/managers
 use Model\Managers\CategoryManager;  // c'est lie avec le Article Manager dans le Model/managers
 use Model\Managers\CommentManager;
+use Model\Managers\FavorisManager;
+use Model\Managers\TypeManager;
+use Model\Managers\CollectionManager;
+use Model\Managers\ImagesManager;
 use PHPMailer\PHPMailerMaster\src\Exception;
 use PHPMailer\PHPMailerMaster\src\PHPMailer;
 use PHPMailer\PHPMailerMaster\src\SMTP; 
@@ -56,7 +60,13 @@ class SecurityController extends AbstractController implements ControllerInterfa
         }
     }
     
+    /*Contact Us*/ 
     
+    public function contactUs(){
+        return [
+            "view"=> VIEW_DIR . "security/contactUs.php"  // quand on click sur register form il nous retourne vers register ou on a notre formulaire de register 
+        ];
+    }
 
     /*Register Form*/
 
@@ -80,7 +90,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
             $pass2 = filter_input(INPUT_POST, "pass2", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
             // Vérifier si les champs requis sont renseignés
-            if($username && $email && $pass1 && $pass2){
+            if($username && $email && $pass1 && $pass2 && isset($_POST['accept-terms'])){
     
                 // Vérifier si le nom d'utilisateur existe déjà
                 $usernameExist = $userManager->findUserByUsername($username);
@@ -432,17 +442,23 @@ class SecurityController extends AbstractController implements ControllerInterfa
         $userManager = new UserManager();
         $commentManager = new CommentManager();
         $articleManager = new ArticleManager();
+        $favorisManager = new FavorisManager();
         $session = new Session();
 
+      
 
         if ($session->getUser()) {
 
             $userManager->deleteAccount($id);
             $commentManager->deleteCommentsByUserId($id);
+            $favorisManager->deleteFavorisByUserId($session->getUser()->getId());
             $articleManager->deleteArticlesByUserId($id);
-
+            
+            
 
             // on detruit le session avant la rideriction 
+
+            $session->addFlash('success', "Le Compte a été supprimé avec succès");
             session_destroy();
 
             // Rediriger vers la page de connexion

@@ -119,3 +119,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //----------------------------------------------------------------------
 
+// const container = document.querySelector('.detailArticle-accueil-cards');
+// const prevArrow = document.querySelector('.home-prev-arrow');
+// const nextArrow = document.querySelector('.home-next-arrow');
+
+// prevArrow.addEventListener('click', () => {
+//   container.scrollBy({
+//     left: -300,
+//     behavior: 'smooth'
+//   });
+// });
+
+// nextArrow.addEventListener('click', () => {
+//   container.scrollBy({
+//     left: 300,
+//     behavior: 'smooth'
+//   });
+// });

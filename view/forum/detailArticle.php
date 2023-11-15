@@ -5,6 +5,7 @@ $article = $result["data"]["article"];
 $comments = $result["data"]["comments"];
 $images = $result["data"]["images"];
 $user = $result["data"]["user"];
+$types = $result["data"]["types"];
 
 ?>
  
@@ -14,6 +15,25 @@ $user = $result["data"]["user"];
 <div class="card">
 
      <!-- Contenu de detail article-->
+
+     <!-- Pictogram --> 
+
+    <div class="pictos">
+        
+        <?php if (!empty($types)): ?>
+        <?php foreach($types as $type): ?>
+            <a href="index.php?ctrl=forum&action=detailType&id=<?=$type->getId()?>">
+                <img class="picto" src="./public/img/<?=$type->getPictogram();?>" alt="<?= $type->getName()?>">
+                <p><?= $type->getName()?></p>
+                
+            </a> 
+        <?php endforeach; ?>
+        <?php else: ?>
+            <p>Aucun type disponible.</p>
+        <?php endif; ?>
+        
+    </div>
+
     <div class="detailArticle-contenu">
     <!--Title De article-->
     <h1> <?=$article->getTitle();?> </h1>  
@@ -27,9 +47,31 @@ $user = $result["data"]["user"];
     <div class="image-container">
 
         <!-- On select les images -->
-        <?php foreach($images as $image): ?>
-                <img src="<?=$image->getURL();?>" alt="Image">
-        <?php endforeach; ?> <!--On arrete le execution-->
+        <?php 
+        if (empty($images)) {
+            echo "<p>Il n'y a pas d'images.</p>";
+        } else {
+            foreach($images as $image): 
+                
+                        // Condition pour déterminer le format du chemin d'accès à l'image
+                        if ($image->getURL() !== null) {
+                            if (strpos($image->getURL(), 'http') === 0) {
+                                // Le chemin d'accès à l'image commence par 'http', donc c'est un lien complet
+                                echo "<img src=\"{$image->getURL()}\" alt=\"cover-img\">";
+                            } else {
+                                // Le chemin d'accès à l'image ne commence pas par 'http', donc c'est un chemin local
+                                echo "<img src=\"./public/img/{$image->getURL()}\" alt=\"cover-img\">";
+                            }
+                        } else {
+                            // Le chemin d'accès à l'image est null, affichez une image par défaut ou un espace réservé
+                            echo "<img src=\"./public/img/istockphoto-891939670-2048x2048-transformed.jpeg\" alt=\"cover-img\">";
+                        }
+            
+            endforeach; 
+        }
+         ?> <!--On arrete le execution-->
+
+       
         
         <!-- Flèche gauche -->
         <div class="prev-arrow"> 
@@ -80,11 +122,12 @@ $user = $result["data"]["user"];
                         </a> 
             <?php   } ?>
                 </div>
+
             </div>
 <?php   }                              
     }else{
         echo "<p>Aucun commentaire disponible.<p>";
-   }?>
+    }?>
 
     <!-- index.php -> nom de fichier ::  ? -> indique le début des paramètres de l'URL :: ctrl=forum ->  C'est un paramètre nommé "ctrl" qui a la valeur "forum". ::  & -> L'esperluette est utilisée pour séparer plusieurs paramètres de l'URL. Ici, il sépare le premier paramètre "ctrl" du paramètre suivant. ::   action=formPost: C'est un autre paramètre nommé "action" avec la valeur "formPost" :: & sépare ce paramètre du suivant
     id=< ?=$article->getId()?> Ce paramètre nommé "id" a une valeur dynamique qui provient d'une variable PHP $article->getId(). Il peut s'agir d'un identifiant unique d'un sujet de forum (par exemple) qui sera utilisé par le contrôleur pour effectuer une action spécifique concernant ce sujet. -->
@@ -93,9 +136,8 @@ $user = $result["data"]["user"];
     <?php if(App\Session::getUser()){ ?>
         
         <div class="input-data">
-            <a href="?ctrl=forum&action=formComment&id=<?= $article->getId() ?>">Ajouter un commentaire</a>
             <form method="post" action="?ctrl=forum&action=addComment&id=<?= $article->getId() ?>">
-                <textarea name="comment" placeholder="Votre commentaire"></textarea>
+                <textarea name="comment" placeholder="Ajouter un commentaire"></textarea>
                 <input type="submit" value="Publier">
             </form>
         </div>

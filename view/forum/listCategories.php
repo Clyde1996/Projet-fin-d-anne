@@ -12,48 +12,48 @@ $categories = $result["data"]["categories"];
 
 <p></p>
 
-<?php
-foreach($categories as $category){
-
-    
-    ?>
-    <div class="card-category">
-
-        <a href="index.php?ctrl=forum&action=detailCategory&id=<?=$category->getId()?>"> 
-
-                <p class="card-category-txt"> <?=$category->getNom(); ?> </p>
-                <div class="card-image">
-                    <img src="<?=$category->getImage()?>" alt="monImg" class="image-category">
-                </div>
-        </a> <!-- on recupere le nom depuis entities/category -->
-    
-        
-        
-        <?php
-        // Vérifiez si un utilisateur est Admin
-        if(App\Session::isAdmin()){
-                ?>
-            <!-- Delete Categories-->
-            <a href="index.php?ctrl=forum&action=deleteCategory&id=<?=$category->getId()?>" method="post"> <!-- le form que on a cree dans le forum controller avec le function qui est lie dans le addOrUpdateComment.php  --> 
-                <p><i class="fa-sharp fa-solid fa-circle-minus"></i> Supprimer</p>
-            </a>
-            
-                <?php
-        }
-        ?>
-            
-
-    </div>
-
     <?php
+    foreach($categories as $category){
 
-   
+        
+        ?>
+        <div class="card-category">
+
+            <a href="index.php?ctrl=forum&action=detailCategory&id=<?=$category->getId()?>"> 
+
+                    <p class="card-category-txt"> <?=$category->getNom(); ?> </p>
+                    <div class="card-image">
+                        <img src="<?=$category->getImage()?>" alt="monImg" class="image-category">
+                    </div>
+            </a> <!-- on recupere le nom depuis entities/category -->
+        
+            
+            
+            <?php
+            // Vérifiez si un utilisateur est Admin
+            if(App\Session::isAdmin()){
+                    ?>
+                <!-- Delete Categories-->
+                <a href="index.php?ctrl=forum&action=deleteCategory&id=<?=$category->getId()?>" method="post"> <!-- le form que on a cree dans le forum controller avec le function qui est lie dans le addOrUpdateComment.php  --> 
+                    <p><i class="fa-sharp fa-solid fa-circle-minus"></i> Supprimer</p>
+                </a>
+                
+                    <?php
+            }
+            ?>
+                
+
+        </div>
+
+        <?php
+
     
-    
-}
+        
+        
+    }
 
 
-?>
+    ?>
 
 
 
