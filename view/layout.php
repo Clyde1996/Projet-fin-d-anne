@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.tiny.cloud/1/zg3mwraazn1b2ezih16je1tc6z7gwp5yd4pod06ae5uai8pa/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- <script src="https://cdn.tiny.cloud/1/43acdq67xm4lx3vzd4w026z0v7wp95jzo099hsxaw2tdlxfs/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="public/css/style.css">
     <script src="public/js/script.js"></script>
@@ -31,11 +32,7 @@
             <h3 class="message" style="color: red"><?= App\Session::getFlash("error") ?></h3>
             <h3 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h3>
 
-            <!-- <div id="burger-menu" onclick="toggleNav()">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div> -->
+
                 <nav>
                     <div id="nav-left">
                         <ul> 
@@ -53,37 +50,45 @@
                     </div>
                         
                     
-
+                    
+                    
                     <div id="nav-right">
 
-                        
-                    <?php
-                        // Vérifiez si un utilisateur est connecté
-                        if(App\Session::getUser()){
-                        ?>  
-                                <ul>
-                                    <!-- <li><a href="index.php">Accueil</a></li> -->
-                                    <li><a href="index.php?ctrl=security&action=viewProfile">Profil</a></li>
-                                    <li><a href="index.php?ctrl=forum&action=listCategories">Liste des Catégories</a></li>
-                                    <li><a href="index.php?ctrl=security&action=logout">Déconnexion</a></li>
-                                </ul>
+                        <a id="topnav_hamburger_icon" href="javascript:void(0);">
+                        <!-- Some spans to act as a hamburger -->
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </a>
+                        <div role="navigation" id="topnav_responsive_menu"> 
                             <?php
-                        }
-                        //  si  l'utilisateur est pas connecté
-                        else{
-                            ?>
-                            
-                                <a href="index.php?ctrl=security&action=loginForm">Connexion</a>
-                                <a href="index.php?ctrl=security&action=registerForm">Inscription</a>
-                                <a href="index.php?ctrl=forum&action=listArticles">List des Articles</a>
-                                <a href="index.php?ctrl=forum&action=listTypes">List Types</a>
-                                <!-- <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a> -->
+                                // Vérifiez si un utilisateur est connecté
+                                if(App\Session::getUser()){
+                                ?>  
+                                        <ul>
+                                            <!-- <li><a href="index.php">Accueil</a></li> -->
+                                            <li><a href="index.php?ctrl=security&action=viewProfile">Profil</a></li>
+                                            <li><a href="index.php?ctrl=forum&action=listCategories">Liste des Catégories</a></li>
+                                            <li><a href="index.php?ctrl=security&action=logout">Déconnexion</a></li>
+                                        </ul>
+                                    <?php
+                                }
+                                //  si  l'utilisateur est pas connecté
+                                else{
+                                    ?>
+                                    
+                                        <a href="index.php?ctrl=security&action=loginForm">Connexion</a>
+                                        <a href="index.php?ctrl=security&action=registerForm">Inscription</a>
+                                        <!-- <a href="index.php?ctrl=forum&action=listArticles">List des Articles</a> -->
+                                        <a href="index.php?ctrl=forum&action=listTypes">List Types</a>
+                                        <!-- <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a> -->
 
-                        <?php
-                        }
-                   
+                                <?php
+                                }
                         
-                    ?>
+                                
+                            ?>
+                        </div>
                     </div>
 
                     <div>
@@ -92,6 +97,9 @@
                         </ul>
                     </div>
                 </nav>
+                <div class="top">
+                    <i class="fa-solid fa-arrow-up" alt="scroll to top logo"></i>
+                </div>
     </header>
             
             

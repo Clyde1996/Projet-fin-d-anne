@@ -151,6 +151,7 @@
   -o-filter:  drop-shadow(0 0 20px rgb(113, 167, 166));
   -moz-filter:  drop-shadow(0 0 20px rgb(113, 167, 166));
   filter:  drop-shadow(0 0 20px rgb(113, 167, 166));
+  border: 1px solid white;
   
  
 }
@@ -164,21 +165,25 @@
   /* height: auto; */
 }
 
-#accueil-body h2{
+/* #accueil-body h2{
   color: white;
   background:  rgba(0,0,0,0.7);
   padding: 20px;
   border-radius: 8px;
   border: white 2px dotted;
   margin: 80px;
-}
+  margin: 0 100px; 
+} */
 
 .accueil-body-p{
   color: white;
-  background:  rgba(0,0,0,0.7);
+  background:  rgba(0,0,0,0.8);
   padding: 20px;
   border-radius: 8px;
-  border: white 2px dotted;
+  margin: 0 100px;
+  border: white 1px solid;
+  font-weight: 1rem;
+  font-size: 15pt;
 }
 
 /* detail article accueil*/
@@ -186,8 +191,28 @@
 .detailArticle-accueil-cards{
   display: flex;
   flex-direction: row;
-  gap: 40px;
-  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 2;
+  font-weight: bold;
+  margin: 0 100px;
+  border-radius: 10px;
+  border: 1px white solid;
+  padding: 30px;
+  font-size: 1.5em;
+  color: whitesmoke;
+  background: linear-gradient(905deg, rgba(125, 112, 105, 0.7), transparent);
+  backdrop-filter: blur(8px);
+  flex-wrap: wrap;
+  gap: 40px;;
+}
+
+.detailArticle-accueil-cards h2:not(.exclude-h2) {
+  /* Styles spécifiques pour tous les h2 sauf ceux avec la classe exclude-h2 */
+  color: #000000; /* Changez ceci en la couleur que vous souhaitez */
+  font-size: 18px; /* Changez ceci à la taille de police souhaitée */
+  /* Ajoutez d'autres styles si nécessaire */
 }
 
 .detailArticle-accueil {
@@ -1371,6 +1396,21 @@ color: white;
 }
 
 
+
+.top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  border-radius: 50%;
+  background-color: rgba(216, 162, 0, 0.7);
+  padding: 15px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /***********************************************/
 /*  */
 /***********************************************/
@@ -1381,13 +1421,244 @@ color: white;
 /*  */
 /***********************************************/
 
- 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 844px){
+  #accueil p{
+    margin: 150px 0px 0px 0px;
+  }
+}
+
+@media only screen and (orientation: landscape) {
   body {
-    font-size: 10px;
+    font-size: 14px;
+    /* Ajoutez d'autres styles ici pour le mode paysage */
   }
 
-  /* #burger-menu {
-    display: flex;
-} */
+  .accueil-body-p{
+    margin: 200px 100px;
+  }
 }
+ 
+@media only screen and (max-width: 768px){
+  /* body {
+    font-size: 10px;
+  } */
+
+  /* nav {
+    position: absolute;
+    top: 5px;
+    right: 9px;
+  } */
+
+  .wanderlust-wrapper {
+    width: 22%;
+  }
+  
+  .wanderlust{
+    width: 35%;
+    margin: 20px 0;
+  }
+
+  #nav-right {
+    padding: 0 5px;
+  }
+  #nav-left {
+    padding: 6px 50px;
+  }
+
+
+
+  .accueil-body-p {
+    margin: 0 10px;
+  }
+  
+  .accueil-video{
+    height: 205px;
+  }
+  
+  #accueil-body {
+    padding: 180px 0 20px 0;
+    text-align: left;
+  }
+  #accueil-body h2 {
+    margin: 100px 100px 6px 100px;
+    font-size: 17pt;
+    padding: 12px;
+  }
+
+  #accueil p{
+    padding: 5px;
+    font-size: 14px;
+    font-size-adjust: 0.5;  
+    margin: 150px 0px 0px 0px;
+    line-height: normal;
+  }
+
+  .cards-category{
+    margin: 0px 35px;
+  }
+  
+  .profil{
+    width:;
+  }
+
+  .detailArticle-accueil-cards{
+    margin: 10px 100px;
+  }
+
+  /* show responsive menu and position at the right of the screen */
+  #topnav_responsive_menu {
+    display: block;
+    position: absolute;
+    margin: 0;
+    right: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 99;
+
+    transform-origin: 0% 0%;
+    transform: translate(200%, 0);
+
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+  }
+
+  #topnav_responsive_menu ul {
+    display: flex;
+    flex-direction: column;
+
+    /* position: absolute;
+    margin: 0;
+    right: 0;
+    top: 0; */
+
+    min-width: 50vw;
+    height: 100vh;
+    padding: 56px 0 0;
+
+    text-align: center;
+
+    background: rgba(0,0,0,0.8);
+    list-style-type: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #topnav_responsive_menu li {
+    padding: 12px 24px;
+  }
+
+  /* #topnav_responsive_menu a {
+    white-space: nowrap;
+    color: #333;
+    text-decoration: none;
+  } */
+
+  /* And let's slide it in from the right */
+  #topnav_responsive_menu.open {
+    transform: none;
+    position: fixed;
+  }
+
+  #partie1 nav ul{
+    flex-direction: column;
+  }
+
+  /* ******************** HAMBURGER ICON ******************** */
+  /* define size and position of the hamburger link */
+  #topnav_hamburger_icon {
+    display: block;
+    position: relative;
+    margin: 16px;
+    width: 33px;
+    height: 28px;
+
+    z-index: 100;
+
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  /* define the style (size, color, position, animation, ...) of the 3 spans */
+  #topnav_hamburger_icon span {
+    display: block;
+    position: absolute;
+    height: 4px;
+    width: 90%;
+    margin-bottom: 5px;
+
+    background: #ededed;
+    border-radius: 10px;
+
+    z-index: 100;
+
+    opacity: 1;
+    left: 0;
+
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.25s ease-in-out;
+    -moz-transition: 0.25s ease-in-out;
+    -o-transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
+  }
+
+  /* set the 3 spans position to look like a hamburger */
+  #topnav_hamburger_icon span:nth-child(1) {
+    top: 0px;
+    -webkit-transform-origin: left top;
+    -moz-transform-origin: left top;
+    -o-transform-origin: left top;
+    transform-origin: left top;
+  }
+  #topnav_hamburger_icon span:nth-child(2) {
+    top: 12px;
+    -webkit-transform-origin: left center;
+    -moz-transform-origin: left center;
+    -o-transform-origin: left center;
+    transform-origin: left center;
+  }
+  #topnav_hamburger_icon span:nth-child(3) {
+    top: 24px;
+    -webkit-transform-origin: left bottom;
+    -moz-transform-origin: left bottom;
+    -o-transform-origin: left bottom;
+    transform-origin: left bottom;
+  }
+
+  /* change color when opening the menu */
+  #topnav_hamburger_icon.open span {
+    background: #333;
+  }
+
+  /* the first span rotates 45° \ */
+  #topnav_hamburger_icon.open span:nth-child(1) {
+    width: 110%;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  /* the second span disappears */
+  #topnav_hamburger_icon.open span:nth-child(2) {
+    width: 0%;
+    opacity: 0;
+  }
+
+  /* the last span rotates -45° / */
+  #topnav_hamburger_icon.open span:nth-child(3) {
+    width: 110%;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+
+
+  
+}
+
+
