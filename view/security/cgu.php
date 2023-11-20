@@ -6,7 +6,7 @@
     <title>Conditions Générales d'Utilisation</title>
 </head>
 <body>
-    <div class="card">
+    <div class="cardCgu">
         <h1>Conditions Générales d'Utilisation</h1>
 
         <p>Bienvenue sur Wanderlust.

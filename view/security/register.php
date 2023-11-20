@@ -20,7 +20,10 @@
                 <input type="password" name="pass2" id="pass2" placeholder="confirm password"></br>
             </div>
             <div>
-                <label for="accept-terms">En cochant cette case, vous acceptez nos conditions générales d'utilisation</label>
+                <label for="accept-terms">
+                    En cochant cette case, vous acceptez nos conditions générales d'utilisation
+                    <a href="index.php?ctrl=security&action=cgu">CGU</a>
+                </label>
                 <input type="checkbox" name="accept-terms" id="accept-terms" required>
             </div>
             <input type="submit" name="submit" value="Sign up"></br>

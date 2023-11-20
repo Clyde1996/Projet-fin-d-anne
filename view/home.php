@@ -61,7 +61,7 @@ $articles = $result["data"]["articles"];
         if ($count < 12) { // Limiter l'affichage à 5 articles
     ?>
             <div class="detailArticle-accueil">
-                <a href="index.php?ctrl=forum&action=detailArticle&id=<?=$article->getId()?>">
+                <a href="index.php?ctrl=forum&action=detailArticle&id=<?=$article->getId()?>" class="a-detailArticle-accueil">
                     <p><?=$article->getTitle()?></p>
                     <p><?=$article->getCreationdate()?></p>
                     

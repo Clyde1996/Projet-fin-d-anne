@@ -342,7 +342,7 @@
 
 
         /*List Users*/ 
-        public function listUsers(){   // le function fait le lien avec le view qui s'appelle listUsers
+        public function listUsers(){   // La fonction cree le lien avec la vue  listUsers
             $userManager = new UserManager();
 
             return [
@@ -443,7 +443,6 @@
         // form pour le modifier le comment / update comment
         public function updateFormComment($id){ // c'est la form que on a cree dans le addOrUpdateComment, et ca s'appelle formComment!
             $commentManager = new CommentManager();
-            // $articleManager = new ArticleManager();
 
             return[
                 "view" => VIEW_DIR."forum/updateComment.php",
@@ -453,7 +452,7 @@
         }
 
 
-        // Fonction pour editer un article
+        
         public function updateComment($id){
             $commentManager = new CommentManager();
             $session = new Session();
@@ -462,7 +461,7 @@
         
             $commentManager->edit(['text' => $text], $id);
         
-            // Utilise directement l'ID de l'article depuis la session
+            // On utilise directement l'ID de l'article depuis la session
             $articleId = $session->getArticleId();
         
             // Redirige vers la page de détail de l'article
