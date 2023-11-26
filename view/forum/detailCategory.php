@@ -1,6 +1,6 @@
 <?php
 
-
+// Récupération des données du résultat
 $category = $result["data"]["category"];
 $articles = $result["data"]["articles"];
 
@@ -35,14 +35,14 @@ $articles = $result["data"]["articles"];
                     if ($article->getImage() !== null) {
                         if (strpos($article->getImage(), 'http') === 0) {
                             // Le chemin d'accès à l'image commence par 'http', donc c'est un lien complet
-                            echo "<img src=\"{$article->getImage()}\" alt=\"cover-img\">";
-                        } else {
+                            echo "<img src=\"{$article->getImage()}\" alt=\"{$article->getTitle()}\">";
+                        } else {    
                             // Le chemin d'accès à l'image ne commence pas par 'http', donc c'est un chemin local
-                            echo "<img src=\"./public/img/{$article->getImage()}\" alt=\"cover-img\">";
+                            echo "<img src=\"./public/img/{$article->getImage()}\" alt=\"{$article->getTitle()}\">";
                         }
                     } else {
                         // Le chemin d'accès à l'image est null, affichez une image par défaut ou un espace réservé
-                        echo "<img src=\"./public/img/istockphoto-891939670-2048x2048-transformed.jpeg\" alt=\"cover-img\">";
+                        echo "<img src=\"./public/img/istockphoto-891939670-2048x2048-transformed.jpeg\" alt=\"image-par-défaut\">";
                     }
                     ?>
 
@@ -71,7 +71,7 @@ $articles = $result["data"]["articles"];
     </div>
 <!-- </div> -->
 
-<!-- si le user est en session il peut ajouter un categorie sinon je redirige vers login-->
+<!-- si le user est en session il peut ajouter un article sinon je redirige vers login-->
 <?php if(App\Session::getUser()){ ?>
 
         <!--Le form pour ajouter un Article-->

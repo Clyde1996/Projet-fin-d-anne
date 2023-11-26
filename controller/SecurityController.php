@@ -107,7 +107,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
                 }
     
                 // Vérifier si les mots de passe correspondent et respectent les critères
-                $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*.-]).{8,}$/";
+                $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*.-]).{12,}$/";
                 if($pass1 == $pass2 && preg_match($password_regex, $pass1)){
                     // Hasher le mot de passe
                     $hashedPassword = password_hash($pass1, PASSWORD_DEFAULT);
@@ -249,12 +249,12 @@ class SecurityController extends AbstractController implements ControllerInterfa
     
         $userId = Session::getUser()->getId();
     
-        // Valider le mot de passe avec une expression régulière
+        // passwod regex
         $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*.-]).{8,}$/";
     
         // On vérifie si un nouveau mot de passe est fourni
         if (!empty($newPassword)) {
-            // Valider le mot de passe avec une expression régulière
+            // si le mot de passe ne correspond pas a le password regex on affiche le message d'erreur
             if (!preg_match($password_regex, $newPassword)) {
                 $session->addFlash('error', "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
                 $this->redirectTo('security','formUpdateUser');
@@ -361,54 +361,73 @@ class SecurityController extends AbstractController implements ControllerInterfa
     }
 
 
-    // fonction pour changer le photo de profile
+    // Fonction pour changer la photo de profil
     public function updateProfileImage($id) {
         $userManager = new UserManager();
         $session = new Session();
-       
+        
+        // Vérifie si un fichier a été soumis via le formulaire
         if (isset($_FILES['photo'])) {
-           
-         
-
+             // Récupère les informations sur le fichier
             $tmpName = $_FILES['photo']['tmp_name'];
             $name = $_FILES['photo']['name'];
             $size = $_FILES['photo']['size'];
             $error = $_FILES['photo']['error'];
-   
+            
+            // Sépare le nom de fichier et son extension
             $tabExtension = explode('.', $name);
             $extension = strtolower(end($tabExtension));
-   
-            $extensions = ['jpg', 'png', 'jpeg', 'gif'];
-            $maxSize = 7000000; // 7 Mo
-   
+            
+            // Définit les extensions de fichiers autorisées et la taille maximale du fichier
+            $allowedExtensions = ['jpg', 'png', 'jpeg', 'gif'];
+            $maxSize = 5000000; // 5 Mo
+            
+            // Vérifie si la taille du fichier est inférieure ou égale à la taille maximale autorisée
             if ($size <= $maxSize) {
-                if (in_array($extension, $extensions) && $error == 0) {
+                // Vérifie si l'extension du fichier est autorisée et s'il n'y a pas d'erreur lors du téléchargement
+                if (in_array($extension, $allowedExtensions) && $error == 0) {
+                     // Génère un nom unique pour le fichier
                     $uniqueName = uniqid('', true);
                     $file = $uniqueName . "." . $extension;
-   
-                    move_uploaded_file($tmpName, './public/img/' . $file);
-   
-                    $photo = $file;
-   
-                    // Mettez à jour l'image dans la base de données
-                    $userManager->updateProfileImage($photo, $id);
+    
+                    // Validation du type de fichier en utilisant les types d'images autorisésr
+                    $allowedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF];
+                    $imageType = exif_imagetype($tmpName);
+                    if (!in_array($imageType, $allowedTypes)) {
+                        // Erreur si le type de fichier n'est pas autorisé
+                        Session::addFlash("error", "Le type de fichier n'est pas autorisé.");
+                        $this->redirectTo("photo", "remoteAddPhoto");
+                    }
+    
+                    // Déplacement sécurisé du fichier vers le dossier de destination
+                    $destinationPath = realpath('./public/img/') . '/' . $file;
+                    if (move_uploaded_file($tmpName, $destinationPath)) {
+                        // Mise à jour de l'image dans la base de données avec le nouveau nom de fichier
+                        $photo = $file;
+                        $userManager->updateProfileImage($photo, $id);
+                    } else {
+                          // Erreur en cas d'échec du téléchargement
+                        Session::addFlash("error", "Une erreur est survenue lors du téléchargement de l'image.");
+                        $this->redirectTo("photo", "remoteAddPhoto");
+                    }
                 } else {
-                    Session::addFlash("error", "Une erreur est survenue lors du téléchargement de l'image <br> Veuillez réessayer");
+                    // Erreur en cas d'extension non autorisée ou d'erreur lors du téléchargement
+                    Session::addFlash("error", "Une erreur est survenue lors du téléchargement de l'image. Veuillez réessayer.");
                     $this->redirectTo("photo", "remoteAddPhoto");
                 }
             } else {
+                // Erreur si la taille du fichier dépasse la limite autorisée
                 Session::addFlash("error", "La taille de l'image est trop grande.");
                 $this->redirectTo("photo", "remoteAddPhoto");
             }
         }
-   
+        
+        // Retourne les données pour afficher la vue du profil mis à jour
         return [
             "view" => VIEW_DIR . "security/viewProfile.php",
-
             "data" => [
                 "user" => $userManager->findOneById($id),
             ],
-           
         ];
         exit();
     }
@@ -458,7 +477,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
             // on detruit le session avant la rideriction 
 
-            $session->addFlash('success', "Le Compte a été supprimé avec succès");
+            $session->addFlash('success', "Votre Compte A ete supprimer avec succes !");
             session_destroy();
 
             // Rediriger vers la page de connexion

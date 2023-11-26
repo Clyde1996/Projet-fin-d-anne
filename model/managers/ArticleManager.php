@@ -5,14 +5,14 @@
     use App\DAO;
     use Model\Managers\ArticleManager;
 
-    class ArticleManager extends Manager{ //la classe  articleManager ca fait partie de Manager
+    class ArticleManager extends Manager{ // La classe ArticleManager hérite de la classe Manager
 
-        protected $className = "Model\Entities\Article";
-        protected $tableName = "article";
+        protected $className = "Model\Entities\Article"; // Définition de la classe des entités d'article
+        protected $tableName = "article"; // Définition du nom de la table de la base de données pour les articles
 
 
         public function __construct(){
-            parent::connect();
+            parent::connect(); // ON appel du constructeur de la classe parente pour établir une connexion à la base de données
         }
 
 
@@ -37,7 +37,7 @@
         }
         
 
-        public function findAritlceByTypesId($id){
+        public function findArticleByTypesId($id){
             $sql = "SELECT *
                     FROM article a 
                     INNER JOIN collection c ON a.id_article = c.article_id

@@ -92,42 +92,39 @@ $types = $result["data"]["types"];
     </div>
 
     <!-- Vérifiez que $comments n'est pas null-->
-    <?php if ($comments !== null){?>  
-         
-        <?php foreach($comments as $comment){ ?>
-            
-            <div class="detailArticle-contenu">
-            
-                <p><?=$comment->getUser()->getUsername()?></p>
-                <img src="<?=$comment->getUser()->getImage()?>" alt="">
-                <p> <?=$comment->getCreationdate();?> </p>
-                <p> <?=$comment->getText();?> </p>
-                
-            
-            
+    <?php if ($comments !== null){ ?>  
 
-                <!-- Si le user est connecter -->
-                <div class="icones-detail-article">
-                    <!-- si le user && le id de user en session strictement egale a id de user dans le comment on affiche les formes delete/update -->
-                    <?php if(App\Session::getUser() && App\Session::getUser()->getId() === $comment->getUser()->getId()){ ?>
-                        <!-- le form delete article -->
-                        <a href="index.php?ctrl=forum&action=deleteComment&id=<?=$comment->getId()?>" class="delete-detail-article">
+<?php foreach($comments as $comment){ ?>
+    
+    <div class="detailArticle-contenu">
+        
+        <p><?=$comment->getUser()->getUsername()?></p>
+        <img src="<?=$comment->getUser()->getImage()?>" alt="">
+        <p> <?=$comment->getCreationdate();?> </p>
+        <p> <?=$comment->getText();?> </p>
+        
+        <!-- Si le user est connecté -->
+        <div class="icones-detail-article">
+            <?php if(App\Session::getUser()) { ?>
+                <!-- Si le user est administrateur OU le créateur du commentaire, on affiche les options de suppression et de modification -->
+                <?php if(App\Session::isAdmin() || App\Session::getUser()->getId() === $comment->getUser()->getId()) { ?>
+                    <!-- Le formulaire de suppression du commentaire -->
+                    <a href="index.php?ctrl=forum&action=deleteComment&id=<?=$comment->getId()?>" class="delete-detail-article">
                         <i class="fa-sharp fa-solid fa-circle-minus"></i>
-                        </a> 
+                    </a> 
 
-
-                        <!-- le form update article -->
-                        <a href="index.php?ctrl=forum&action=updateFormComment&id=<?=$comment->getId()?>" class="modifier-detail-article">
+                    <!-- Le formulaire de modification du commentaire -->
+                    <a href="index.php?ctrl=forum&action=updateFormComment&id=<?=$comment->getId()?>" class="modifier-detail-article">
                         <i class="fas fa-edit" style="color: #ffffff;"></i>
-                        </a> 
-            <?php   } ?>
-                </div>
-
-            </div>
-<?php   }                              
-    }else{
-        echo "<p>Aucun commentaire disponible.<p>";
-    }?>
+                    </a> 
+                <?php } ?>
+            <?php } ?>
+        </div>
+    </div>
+<?php }                              
+} else {
+echo "<p>Aucun commentaire disponible.</p>";
+} ?>
 
     <!-- index.php -> nom de fichier ::  ? -> indique le début des paramètres de l'URL :: ctrl=forum ->  C'est un paramètre nommé "ctrl" qui a la valeur "forum". ::  & -> L'esperluette est utilisée pour séparer plusieurs paramètres de l'URL. Ici, il sépare le premier paramètre "ctrl" du paramètre suivant. ::   action=formPost: C'est un autre paramètre nommé "action" avec la valeur "formPost" :: & sépare ce paramètre du suivant
     id=< ?=$article->getId()?> Ce paramètre nommé "id" a une valeur dynamique qui provient d'une variable PHP $article->getId(). Il peut s'agir d'un identifiant unique d'un sujet de forum (par exemple) qui sera utilisé par le contrôleur pour effectuer une action spécifique concernant ce sujet. -->

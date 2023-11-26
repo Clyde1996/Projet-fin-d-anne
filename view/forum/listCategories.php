@@ -10,7 +10,7 @@ $categories = $result["data"]["categories"];
 <div class="cards-category">
 
 
-<p></p>
+
 
     <?php
     foreach($categories as $category){

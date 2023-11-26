@@ -6,7 +6,7 @@ $users = $result["data"]["users"];
 
 <div class="cards-list-users">
 
-  <h1>Liste de Users</h1>
+  <h1>Liste des Users</h1>
 
 
 

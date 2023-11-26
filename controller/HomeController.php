@@ -20,12 +20,15 @@
             $categoryManager = new CategoryManager();
             $articleManager = new ArticleManager();
 
+            $description = "Bienvenue sur Wanderlust, un site de voyages et de partage d'aventures";
+
             return [
                 "view" => VIEW_DIR."home.php",
                 "data" => [
                     
                     "categories" => $categoryManager->findAll(["nom", "ASC"]),
-                    "articles" => $articleManager ->findAll(["creationdate", "DESC"])
+                    "articles" => $articleManager ->findAll(["creationdate", "DESC"]),
+                    "descrption" => $description
                 ]
             ];
 

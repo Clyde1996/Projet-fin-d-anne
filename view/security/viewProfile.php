@@ -13,7 +13,7 @@ $user = $result["data"]["user"];
         <?php $userImage = App\Session::getUser()->getImage(); ?>
 
         <?php if(empty($userImage)) { ?>
-            <img src="./public/img/149071.png"  class="profile-image">
+            <img src="./public/img/149071.png"  class="profile-image" alt="profile-image">
         <?php } else { ?>
             <img src="./public/img/<?= $userImage ?>" class="profile-image">
         <?php } ?>

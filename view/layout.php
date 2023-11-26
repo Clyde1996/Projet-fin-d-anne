@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+    <?php
+    if(isset($description)){
+        ?>
+        <meta name="description" content="<?= $description?>">
+        <?php
+    }
+    ?>
+   
+
     <script src="https://cdn.tiny.cloud/1/zg3mwraazn1b2ezih16je1tc6z7gwp5yd4pod06ae5uai8pa/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <!-- <script src="https://cdn.tiny.cloud/1/43acdq67xm4lx3vzd4w026z0v7wp95jzo099hsxaw2tdlxfs/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -23,7 +32,7 @@
     <div id="wrapper"> 
 
     <a href="http://localhost/klajdi_HAZIRAJ/wanderlust/Projet-fin-d-anne/">
-        <img src="./public/img/rrr.png" alt="wanderlust" class="wanderlust-wrapper">
+        <img src="./public/img/rrr.png" alt="wanderlust-logo" class="wanderlust-wrapper">
     </a>
         
 
@@ -76,13 +85,14 @@
                                 //  si  l'utilisateur est pas connecté
                                 else{
                                     ?>
-                                    
-                                        <a href="index.php?ctrl=security&action=loginForm">Connexion</a>
-                                        <a href="index.php?ctrl=security&action=registerForm">Inscription</a>
-                                        <!-- <a href="index.php?ctrl=forum&action=listArticles">List des Articles</a> -->
-                                        <a href="index.php?ctrl=forum&action=listTypes">List Types</a>
-                                        <!-- <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a> -->
 
+                                        <ul>
+                                            <li><a href="index.php?ctrl=security&action=loginForm">Connexion</a></li>
+                                            <li><a href="index.php?ctrl=security&action=registerForm">Inscription</a></li>
+                                            <!-- <a href="index.php?ctrl=forum&action=listArticles">List des Articles</a> -->
+                                            <li><a href="index.php?ctrl=forum&action=listTypes">List Types</a></li>
+                                            <!-- <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a> -->
+                                        </ul>
                                 <?php
                                 }
                         

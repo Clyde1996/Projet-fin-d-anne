@@ -6,3 +6,4 @@
 
         public function index();
     }
+?>

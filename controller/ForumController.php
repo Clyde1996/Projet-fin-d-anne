@@ -273,11 +273,12 @@
         }
 
         public function detailCategory($id){   // le fonction fait le lien avec le view qui s'appelle detailCategory
+            // Instancie des objet pour gérer les opérations sur les catégories, articles, users
             $categoryManager = new CategoryManager();
             $articleManager = new ArticleManager();
             $userManager = new UserManager();
 
-            // $id = (filter_var($id, FILTER_VALIDATE_INT));  // Cette ligne de code vérifie si la variable $id est un entier valide en PHP. Si c'est le cas, la variable $id conserve sa valeur en tant qu'entier. Sinon, si $id n'est pas un entier valide, la variable $id est définie à false
+            
 
             return [
                 "view" => VIEW_DIR."forum/detailCategory.php",
@@ -565,12 +566,11 @@
             $articleManager = new ArticleManager();
             $userManager = new UserManager();
 
-            // $id = (filter_var($id, FILTER_VALIDATE_INT));  // Cette ligne de code vérifie si la variable $id est un entier valide en PHP. Si c'est le cas, la variable $id conserve sa valeur en tant qu'entier. Sinon, si $id n'est pas un entier valide, la variable $id est définie à false
-
+            
             return [
                 "view" => VIEW_DIR."forum/detailType.php",
                 "data" => [
-                    "articles" => $articleManager->findAritlceByTypesId($id),
+                    "articles" => $articleManager->findArticleByTypesId($id),
                     "type" => $typeManager->findOneById($id)
                     
                 ]

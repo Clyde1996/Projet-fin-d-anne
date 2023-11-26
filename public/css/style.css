@@ -88,7 +88,7 @@
   max-height: 400px; /* Hauteur maximale pour toutes les cartes (ajustez selon vos besoins) */
   background:  rgba(0,0,0,0.7);
   backdrop-filter: blur(8px);
-  border: 2px dotted #ddd;
+  border: 1px solid #ddd;
   padding: 15px;
   margin: 17px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -104,7 +104,8 @@
 
 .home-categories-card:hover{
   transform: scale(1.12);
-  background-color: rgba(44, 35, 29, 0.8);
+  background-color: rgba(228, 221, 11, 0.3);
+  /* background-color: rgba(44, 35, 29, 0.8); */
   /* filter: drop-shadow(0 0 20px rgb(116, 105, 99)); */
 }
 
@@ -116,6 +117,7 @@
 
 .home-categories-card a:hover{
   text-decoration-color: white;
+  text-decoration: none;
 }
 
 .accueil-video{
@@ -156,6 +158,10 @@
  
 }
 
+.hero a:hover{
+  text-decoration: none;
+}
+
 #accueil-body {
   text-align: center;
   padding: 350px 0 20px 0;
@@ -176,20 +182,34 @@
 } */
 
 .accueil-body-p{
+  flex-direction: column;
+  padding: 25px;
+  align-items: center;
+  gap: 20px;
   color: white;
   background:  rgba(0,0,0,0.8);
-  padding: 20px;
   border-radius: 8px;
-  margin: 0 100px;
+  margin: 130px 55px 200px 55px;
   border: white 1px solid;
+  display: flex;
+  font-size: 15pt;
+  /* margin-bottom: 135px; */
+  /* padding-bottom: 20px ; */
+  /* height: 160%; */
+  /* width: 100%; */
+  /* margin-bottom: 140px; */
+  
+  /* 
+  padding: 20px;
   font-weight: 1rem;
   font-size: 15pt;
-  text-align: left;
+  text-align: left; */
 }
 
 .accueil-body-p h3{
-  text-align: center;
+  text-align: justify;
   padding-bottom: 20px ;
+  font-size: 1.5em;
 }
 
 
@@ -207,8 +227,8 @@
   margin: 0 90px;
   border-radius: 10px;
   border: 1px white solid;
-  padding: 80px 0;
-  font-size: 1.5em;
+  padding: 95px 0;
+  font-size: 1.4em;
   color: whitesmoke;
   background: linear-gradient(905deg, rgba(125, 112, 105, 0.7), transparent);
   backdrop-filter: blur(8px);
@@ -219,6 +239,7 @@
 .detailArticle-accueil-cards h2{
   position: absolute;
   top: 3%;
+
   transform: translateY(-50%);
   left: 518px;
 }
@@ -333,7 +354,7 @@
 
 .addArticle-card {
   max-width: 400px;
-  margin: 50px auto;
+  margin: 0 auto;
   
   box-shadow: inset 0 0 2000px rgba(0, 0, 0, 0.9);
   /* box-shadow: outset 0 0 10px rgba(250, 249, 249, 0.8); */
@@ -546,8 +567,8 @@ nav {
 /* background-attachment: fixed; permet de fixer l'image d'arrière-plan d'un élément par rapport à la fenêtre du navigateur, créant ainsi un effet de parallaxe où l'image reste immobile pendant que le contenu de la page défile.*/
 #forum {
   margin: 0;
-  overflow-y: scroll; /* Ajoute une barre de défilement si nécessaire */
-  height: 100vh;
+  /* overflow-y: scroll; /* Ajoute une barre de défilement si nécessaire */
+  min-height: 100vh;
   background: no-repeat center/cover url("../img/endless-constellation (1).svg");
   background-attachment: fixed;
 }
@@ -728,7 +749,7 @@ input[type="submit"]:hover {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   max-width: 600px;
-  margin: 80px auto;
+  margin: 0 auto;
   text-align: center;
 }
 
@@ -776,7 +797,7 @@ input[type="submit"]:hover {
 
 .profil {
   text-align: center;
-  margin: 50px auto;
+  margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -914,7 +935,7 @@ input[type="submit"]:hover {
 
 .h1-card-category{
   padding: 20 px 0 0 0;
-  margin: 50px 100px 0 100px;
+  margin: 0px 100px;
   border-radius: 5px;
   color: white;
   text-align: center;
@@ -930,11 +951,12 @@ input[type="submit"]:hover {
   justify-content: center;
   text-decoration: none;
   color: white;
-  margin: 30px auto; 
+  margin: 0 auto; 
   padding: 5px 10px;
   border-radius: 5px;
   background: rgba(0, 0, 0, 0.1);
 }
+
 
 .add-category:hover{
   background: rgba(0, 0, 0, 0.2);
@@ -1272,6 +1294,15 @@ color: white;
   backdrop-filter: blur(8px);
   color: whitesmoke;
   border-radius: 0 10px;
+  padding-top: 80px;
+  padding-bottom: 50px;
+}
+
+.cards-list-users h1{
+  position: absolute;
+  top: 0;
+  padding: 30px;
+  font-size: 24pt;
 }
 
 .card-list-users{
@@ -1292,7 +1323,7 @@ color: white;
 
 .card-list-users img{
   max-width: 120px; /* Assurez-vous que toutes les images s'adaptent à la largeur de la carte */
-  max-width: 130px;
+ /* max-width: 130px;*/
   /* height: auto; Garantit que les proportions de l'image sont respectées */
   border-radius: 50%;
   max-height: 130px;
@@ -1485,7 +1516,9 @@ color: white;
   }
 }
 
-@media only screen and (orientation: landscape) {
+@media only screen and (max-width: 844px) and (orientation: landscape) {
+
+  /*les dernier articles dans le home a voir */
   body {
     font-size: 14px;
     /* Ajoutez d'autres styles ici pour le mode paysage */
@@ -1497,16 +1530,7 @@ color: white;
 }
  
 @media only screen and (max-width: 768px){
-  /* body {
-    font-size: 10px;
-  } */
-
-  /* nav {
-    position: absolute;
-    top: 5px;
-    right: 9px;
-  } */
-
+  
   .wanderlust-wrapper {
     width: 22%;
   }
@@ -1596,7 +1620,7 @@ color: white;
 
     text-align: center;
 
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.85);
     list-style-type: none;
     -webkit-font-smoothing: antialiased;
   }
@@ -1715,6 +1739,10 @@ color: white;
     transform: rotate(-45deg);
   }
 
+
+  #nav-left ul li a, #nav-right ul li a {
+    margin: 0;
+  }
 
   
 }
