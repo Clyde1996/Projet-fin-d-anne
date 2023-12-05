@@ -457,19 +457,20 @@
         public function updateComment($id){
             $commentManager = new CommentManager();
             $session = new Session();
-        
+            $articleManager = new ArticleManager();
+            
             $text = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_SPECIAL_CHARS);
-        
+            
+            // Récupérez l'ID de l'article associé à ce commentaire
+            $articleId = $commentManager->findOneById($id)->getArticle()->getId();
+            
+            // Mettez à jour le commentaire
             $commentManager->edit(['text' => $text], $id);
-        
-            // On utilise directement l'ID de l'article depuis la session
-            $articleId = $session->getArticleId();
-        
-            // Redirige vers la page de détail de l'article
+            
+            // Redirige vers la page de détail de l'article avec l'ID passé dans l'URL
             $this->redirectTo("Forum", "detailArticle", $articleId);
             exit();
         }
-
 
 
 
@@ -560,19 +561,36 @@
             ];
         }
 
-        public function detailType($id){   // les articles par type 
+        // public function detailType($id){   // les articles par type 
             
+        //     $typeManager = new TypeManager();
+        //     $articleManager = new ArticleManager();
+        //     $userManager = new UserManager();
+
+            
+        //     return [
+        //         "view" => VIEW_DIR."forum/detailType.php",
+        //         "data" => [
+        //             "articles" => $articleManager->findArticleByTypesId($id),
+        //             "type" => $typeManager->findOneById($id)
+                    
+        //         ]
+        //     ];
+        // }
+
+        public function detailType($id){   // le fonction fait le lien avec le view qui s'appelle detailCategory
+            // Instancie des objet pour gérer les opérations sur les types, articles, users
             $typeManager = new TypeManager();
             $articleManager = new ArticleManager();
             $userManager = new UserManager();
 
             
+
             return [
                 "view" => VIEW_DIR."forum/detailType.php",
                 "data" => [
-                    "articles" => $articleManager->findArticleByTypesId($id),
-                    "type" => $typeManager->findOneById($id)
-                    
+                    "type" => $typeManager->findOneById($id),
+                    "articles"=>$articleManager->findArticleByTypesId($id)
                 ]
             ];
         }

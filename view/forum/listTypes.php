@@ -12,7 +12,7 @@ $types = $result["data"]["types"];
                 <a href="index.php?ctrl=forum&action=detailType&id=<?=$type->getId()?>">
                     <p class="card-category-txt"> <?=$type->getName(); ?> </p>
                     <div class="card-image">
-                        <img src="./public/img/<?=$type->getPictogram()?>" alt="monImg" class="image-category">
+                        <img src="./public/img/<?=$type->getPictogram()?>" alt="Voyage <?=$type->getName(); ?>" class="image-category">
                     </div>
                 </a>
             </div>

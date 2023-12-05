@@ -23,7 +23,7 @@ $categories = $result["data"]["categories"];
 
                     <p class="card-category-txt"> <?=$category->getNom(); ?> </p>
                     <div class="card-image">
-                        <img src="<?=$category->getImage()?>" alt="monImg" class="image-category">
+                        <img src="<?=$category->getImage()?>" alt="Nom De La Categorie : <?=$category->getNom(); ?>" class="image-category">
                     </div>
             </a> <!-- on recupere le nom depuis entities/category -->
         

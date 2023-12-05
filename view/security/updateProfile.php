@@ -16,7 +16,7 @@
     <label for="confirmPassword">Confirm New Password:</label>
     <input type="password" name="confirmPassword">
     
-    <input type="submit" value="valider">
+    <input type="submit" value="Valider">
 
 </form>
 </div>

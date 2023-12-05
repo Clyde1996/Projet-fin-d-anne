@@ -52,27 +52,27 @@ $description = $result["data"]["descrption"];
     
     
     <div class="detailArticle-accueil-cards">
-    <!-- Contenu de la section -->
-    <h2 class="exclude-h2"> Les Derniers Articles </h2>
+        <!-- Contenu de la section -->
+        <h2 class="exclude-h2"> Les Derniers Articles </h2>
 
-    <?php
-    $count = 0; // Initialiser la variable de comptage
-    foreach($articles as $article) {
-        if ($count < 12) { // Limiter l'affichage à 5 articles
-    ?>
-            <div class="detailArticle-accueil">
-                <a href="index.php?ctrl=forum&action=detailArticle&id=<?=$article->getId()?>" class="a-detailArticle-accueil">
-                    <p><?=$article->getTitle()?></p>
-                    <p><?=$article->getCreationdate()?></p>
-                    
-                    <img src="<?=$article->getImage()?>" alt="<?=$article->getContent()?>">
-                </a>    
-            </div>
-    <?php
-            $count++; // Incrémenter la variable de comptage
+        <?php
+        $count = 0; // Initialiser la variable de comptage
+        foreach($articles as $article) {
+            if ($count < 12) { // Limiter l'affichage à 5 articles
+        ?>
+                <div class="detailArticle-accueil">
+                    <a href="index.php?ctrl=forum&action=detailArticle&id=<?=$article->getId()?>" class="a-detailArticle-accueil">
+                        <p><?=$article->getTitle()?></p>
+                        <p><?=$article->getCreationdate()?></p>
+                        
+                        <img src="<?=$article->getImage()?>" alt="<?=$article->getContent()?>">
+                    </a>    
+                </div>
+        <?php
+                $count++; // Incrémenter la variable de comptage
+            }
         }
-    }
-    ?>
-</div>
+        ?>
+    </div>
     
 </section>

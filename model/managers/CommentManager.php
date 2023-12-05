@@ -15,7 +15,7 @@
             parent::connect();
         }
 
-        public function findCommentsByArticleId($id){
+        public function findCommentsByarticleId($id){
             $sql = "SELECT *
             FROM ".$this->tableName." p
             WHERE p.article_id = :article";
@@ -27,6 +27,8 @@
 
             );
         }
+
+        
 
         public function deleteCommentsByUserId($id){
             $sql = "DELETE FROM " . $this->tableName . " WHERE user_id = :id";

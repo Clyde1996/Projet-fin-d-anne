@@ -27,7 +27,7 @@
                     <a href="index.php?ctrl=forum&action=detailArticle&id=<?=$favori->getArticle()->getId()?>">
                         <p ><?=$favori->getArticle()->getTitle();?></p>
                         <p ><?=$favori->getArticle()->getCreationdate();?></p>
-                        <p ><img src="<?=$favori->getArticle()->getImage();?>" alt="mes-favoris-img"></p>
+                        <p ><img src="<?=$favori->getArticle()->getImage();?>" alt="Images Dans Mes Favoris : <?=$favori->getArticle()->getTitle();?>"></p>
                     </a>
                     </div>
                     <?php

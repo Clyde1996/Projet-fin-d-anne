@@ -35,12 +35,12 @@ $types = $result["data"]["types"];
     </div>
 
     <div class="detailArticle-contenu">
-    <!--Title De article-->
-    <h1> <?=$article->getTitle();?> </h1>  
+        <!--Title De article-->
+        <h1> <?=$article->getTitle();?> </h1>  
 
-    <p class="detail-article-p">Créé par : <?=$article->getUser()->getUsername();?></p>
-    <p class="detail-article-p">Date de Creation : <?=$article->getCreationdate()?></p>
-    
+        <p class="detail-article-p">Créé par : <?=$article->getUser()->getUsername();?></p>
+        <p class="detail-article-p">Date de Creation : <?=$article->getCreationdate()?></p>
+        
     </div>
     
     <!--Les images et les fleches qui permettre de change les images-->
@@ -99,7 +99,15 @@ $types = $result["data"]["types"];
     <div class="detailArticle-contenu">
         
         <p><?=$comment->getUser()->getUsername()?></p>
-        <img src="<?=$comment->getUser()->getImage()?>" alt="">
+        <!--on affiche l'image de user dans le commentaire, si il a pas un on affiche le message par defaut-->
+        <?php $userImage = App\Session::getUser()->getImage(); ?>
+
+        <?php if(empty($userImage)) { ?>
+            <img src="./public/img/149071.png"  alt="profile-image">
+        <?php } else { ?>
+            <img src="./public/img/<?= $userImage ?>" >
+        <?php } ?>
+
         <p> <?=$comment->getCreationdate();?> </p>
         <p> <?=$comment->getText();?> </p>
         
