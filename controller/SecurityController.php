@@ -303,55 +303,6 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
 
 
-    // public function resetPassword() {
-    //     if ($_POST["submit"]) {
-    //         $userManager = new UserManager(); // ou tout autre moyen d'accéder à la gestion des utilisateurs
-    //         $session = new Session();
-    
-    //         // Récupérez l'adresse e-mail soumise dans le formulaire
-    //         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            
-    //         $mail = new PhpMailer();
-    //         // Recherchez l'utilisateur avec l'e-mail fourni
-    //         $user = $userManager->findUserByEmail($email);
-    
-    //         if ($user) {
-
-    //             // Générez un jeton de réinitialisation de mot de passe
-    //             // $resetToken = bin2hex(random_bytes(32)); // Générez un jeton aléatoire (on peut utiliser une autre méthode de génération)
-    //             // $user->setResetToken($resetToken);
-    //             // $user->setResetTokenExpiration(time() + 3600); // Expiration du jeton en 1 heure (on ajuste selon nos besoins)
-    
-    //             // // Sauvegardez le jeton et l'heure d'expiration dans la base de données (utilisez votre méthode de mise à jour)
-    //             // $userManager->updateResetToken($user);
-    
-    //             // Envoyez un e-mail à l'utilisateur avec un lien contenant le jeton
-    //             $resetLink ="http://localhost/klajdi_HAZIRAJ/wanderlust/Projet-fin-d-anne/index.php?ctrl=security&token=";
-    
-    //             // Envoi de l'e-mail
-    //             $to = $user->getEmail(); // Adresse e-mail de l'utilisateur
-    //             $subject = "Réinitialisation de mot de passe"; // Sujet de l'e-mail
-    //             $message = "Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe : $resetLink"; // Message de l'e-mail
-    
-    //             $headers = "From: clyderadioo@gmail.com\r\n"; // Adresse e-mail de l'expéditeur
-    
-    //             if (mail($to, $subject, $message, $headers)) {
-    //                 // L'e-mail a été envoyé avec succès
-    //                 $session->addFlash('success', "Un e-mail a été envoyé avec le lien pour réinitialiser votre mot de passe.");
-    //             } else {
-    //                 // Une erreur s'est produite lors de l'envoi de l'e-mail
-    //                 $session->addFlash('error', "Erreur lors de l'envoi de l'e-mail. Veuillez réessayer ultérieurement.");
-    //             }
-    //         } else {
-    //             // L'adresse e-mail n'est pas associée à un utilisateur, affichez un message d'erreur
-    //             $session->addFlash('error', "Aucun utilisateur n'a été trouvé avec cette adresse e-mail.");
-    //         }
-    //     }
-    
-    //     return [
-    //         "view" => VIEW_DIR . "security/resetPassword.php",
-    //     ];
-    // }
     
     public function cgu(){                     
 
