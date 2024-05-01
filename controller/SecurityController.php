@@ -33,8 +33,8 @@ class SecurityController extends AbstractController implements ControllerInterfa
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'clyderadioo@gmail.com'; //gmail address
-            $mail->Password = 'ybqgcwbmhkfhijcl'; // gmail password
+            $mail->Username = ''; //gmail address
+            $mail->Password = ''; // gmail password
             $mail->SMTPSecure = 'ssl';
             $mail->Port = 465;
         
